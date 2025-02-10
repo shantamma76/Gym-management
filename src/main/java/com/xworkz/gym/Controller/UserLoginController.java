@@ -1,0 +1,170 @@
+package com.xworkz.gym.Controller;
+
+import com.xworkz.gym.DTO.RegisterDto;
+import com.xworkz.gym.Entity.RegisterEntity;
+import com.xworkz.gym.service.GymService;
+import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.multipart.MultipartFile;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+
+@Slf4j
+@RequestMapping("/")
+@Controller
+public class UserLoginController {
+
+    @Autowired
+    private GymService service;
+
+//    @GetMapping("/UserLogin")
+//    public String onLogin() {
+//        return "UserLogin";
+//    }
+
+    @PostMapping("/signIn")
+    public String onUserLogin(@RequestParam String email, @RequestParam String password, Model model) {
+        log.info("======onUserLogin in UserController=============:");
+        RegisterEntity entity = service.getEmail(email, password);
+        System.out.println("to know the which value returning from service..."+entity);
+        int loginCount;
+        if (entity != null) {
+             loginCount = entity.getLoginCount();
+            log.info("Login Count:" + loginCount);
+            if (loginCount == -1) {
+                System.out.println("Redirecting to UpdatePassword page.");
+                String name = entity.getName();
+                model.addAttribute("userName", name);
+                System.out.println(name);
+                model.addAttribute("msg", "UserSuccess");
+                return "resetPassword";
+            } else {
+                System.out.println("Redirecting to Success page.");
+                String name = entity.getName();
+                model.addAttribute("userName", name);
+                model.addAttribute("register",entity);
+                model.addAttribute("filePath", entity.getFilePath());
+                return "UserProfile";
+            }
+        }else {
+            System.out.println("User entity is null. Redirecting to SignIn.");
+            model.addAttribute("msg", "User not Success");
+            return "UserLogin";
+        }
+    }
+
+    @PostMapping("/resetPassword")
+    public String resetPassword(@RequestParam String email, @RequestParam String oldPassword,
+                                @RequestParam String newPassword, @RequestParam String confirmPassword) {
+        log.info("Email is: {}", email);
+        log.info("Old password: {}", oldPassword);
+        log.info("New password: {}", newPassword);
+        log.info("Confirm password: {}", confirmPassword);
+        System.out.println("===================reset password========================");
+        String msg = service.resetPassword(email, oldPassword, newPassword, confirmPassword);
+        if ("password updated successfully".equals(msg)) {
+            return "Success";
+        } else {
+            return "resetPassword";
+        }
+    }
+
+    //------------------------------------update profile---------------------------------------------
+
+    @GetMapping("/updateProfile")
+    public String onUpdateProfile(@RequestParam int id, Model model)
+    {
+        System.out.println("=============================update action+++========");
+        RegisterEntity entity=new RegisterEntity();
+        // registrationId=entity.getRegistrationId();
+        System.out.println("Why Id is coming"+id);
+        // Validate registrationId
+        if (id <= 0) {
+            model.addAttribute("error", "Invalid user ID.");
+            return "ErrorPage";  // Redirect to an error page if no valid ID is found
+        }
+
+        // Fetch user details from service
+        List<RegisterEntity> entities = service.getAllRegisteredUserDetailsById(id);
+        if (entities != null && !entities.isEmpty()) {
+            RegisterEntity entity1 = entities.get(0); // Get first user
+            model.addAttribute("register", entity1);
+            model.addAttribute("filePath", entity1.getFilePath());
+        } else {
+            model.addAttribute("error", "No user found with this ID");
+            return "ErrorPage";
+        }
+
+        return "UpdateUserProfile";
+
+    }
+
+    @GetMapping("/download")
+    public void display(HttpServletResponse response, @RequestParam String filePath) throws  Exception{
+        System.out.println("this is image"+filePath);
+        response.setContentType("Image/jpg");
+        File file = new File("C:\\ProfileImagePath\\" + filePath);
+        InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+        ServletOutputStream outputStream = response.getOutputStream();
+        IOUtils.copy(inputStream, outputStream);
+        response.flushBuffer();
+    }
+
+
+    @PostMapping("/updateUserProfile")
+    public String onUpdating(String name, RegisterDto registerDto, @RequestParam("picture") MultipartFile multipartFile, Model model) throws IOException {
+        System.out.println(name);
+
+        if (multipartFile.isEmpty()) {
+            // Add the name to the model to pass it to the Success page
+            RegisterDto dto = service.updateUserProfile(name, registerDto,null);
+            model.addAttribute("register", name);
+            return "UserSuccess";
+        }else{
+            System.out.println("multipartFile="+multipartFile);
+            System.out.println("multipartFile OriginalFileName=="+multipartFile.getOriginalFilename());
+            System.out.println("multipartFile=="+multipartFile.getContentType());
+
+            byte[] bytes = multipartFile.getBytes();
+            Path path = Paths.get("C:\\ProfileImagePath\\" + name + System.currentTimeMillis() + ".jpg");
+            Files.write(path, bytes);
+            String filePath = path.getFileName().toString();
+            System.err.println("filePath=====" + filePath);
+
+            RegisterDto dto = service.updateUserProfile(name, registerDto,filePath);
+            return "UpdateUserProfile";
+        }
+    }
+
+
+//     //Save user
+//    @PostMapping("/register")
+//    public String registerUser(@ModelAttribute User user) {
+//        service.registerUser(user);
+//        return "UserProfile";
+////        return "redirect:/user/Userprofile?email=" + user.getEmail();
+//    }
+//    // View user profile
+//    @GetMapping("/profile")
+//    public String viewProfile(@RequestParam String email, Model model) {
+//        User user = service.getUserByEmail(email);
+//        model.addAttribute("user", user);
+//        return "UserProfile";
+//    }
+
+}
+
+
+
