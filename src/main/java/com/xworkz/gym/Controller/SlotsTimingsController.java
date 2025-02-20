@@ -1,6 +1,6 @@
 package com.xworkz.gym.Controller;
 
-import com.xworkz.gym.Entity.SlotTimingsEntity;
+import com.xworkz.gym.Entity.SlotsEntity;
 import com.xworkz.gym.service.GymService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +31,7 @@ public class SlotsTimingsController {
         boolean saved = gymService.saveSlots(startTimings, endTimings, duration);
         if (saved) {
             model.addAttribute("successMessage", "DetailsUpdatedSuccessfully");
-            List<SlotTimingsEntity> slots = gymService.getAllslots();
+            List<SlotsEntity> slots = gymService.getAllslots();
             model.addAttribute("slots", slots);
             return "trainerslots";
         }

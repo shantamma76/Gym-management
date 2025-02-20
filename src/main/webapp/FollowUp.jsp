@@ -199,9 +199,7 @@
 
         <body>
             <!-- Navigation Menu -->
-
             <ul class="navbar">
-
                 <li><a href="index.jsp"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="Enquiry.jsp"><i class="fas fa-question-circle"></i> Enquiry</a></li>
                 <li><a href="search"><i class="fas fa-search"></i> Follow Up</a></li>

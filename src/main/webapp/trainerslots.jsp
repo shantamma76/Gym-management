@@ -71,7 +71,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>TrainerName</th>
                         <th>Phone Number</th>
                         <th>Slot Timings</th>
                         <th>Actions</th> <!-- Added missing column header -->
@@ -80,7 +80,7 @@
                 <tbody>
                     <c:forEach var="trainer" items="${trainerInfoList}">
                         <tr>
-                            <td>${trainer.name}</td>
+                            <td>${trainer.trainerName}</td>
                             <td>${trainer.phoneNumber}</td>
                             <td>${trainer.slotTimings}</td>
                             <td>
@@ -100,11 +100,12 @@
                     <h5 class="modal-title">Add Trainer</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
+
                 <div class="modal-body">
                     <form id="addTrainerForm" action="trainerAddact" method="post">
                         <div class="mb-2">
-                            <label for="name" class="form-label">Trainer Name:</label>
-                            <input type="text" id="name" class="form-control" name="name" placeholder="Trainer Name" required> <!-- Fixed name attribute -->
+                            <label for="trainerName" class="form-label">Trainer Name:</label>
+                            <input type="text" id="trainerName" class="form-control" name="trainerName" placeholder="Trainer Name" required> <!-- Fixed name attribute -->
                         </div>
 
                         <div class="mb-2">

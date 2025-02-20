@@ -1,15 +1,19 @@
 package com.xworkz.gym.service;
 
+import com.xworkz.gym.DTO.AssignTrainersDto;
 import com.xworkz.gym.DTO.EnquiryDto;
 import com.xworkz.gym.DTO.RegisterDto;
+import com.xworkz.gym.DTO.TrainerDTO;
 import com.xworkz.gym.Entity.*;
 import java.util.List;
 
 
 public interface GymService {
 
+    //admin
     boolean getNameByEmail(String email, String password);  //read opration
 
+    //save enquiry details
     boolean saveEnquiry(EnquiryDto enquiryDto);
 
     Long countEmail(String email); //admin ajax validation
@@ -36,21 +40,24 @@ public interface GymService {
 
     Long countByGymName(String gymName);
 
+    //enquiry
     List<EnquiryEntity> getEnquiries();
-
     List<EnquiryEntity> getEnquiriesByStatus(String status);
 
     //view page
     boolean updateStatusAndReason(String name, String status, String reasons);
-
+    List<ViewEntity> getAllFollowup(int id);
     boolean saveView(ViewEntity viewDto);
 
-    List<ViewEntity> getAllFollowup(int id);
 
     //register
     boolean saveRegister(RegisterDto registerDto);
 
-    boolean updateRegister(RegisterDto registerDto, String name, long phone);
+    //update register details
+    RegisterEntity getDetailsByEmail(String email);
+    public boolean updateDetailsById(String packages, String trainer, String amount, int paid, double balance, double installment, int id);
+
+    // boolean updateRegister(RegisterDto registerDto, String name, long phone);
 
     //sending mail to users
     boolean sendEmail(String email, String password);
@@ -63,22 +70,38 @@ public interface GymService {
     List<RegisterEntity> getAllRegisteredUserDetailsById(int id);
     RegisterDto updateUserProfile(String name,RegisterDto registrationDTO, String filePath);
 
-
     //-------------time slot-----------------
     public boolean saveSlots(String startTimings, String endTimings, String duration);
-    public List<SlotTimingsEntity> getAllslots();
-
+    public List<SlotsEntity> getAllslots();
 
     //trainer slot
-    public boolean savetrainerdetails(String name, String phoneNumber, String slotTimings);
-    public List<TrainerinfoEntity> getAlltrainerdetails();
+    public boolean savetrainerdetails(String trainerName, String phoneNumber, String slotTimings);
+    public List<TrainerEntity> getAlltrainerdetails();
 
     //delete
     boolean getDeleteTrainerById(int id);
 
-    //update
-    RegisterEntity getDetailsByEmail(String email);
-    public boolean updateDetailsById(String packages, String trainer, String amount, int paid, double balance, double installment, int id);
+
+  //  boolean updateTrainerToUSer(String name, String trainerName, String slotTimings);
+
+
+
+    //=======ar======
+    List<RegisterEntity> getAllDetails();
+    List<RegisterEntity> getCustomrtDetailsWithTrainer();
+    RegisterEntity getDatabyIdToAssigntrainer(int id, String trainer);
+
+    //==========trail from me========
+    List<TrainerEntity> getTrainerDetails();
+    TrainerEntity getByIdToAssignTrainer(int id, String trainerName, String slotTimings);
+
+    boolean saveTrainerAssignDetails(AssignTrainersDto assignTrainersDto);
+
+
+
+
+
+
 }
 
 

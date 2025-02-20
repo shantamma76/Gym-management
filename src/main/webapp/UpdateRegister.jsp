@@ -2,7 +2,6 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <!DOC TYPE html>
             <html>
-
             <head>
                 <title>Update</title>
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -94,29 +93,29 @@
                         }
                     }
 
-                     .navbar {
-                                    display: flex;
-                                    justify-content: flex-end;
-                                    list-style-type: none;
-                                    padding: 3px;
-                                    margin: 0;
-                                    background-color: black;
-                                    width: 100%;
-                                    position: fixed;
-                                    top: 0;
-                                    left: 0;
-                                    z-index: 1000;
-                                }
+                    .navbar {
+                        display: flex;
+                        justify-content: flex-end;
+                        list-style-type: none;
+                        padding: 3px;
+                        margin: 0;
+                        background-color: black;
+                        width: 100%;
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        z-index: 1000;
+                    }
 
                     .navbar ul {
-                    justify-content: flex-end;
+                        justify-content: flex-end;
                         list-style-type: none;
                         padding: 0;
                         margin: 0;
                     }
 
                     .navbar ul li {
-                    justify-content: flex-end;
+                        justify-content: flex-end;
                         margin-right: 30px;
                         display: inline-block;
 
@@ -185,18 +184,13 @@
                             <button type="button" class="btn btn-primary" onclick="searchEmail()">Search</button>
                         </div>
 
-                        <div class="form-group">
-                            <label for="packages">Package:</label>
+                        <div>
+                            <label for="packages" class="form-label"><i class="fas fa-gift"></i>Packages</label>
                             <select class="form-control" id="packages" name="packages" required>
-                                <option value="" data-amount="0" style="color:black;">--Select Package--</option>
-                                <option value="Silver" style="color: black;" data-amount="30000">Silver - 30000</option>
-                                <option value="Premium" style="color: black;" data-amount="40000">Premium - 40000
-                                </option>
-                                <option value="Gold" style="color: black;" data-amount="50000">Gold - 50,000</option>
-                                <option value="Platinum" style="color: black;" data-amount="60000">Platinum - 60,000
-                                </option>
-                                <option value="Diamond" style="color: black;" data-amount="80000">Diamond - 80,000
-                                </option>
+                                <option value="" data-amount="0">--select package--</option>
+                                <option value="Silver" data-amount="30000">Silver - 30000</option>
+                                <option value="Premium" data-amount="40000">Premium - 40000</option>
+                                <option value="Gold" data-amount="50000">Gold - 50000</option>
                             </select>
                         </div>
 
@@ -211,10 +205,10 @@
                             <input type="number" name="id" class="form-control" id="id" value="${details.id}" readonly>
                         </div>
 
-                        <div class="form-group">
-                            <label for="amount">Amount:</label>
-                            <input type="text" name="amount" class="form-control" id="amount" value="${details.amount}"
-                                readonly>
+                        <div>
+                            <label for="amount" class="form-label"><i class="fas fa-dollar-sign"></i> Amount</label>
+                            <input type="number" step="0.01" class="form-control" id="amount" name="amount" readonly
+                                required>
                         </div>
 
                         <div class="form-group">
@@ -222,10 +216,10 @@
                             <input type="number" name="paid" class="form-control" id="paid" value="${details.paid}">
                         </div>
 
-                        <div class="form-group">
-                            <label for="balance">Balance:</label>
-                            <input type="number" name="balance" class="form-control" id="balance"
-                                value="${details.balance}" readonly>
+                        <div>
+                            <label for="balance" class="form-label"><i class="fas fa-calculator"></i> Balance</label>
+                            <input type="number" step="0.01" class="form-control" id="balance" name="balance" readonly
+                                required>
                         </div>
 
                         <div class="form-group">
@@ -244,42 +238,31 @@
 
                 <script>
 
+              // Update the amount based on the selected package
+              document.getElementById('packages').addEventListener('change', function () {
+                  const packageSelect = this;
+                  const selectedOption = packageSelect.options[packageSelect.selectedIndex];
+                  const packageAmount = selectedOption.getAttribute('data-amount');
+                  document.getElementById('amount').value = packageAmount; // Set the amount field
+                  calculateBalance(); // Recalculate balance when package is changed
+              });
 
-                    function updateAmounts() {
-                        var selectedPackage = $('#packages').val(); // Get the selected package
-                        var trainerRequired = $('#trainerYes').is(':checked'); // Check if "Yes" for trainer is selected
-                        var baseAmount = packageDetails[selectedPackage] || 0; // Get the base amount for the package
+              // Update the balance and discount calculations
+              function calculateBalance() {
+                  const amount = parseFloat(document.getElementById('amount').value) || 0;
+                  const paid = parseFloat(document.getElementById('paid').value) || 0;
 
-                        var finalAmount = trainerRequired ? baseAmount + 1000 : baseAmount;
+                  const balance = amount - paid;
+                  document.getElementById('balance').value = balance.toFixed(2); // Update balance field
+              }
 
-                        $('#amount').val(finalAmount * 12);
-                        var paidAmount = parseFloat($('#paid').val()) || 0; // Get paid amount
-                        $('#balance').val((finalAmount * 12 - paidAmount).toFixed(2)); // Calculate balance
-                    }
+              // Recalculate balance when paid amount is changed
+              document.getElementById('paid').addEventListener('input', calculateBalance);
 
-                    $('#packages').change(function () {
-                        updateAmounts();
-
-                        var selectedPackage = $(this).val();
-                        if (selectedPackage === 'GOLD' || selectedPackage === 'PLATINUM') {
-                            $('#trainerYes').prop('checked', true);
-                            $('#trainerNo').prop('checked', false);
-                        } else {
-                            $('#trainerNo').prop('checked', true);
-                            $('#trainerYes').prop('checked', false);
-                        }
-
-                        $('#paid').val('');
-                    });
-
-                    $('input[name="trainer"]').change(function () {
-                        updateAmounts();
-                    });
-
-                    $('#paid').on('input change', function () {
-                        updateAmounts();
-                    });
-
+              // Ensure the balance is calculated on page load (if amount is already set)
+              window.onload = function () {
+                  calculateBalance();
+              };
                 </script>
 
                 <script>
@@ -300,6 +283,7 @@
                             form.submit();
                         }
                     }
+                    
                 </script>
             </body>
 

@@ -8,18 +8,21 @@ import javax.persistence.*;
 @Entity
 @Table(name = "trainerslot_table")
 
-@NamedQuery(name = "GetslotList", query = "SELECT e FROM SlotTimingsEntity e")
+@NamedQuery(name = "GetslotList", query = "SELECT e FROM SlotsEntity e")
 
-public class SlotTimingsEntity {
+//char
+//@NamedQuery(name = "getAllSlotsDetails",query = "select a from SlotsEntity a")
+//@NamedQuery(name = "deleteSlotById",query = "DELETE  from SlotsEntity a where a.id=:getId")
+public class SlotsEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    // @Column(name = "StartTime")
+    @Column(name = "startTimings")
     private String startTimings;
 
-    // @Column(name = "EndTime")
+    @Column(name = "endTimings")
     private String endTimings;
 
     //   @Column(name = "Duration")

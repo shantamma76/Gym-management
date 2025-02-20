@@ -25,5 +25,7 @@ public class RegisterDto {
     private int height;
     private int weight;
 
+    private String trainersName;
+
 }
 

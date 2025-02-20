@@ -120,8 +120,19 @@
             <li><a href="search"><i class="fas fa-search"></i>Follow Up</a></li>
             <li><a href="Registration.jsp"><i class="fas fa-user-plus"></i>Register</a></li>
             <li><a href="UpdateRegister.jsp"><i class="fas fa-edit"></i>Update</a></li>
-            <li><a href="trainerslots"><i class="fas fa-edit"></i>TrainerSlosts</a></li>
+            <li><a href="trainerslots.jsp"><i class="fas fa-edit"></i>trainerSlots</a></li>
+
+                        <li>
+                            <a href = "noTrainer" class="nav-link link-body-emphasis">NoTrainer</a>
+                        </li>
+
+                        <li>
+                            <a href = "customerTrainer" class="nav-link link-body-emphasis">Customer With Trainer</a>
+                        </li>
+
+
         </ul>
+
 
         <h1>Login Successfully Done!</h1> <br>
     </body>

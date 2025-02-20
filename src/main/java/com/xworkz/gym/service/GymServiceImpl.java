@@ -1,7 +1,9 @@
 package com.xworkz.gym.service;
 
+import com.xworkz.gym.DTO.AssignTrainersDto;
 import com.xworkz.gym.DTO.EnquiryDto;
 import com.xworkz.gym.DTO.RegisterDto;
+import com.xworkz.gym.DTO.TrainerDTO;
 import com.xworkz.gym.Entity.*;
 import com.xworkz.gym.constants.StatusEnum;
 import com.xworkz.gym.repository.GymRepository;
@@ -13,6 +15,7 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
@@ -252,36 +255,47 @@ public class GymServiceImpl implements GymService {
         }
     }
 
+    //update register details
     @Override
-    public boolean updateRegister(RegisterDto registerDto, String name, long phone) {
-        //log.info("Updating registration details for: {}", name);
-        System.out.println("==========update Registration============");
-        RegisterEntity entity = repository.updateRegister(name, phone);
+    public RegisterEntity getDetailsByEmail(String email) {
+        return repository.findByEmailCustom(email);
 
-        if (entity != null) {
-            entity.setPackages(registerDto.getPackages());
-            entity.setPhone(registerDto.getPhone());
-            entity.setTrainer(registerDto.getTrainer());
-            entity.setAmount(registerDto.getAmount());
-            entity.setBalance(registerDto.getBalance());
-
-            repository.saveRegister(entity);
-            return true;
-        }
-
-        log.warn("Failed to update registration details for {}", name);
-        return false;
     }
+    @Override
+    public boolean updateDetailsById(String packages, String trainer, String amount, int paid, double balance, double installment, int id) {
+        repository.updateValuesById(packages, trainer, amount, paid, balance, installment, id);
+        return true;
+    }
+//    @Override
+//    public boolean updateRegister(RegisterDto registerDto, String name, long phone) {
+//        //log.info("Updating registration details for: {}", name);
+//        System.out.println("==========update Registration============");
+//        RegisterEntity entity = repository.updateRegister(name, phone);
+//
+//        if (entity != null) {
+//            entity.setPackages(registerDto.getPackages());
+//            entity.setPhone(registerDto.getPhone());
+//            entity.setTrainer(registerDto.getTrainer());
+//            entity.setAmount(registerDto.getAmount());
+//            entity.setBalance(registerDto.getBalance());
+//
+//            repository.saveRegister(entity);
+//            return true;
+//        }
+//
+//        log.warn("Failed to update registration details for {}", name);
+//        return false;
+//    }
 
     //------------------------------user login--------------------------------------------
     @Override
     public RegisterEntity getEmail(String email, String password) {
         System.out.println("==========getEmail in serviceImpl================");
         RegisterEntity entity = repository.userSave(email);
-       System.out.println("===== in Service=======:"+entity);
+        System.out.println("===== in Service=======:" + entity);
 //        return res;
         if (entity != null) {
-            System.out.println("====================:"+entity.toString());
+            System.out.println("====================:" + entity.toString());
             if (password.equals(entity.getPassword()) && entity.getLoginCount() == -1) {
                 System.err.println("===============matches==================");
                 return entity;
@@ -321,60 +335,217 @@ public class GymServiceImpl implements GymService {
     }
 
     @Override
-    public RegisterDto updateUserProfile(String name,RegisterDto registerDto, String filePath) {
-        return repository.updateUserProfile(name,registerDto,filePath);
+    public RegisterDto updateUserProfile(String name, RegisterDto registerDto, String filePath) {
+        return repository.updateUserProfile(name, registerDto, filePath);
     }
 
-//------time slot----
-@Override
-public boolean saveSlots(String startTimings, String endTimings, String duration) {
-    SlotTimingsEntity entity = new SlotTimingsEntity();
-    entity.setStartTimings(startTimings);
-    entity.setEndTimings(endTimings);
-    entity.setDuration(duration);
-    return repository.saveSlots(entity);
-}
+    //------time slot----
     @Override
-    public List<SlotTimingsEntity> getAllslots() {
+    public boolean saveSlots(String startTimings, String endTimings, String duration) {
+        SlotsEntity entity = new SlotsEntity();
+        entity.setStartTimings(startTimings);
+        entity.setEndTimings(endTimings);
+        entity.setDuration(duration);
+        return repository.saveSlots(entity);
+    }
+
+    @Override
+    public List<SlotsEntity> getAllslots() {
         return repository.findallslots();
     }
 
     @Override
-    public boolean savetrainerdetails(String name, String phoneNumber, String slotTimings) {
+    public boolean savetrainerdetails(String trainerName, String phoneNumber, String slotTimings) {
 
-        TrainerinfoEntity entity = new TrainerinfoEntity();
-        entity.setName(name);
+        TrainerEntity entity = new TrainerEntity();
+        entity.setTrainerName(trainerName);
         entity.setPhoneNumber(phoneNumber);
         entity.setSlotTimings(slotTimings);
         return repository.savetrainerdetails(entity);
-
     }
+
     @Override
-    public List<TrainerinfoEntity> getAlltrainerdetails() {
+    public List<TrainerEntity> getAlltrainerdetails() {
         return repository.findAlltrainerlist();
 
- }
-
- //delete
- @Override
- public boolean getDeleteTrainerById(int id) {
-    return repository.getDeleteTrainerById(id);
- }
-
-
- //update
-    @Override
-    public RegisterEntity getDetailsByEmail(String email) {
-      return repository.findByEmailCustom(email);
-
     }
 
- @Override
- public boolean updateDetailsById(String packages, String trainer, String amount, int paid, double balance, double installment, int id) {
-     repository.updateValuesById(packages, trainer, amount, paid, balance, installment, id);
-     return true;
- }
+    //delete
+    @Override
+    public boolean getDeleteTrainerById(int id) {
+        return repository.getDeleteTrainerById(id);
+    }
+
+
+//------------------------------------
+
+    @Override
+    public List<RegisterEntity> getAllDetails() {
+        System.out.println("----------------------get alla details in ServiceImpl- --------------");
+        if((repository.getAllDetails()!=null)){
+            return repository.getAllDetails();
+        }
+        return Collections.emptyList();
+    }
+
+    @Override
+    public RegisterEntity getDatabyIdToAssigntrainer(int id, String trainersName) {
+        RegisterEntity registerEntity = repository.getDataById(id);
+        if (registerEntity != null) {
+            registerEntity.setTrainersName(trainersName); //setTrainername(trainer);
+            repository.updateEntity(registerEntity);
+            return registerEntity;
+        }
+        return null;
+    }
+
+    @Override
+    public List<RegisterEntity> getCustomrtDetailsWithTrainer() {
+        System.out.println("---------------CustomrtDetailsWithTrainer in service---------------");
+//        if((repository.getCustomrtDetailsWithTrainer()!=null)){
+        System.out.println("service====== :"+repository.getCustomrtDetailsWithTrainer());
+            return repository.getCustomrtDetailsWithTrainer();
+//        }
+//
+//        return Collections.emptyList();
+    }
+
+//============ trial from me ======
+    @Override
+    public List<TrainerEntity> getTrainerDetails() {
+        System.out.println("======--------getTrainerDetails in ServiceImpl-------======");
+        if((repository.getTrainerDetails()!=null)){
+            return repository.getTrainerDetails();
+        }
+        return Collections.emptyList();
+    }
+
+    @Override
+    public TrainerEntity getByIdToAssignTrainer(int id, String trainerName, String slotTimings) {
+        TrainerEntity trainerEntity = repository.getDataByTrainerId(id);
+        if (trainerEntity != null) {
+            trainerEntity.setTrainerName(trainerName);  //setTrainername(trainer);
+            repository.updateTrainerEntity(trainerEntity);
+            return trainerEntity;
+        }
+        return null;
+    }
+
+    @Override
+    public boolean saveTrainerAssignDetails(AssignTrainersDto assignTrainersDto) {
+        System.out.println("===========save assign trainer in service==========");
+        AssignTrainersEntity entity = new AssignTrainersEntity();
+        entity.setName(assignTrainersDto.getName());
+        entity.setTrainerName(assignTrainersDto.getTrainerName());
+        entity.setSlotTimings(assignTrainersDto.getSlotTimings());
+
+      boolean saved = repository.saveTrainerAssignDetails(entity);
+        if(saved){
+            System.out.println("saved in service");
+            return true;
+        }
+        System.out.println("not saved in service");
+        return false;
+
+    }
+    
 }
+
+
+
+    //==========================
+
+//    @Override
+//    public void assignUsersToTrainer(String trainerName, List<String> userNames, String slot) {
+//        for (String username : userNames) {
+//
+//          UsersAssignedToTrainerEntity trainerUser = new UsersAssignedToTrainerEntity(trainerName, username, slot);
+//            repository.saveAssignUsersToTrainer(trainerUser);
+//        }
+//
+//    }
+
+
+
+
+
+
+    //===================================================================
+//    @Override
+//    public void saveTrainerDetails(TrainerDTO trainerDTO) {
+//
+//        TrainerEntity trainerEntity=new TrainerEntity();
+//        trainerEntity.setTrainerName(trainerDTO.getTrainerName());
+//        trainerEntity.setPhoneNumber(trainerDTO.getPhoneNumber());
+//        trainerEntity.setSlotTime(trainerDTO.getTrainerDropdown());
+//        System.out.println(trainerEntity);
+//
+//        repository.saveTrainerDetails(trainerEntity);
+//    }
+//
+//    @Override
+//    public void saveslots(String startTime, String endTime, String duration) {
+//        SlotsEntity entity =new SlotsEntity();
+//        entity.setStartTime(startTime);
+//        entity.setEndTime(endTime);
+//        entity.setDuration(duration);
+//        repository.saveslots(entity);
+//    }
+//
+//    @Override
+//    public List<SlotsEntity> getAllSlotsDetails() {
+//
+//        return repository.getAllSlotsDetails();
+//    }
+//
+//    @Override
+//    public List<TrainerEntity> getAllTrainerDetails() {
+//
+//        return repository.getAllTrainerDetails();
+//    }
+//
+//    @Override
+//    public int deleteSlotById(int idForDelete) {
+//        return repository.deleteSlotById(idForDelete);
+//    }
+//
+//    @Override
+//    public void assignUsersToTrainer(String trainerName, List<String> userNames,String slot) {
+//        for (String username : userNames) {
+//            UsersAssignedToTrainerEntity trainerUser = new UsersAssignedToTrainerEntity(trainerName, username,slot);
+//            repository.saveAssignUsersToTrainer(trainerUser);
+//        }
+//    }
+//
+//    @Override
+//    public int deleteTrainerSlot(int trainerId) {
+//        return repository.deleteTrainerSlot(trainerId);
+//    }
+//
+//    @Override
+//    public UsersAssignedToTrainerEntity getTrainerAndSlotByUserName(String name) {
+//        return  repository.getTrainerAndSlotByUserName(name);
+//    }
+//
+//    @Override
+//    public List<UsersAssignedToTrainerEntity> getUsersAssignedToTrainerByTrainerName(String trainerName) {
+//        return  repository.getUsersAssignedToTrainerByTrainerName(trainerName);
+//    }
+//
+//    @Override
+//    public int deleteUserAssignedToTrainer(String trainerName) {
+//        return repository.deleteUserAssignedToTrainer(trainerName);
+//    }
+//
+//    @Override
+//    public List<RegisterEntity> getAllRegistredUsersDetails() {
+//        return repository.getAllRegistredUsersDetails();
+//    }
+
+
+
+
+
 
 
 

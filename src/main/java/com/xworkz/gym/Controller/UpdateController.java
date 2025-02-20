@@ -69,7 +69,13 @@ public class UpdateController {
         if (value) {
             return "Success";
         }
+
         return "UpdateRegister";
+
 }
 
 }
+
+
+
+

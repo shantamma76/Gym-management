@@ -1,9 +1,6 @@
 package com.xworkz.gym.Entity;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,9 +10,10 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@ToString
 @Table(name = "register_table")
 
-@NamedQuery(name = "updatedDetailsByName", query = "UPDATE RegisterEntity p SET p.packages = :packagesBy, p.trainer = :trainerBy, p.amount = :amountBy, p.balance = :balanceBy WHERE p.name = :nameBy")
+//@NamedQuery(name = "updatedDetailsByName", query = "UPDATE RegisterEntity p SET p.packages = :packagesBy, p.trainer = :trainerBy, p.amount = :amountBy, p.balance = :balanceBy WHERE p.name = :nameBy")
 
 @NamedQuery(name = "countNameBy", query = "SELECT COUNT(e) FROM RegisterEntity e WHERE e.name = :setName")
 @NamedQuery(name = "countByEmail", query = "SELECT COUNT(e) FROM RegisterEntity e WHERE e.email = :setEmail")
@@ -30,9 +28,10 @@ import java.time.LocalDateTime;
 @NamedQuery(name = "resetCount", query = "UPDATE RegisterEntity p SET p.loginCount = :setLoginCount WHERE p.email = :byEmail")
 @NamedQuery(name = "updateCount", query="update RegisterEntity ls set ls.loginCount = :setResetStatus where ls.email =: byEmail")
 
-//count
+//login count
 @NamedQuery(name="updatePasswordByEmail", query="update RegisterEntity ls set ls.password = :setNewPassword, ls.loginCount = :setResetStatus where ls.email = :emailBy")
 
+//account locked
 @NamedQuery(name="accountLockedTimeByEmail", query="update RegisterEntity p set p.accountLockedTime = :accountLockedTimeBy where p.email = :emailBy")
 //@NamedQuery(name="getEmailPassword",query = "SELECT p FROM RegisterEntity p WHERE p.email = :emailBy AND p.password = :passwordBy")
 
@@ -43,8 +42,18 @@ import java.time.LocalDateTime;
 @NamedQuery(name = "getAllRegDetailsById",query = "select re from RegisterEntity re where re.id = :getRegistrationId")
 @NamedQuery(name = "updateUserProfileByName", query = "UPDATE RegisterEntity re SET re.age=:getAge,re.height=:getHeight,re.weight=:getWeight,re.filePath=:getFilePath where re.name=:getName")
 
-//update
+//update register
 @NamedQuery(name = "updateValuesById", query = "UPDATE RegisterEntity p SET p.packages = :setPackage, p.trainer = :setTrainer, p.amount = :setAmount, p.paid = :setPaid, p.balance = :setBalance, p.installment = :setInstallment where p.id = :idBy")
+
+//===
+@NamedQuery(name = "getAllDetailsOfCustomer", query = "select re from RegisterEntity re")
+@NamedQuery(name = "getAllDetailsofCustomrtWithTrainer", query = "select a from RegisterEntity a")
+
+@NamedQuery(name = "getRegisterEntityById", query = "Select re from RegisterEntity re where re.id=:setId")
+@NamedQuery(name = "updateDetails", query = "update RegisterEntity re set re.packages=: setPackage, re.trainer=: setTrainer, re.installment=: setInstallement, re.amount=: setTotalammount, re.balance=: setBalanceammount, re.paid=: setInstallmentAmount where re.id=: setId")
+
+@NamedQuery(name = "getAllRegistredUsersDetails", query = "select a from RegisterEntity a")
+
 public class RegisterEntity {
 
     @Id
@@ -85,6 +94,9 @@ public class RegisterEntity {
     private String filePath;
     private Integer height;
     private Integer weight;
+
+    @Column(name="trainer_Name")
+    private String trainersName;
 
 }
 

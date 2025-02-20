@@ -110,7 +110,7 @@
                         </div>
 
                         <div>
-                            <label for="packages" class="form-label"><i class="fas fa-gift"></i> Packages</label>
+                            <label for="packages" class="form-label"><i class="fas fa-gift"></i>Packages</label>
                             <select class="form-control" id="packages" name="packages" required>
                                 <option value="" data-amount="0">--select package--</option>
                                 <option value="Silver" data-amount="30000">Silver - 30000</option>
