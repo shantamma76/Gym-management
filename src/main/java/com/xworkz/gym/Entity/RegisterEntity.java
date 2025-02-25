@@ -54,6 +54,7 @@ import java.time.LocalDateTime;
 
 @NamedQuery(name = "getAllRegistredUsersDetails", query = "select a from RegisterEntity a")
 
+
 public class RegisterEntity {
 
     @Id
@@ -95,8 +96,6 @@ public class RegisterEntity {
     private Integer height;
     private Integer weight;
 
-    @Column(name="trainer_Name")
-    private String trainersName;
 
 }
 

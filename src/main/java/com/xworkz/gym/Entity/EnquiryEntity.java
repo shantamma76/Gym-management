@@ -18,6 +18,10 @@ import java.util.List;
 @NamedQuery(name="countByDistance", query = "select count(e) from EnquiryEntity e where e.distance = :setDistance")
 @NamedQuery(name="countByAge", query = "select count(e) from EnquiryEntity e where e.age = :setAge")
 
+@NamedQuery(name="getAllDetailsOfEnquiry",query = "select e from EnquiryEntity e")
+//@NamedQuery(name="getPhoneNoByName", query = "select p from EnquiryEntity p where p.name = :setName")
+@NamedQuery(name="getPhoneNoByName", query = "select p.phone from EnquiryEntity p where p.name = :setName")
+@NamedQuery(name="getPhone",query  ="select p.phone from EnquiryEntity p where p.name = :byName")
 public class EnquiryEntity {
 
     @Id

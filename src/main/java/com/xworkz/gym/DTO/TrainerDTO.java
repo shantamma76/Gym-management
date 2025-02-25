@@ -9,6 +9,7 @@ public class TrainerDTO {
 
     private String trainerName;
     private  String phoneNumber;
-    private String trainerDropdown;
+    private String slotTimings;
 
 }
+

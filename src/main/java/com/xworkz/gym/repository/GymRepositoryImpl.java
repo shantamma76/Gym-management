@@ -846,44 +846,44 @@ public class GymRepositoryImpl implements GymRepository {
     }
 
     //--------------------------------------------------
+//    @Override
+//    public RegisterEntity getDataById(int id) {
+//
+//        EntityManager entityManager = emf.createEntityManager();
+//        EntityTransaction entityTransaction = entityManager.getTransaction();
+//        try {
+//            Query query = entityManager.createNamedQuery("getRegisterEntityById");
+//            query.setParameter("setId", id);
+//            return (RegisterEntity) query.getSingleResult();
+//        } catch (Exception e) {
+//            if (entityTransaction.isActive()) {
+//                entityTransaction.rollback();
+//            }
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+//
+//    @Override
+//    public boolean updateEntity(RegisterEntity entity) {
+//        EntityManager entityManager = emf.createEntityManager();
+//        EntityTransaction entityTransaction = entityManager.getTransaction();
+//        try {
+//            entityTransaction.begin();
+//            entityManager.merge(entity);
+//            entityTransaction.commit();
+//            return true;
+//        } catch (Exception e) {
+//            if (emf.createEntityManager().getTransaction().isActive())
+//                emf.createEntityManager().getTransaction().rollback();
+//            return false;
+//        }
+//    }
+
+
     @Override
-    public RegisterEntity getDataById(int id) {
-
-        EntityManager entityManager = emf.createEntityManager();
-        EntityTransaction entityTransaction = entityManager.getTransaction();
-        try {
-            Query query = entityManager.createNamedQuery("getRegisterEntityById");
-            query.setParameter("setId", id);
-            return (RegisterEntity) query.getSingleResult();
-        } catch (Exception e) {
-            if (entityTransaction.isActive()) {
-                entityTransaction.rollback();
-            }
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    @Override
-    public boolean updateEntity(RegisterEntity entity) {
-        EntityManager entityManager = emf.createEntityManager();
-        EntityTransaction entityTransaction = entityManager.getTransaction();
-        try {
-            entityTransaction.begin();
-            entityManager.merge(entity);
-            entityTransaction.commit();
-            return true;
-        } catch (Exception e) {
-            if (emf.createEntityManager().getTransaction().isActive())
-                emf.createEntityManager().getTransaction().rollback();
-            return false;
-        }
-    }
-
-
-    @Override
-    public List<RegisterEntity> getAllDetails() {
-    System.out.println("---------------get all details in RepoImpl-------------");
+    public List<RegisterEntity> getAllRegiDetails() {
+        System.out.println("---------------get all details in RepoImpl-------------");
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         try {
@@ -899,25 +899,24 @@ public class GymRepositoryImpl implements GymRepository {
         }
     }
 
-    @Override
-    public List<RegisterEntity> getCustomrtDetailsWithTrainer() {
-        System.out.println("-----------get getCustomrtDetailsWithTrainer in Repo----------");
-        EntityManager entityManager = emf.createEntityManager();
-        EntityTransaction entityTransaction = entityManager.getTransaction();
-      try {
-          entityTransaction.begin();
-            Query query = entityManager.createNamedQuery("getAllDetailsofCustomrtWithTrainer");
-            System.out.println("getAllDetailsofCustomrtWithTrainer:========" +query.getResultList());
-            return query.getResultList();
-     }
-      catch (Exception e) {
-            if (entityTransaction.isActive())
-               entityTransaction.rollback();
-            e.printStackTrace();
-            return Collections.emptyList();
-        }
-
-    }
+//    @Override
+//    public List<RegisterEntity> getCustomrtDetailsWithTrainer() {
+//        System.out.println("-----------get getCustomrtDetailsWithTrainer in Repo----------");
+//        EntityManager entityManager = emf.createEntityManager();
+//        EntityTransaction entityTransaction = entityManager.getTransaction();
+//        try {
+//            entityTransaction.begin();
+//            Query query = entityManager.createNamedQuery("getAllDetailsofCustomrtWithTrainer");
+//            System.out.println("getAllDetailsofCustomrtWithTrainer:========" + query.getResultList());
+//            return query.getResultList();
+//        } catch (Exception e) {
+//            if (entityTransaction.isActive())
+//                entityTransaction.rollback();
+//            e.printStackTrace();
+//            return Collections.emptyList();
+//        }
+//
+//    }
 
     //=======trial me=======
     @Override
@@ -974,6 +973,7 @@ public class GymRepositoryImpl implements GymRepository {
 
     @Override
     public boolean saveTrainerAssignDetails(AssignTrainersEntity assignTrainersEntity) {
+        System.out.println("======== saveTrainerAssignDetails ========:");
         EntityManager em = emf.createEntityManager();
         EntityTransaction et = em.getTransaction();
 
@@ -982,16 +982,80 @@ public class GymRepositoryImpl implements GymRepository {
             em.persist(assignTrainersEntity);
             et.commit();
             System.out.println("=====saved data in repo======");
-        } catch (Exception e){
-            if(et.isActive()){
+            return true;
+        } catch (Exception e) {
+            if (et.isActive()) {
                 et.rollback();
             }
             System.out.println("=====not saved data in repo======");
+            return false;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public boolean saveDietAndExercise(DietEntity dietEntity) {
+        System.out.println("saveDietAndExercise in RepositoryImplement");
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+
+        try {
+            et.begin();
+            em.persist(dietEntity);
+            et.commit();
+            System.out.println("Save Diet and Exercise Data to Database");
+            return true;
+        } catch (Exception e){
+            if (et.isActive()){
+                et.rollback();
+            }
+            System.out.println("Not Save Diet and Exercise Data to Database");
+            return false;
         } finally {
             em.close();
         }
 
-        return false;
+    }
+
+    @Override
+    public List<EnquiryEntity> getAllEnquiry() {
+        System.out.println("---------------getAllEnquiry in RepoImpl-------------");
+        EntityManager entityManager = emf.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        try {
+            Query query = entityManager.createNamedQuery("getAllDetailsOfEnquiry");
+            return query.getResultList();
+        } catch (Exception e) {
+            if (entityTransaction.isActive()) {
+                entityTransaction.rollback();
+            }
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public String getPhoneNumberByName(String name) {
+        System.out.println("---------------getPhoneNumberByName in RepoImpl-------------");
+        EntityManager entityManager = emf.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        String phone= null;
+        try {
+
+            Query query = entityManager.createNamedQuery("getPhoneNoByName");
+            query.setParameter("setName", name);
+            Long phoneNumber = (Long) query.getSingleResult();  // Assuming it's stored as Long in DB
+            return phoneNumber.toString(); // Convert to String if needed
+
+        } catch (Exception e) {
+            if (entityTransaction.isActive()) {
+                entityTransaction.rollback();
+            }
+            e.printStackTrace();
+
+        }
+        return phone;
     }
 
 

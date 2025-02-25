@@ -40,7 +40,28 @@
     </style>
 </head>
 <body>
-    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <!-- Navbar with black background and right-aligned items -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">MyWebsite</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.jsp">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="UserLogin.jsp">User</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container d-flex justify-content-center align-items-center min-vh-100" style="margin-top: 80px;">
         <div class="card shadow-sm p-4 w-75">
             <div class="text-center">
                 <div class="profile-header">My Profile</div>
@@ -102,8 +123,8 @@
             </table>
 
             <div class="text-center">
-                <a href="update?id=${register.id}">
-                    <button class="btn btn-success">Update Profile</button>
+                <a href="updateProfile?id=${register.id}">
+                    <button class="btn btn-success">Update User Profile</button>
                 </a>
             </div>
         </div>

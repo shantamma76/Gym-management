@@ -145,7 +145,6 @@
                    </li>
                    <li class="nav-item">
                        <a class="nav-link" href="UserLogin.jsp">User</a>
-
                    </li>
 
                </ul>

@@ -1,11 +1,9 @@
 package com.xworkz.gym.repository;
 
-import com.xworkz.gym.DTO.AssignTrainersDto;
 import com.xworkz.gym.DTO.RegisterDto;
 import com.xworkz.gym.Entity.*;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface GymRepository {
 
@@ -74,24 +72,27 @@ public interface GymRepository {
     boolean savetrainerdetails(TrainerEntity entity);
     List<TrainerEntity> findAlltrainerlist();
 
-    //delete
+    //delete slot
     public boolean getDeleteTrainerById(int id);
 
     //----------------------------------------------
-    RegisterEntity getDataById(int id);
-    boolean updateEntity(RegisterEntity entity);
-
-    List<RegisterEntity> getAllDetails();
-    List<RegisterEntity> getCustomrtDetailsWithTrainer();
+    //RegisterEntity getDataById(int id);
+    //boolean updateEntity(RegisterEntity entity);
+    //List<RegisterEntity> getCustomrtDetailsWithTrainer();
 
     //--------------meeeeeeeeee--------------------------
+    List<RegisterEntity> getAllRegiDetails();
     List<TrainerEntity> getTrainerDetails();
 
     TrainerEntity getDataByTrainerId(int id);
-
     boolean updateTrainerEntity(TrainerEntity entity);
 
     boolean saveTrainerAssignDetails(AssignTrainersEntity assignTrainersEntity);
+
+    boolean saveDietAndExercise(DietEntity dietEntity);
+
+    List<EnquiryEntity> getAllEnquiry();
+    String getPhoneNumberByName(String name);
 
 }
 

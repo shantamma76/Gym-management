@@ -1,9 +1,9 @@
 package com.xworkz.gym.service;
 
 import com.xworkz.gym.DTO.AssignTrainersDto;
+import com.xworkz.gym.DTO.DietDto;
 import com.xworkz.gym.DTO.EnquiryDto;
 import com.xworkz.gym.DTO.RegisterDto;
-import com.xworkz.gym.DTO.TrainerDTO;
 import com.xworkz.gym.Entity.*;
 import java.util.List;
 
@@ -87,17 +87,20 @@ public interface GymService {
 
 
     //=======ar======
-    List<RegisterEntity> getAllDetails();
-    List<RegisterEntity> getCustomrtDetailsWithTrainer();
-    RegisterEntity getDatabyIdToAssigntrainer(int id, String trainer);
 
-    //==========trail from me========
-    List<TrainerEntity> getTrainerDetails();
+   // List<RegisterEntity> getCustomrtDetailsWithTrainer();
+    //RegisterEntity getDatabyIdToAssigntrainer(int id, String trainer);
+
+    //==========Assign trainers to users========
+    List<RegisterEntity> getAllRegiDetails();    //getting data from register details
+    List<TrainerEntity> getTrainerDetails();    //getting data from TrainerEntity
     TrainerEntity getByIdToAssignTrainer(int id, String trainerName, String slotTimings);
-
     boolean saveTrainerAssignDetails(AssignTrainersDto assignTrainersDto);
 
+    boolean saveDietAndExercise(DietDto dietDto);
 
+    List<EnquiryEntity> getAllEnquiry();
+    String getPhoneNumberByName(String name);
 
 
 

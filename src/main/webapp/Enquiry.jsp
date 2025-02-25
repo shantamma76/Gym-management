@@ -118,7 +118,7 @@
         <li><a href="index.jsp"><i class="fas fa-home"></i> Home</a></li>
         <li><a href="Enquiry.jsp"><i class="fas fa-question-circle"></i> Enquiry</a></li>
         <li><a href="search"><i class="fas fa-search"></i> Follow Up</a></li>
-        <li><a href="Registration.jsp"><i class="fas fa-user-plus"></i> Register</a></li>
+        <li><a href="register"><i class="fas fa-user-plus"></i> Register</a></li>
         <li><a href="Update.jsp"><i class="fas fa-edit"></i> Update</a></li>
     </ul>
 

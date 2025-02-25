@@ -75,7 +75,7 @@ public class UserLoginController {
         System.out.println("===================reset password========================");
         String msg = service.resetPassword(email, oldPassword, newPassword, confirmPassword);
         if ("password updated successfully".equals(msg)) {
-            return "Success";
+            return "UserSuccess";
         } else {
             return "resetPassword";
         }
@@ -93,7 +93,7 @@ public class UserLoginController {
         // Validate registrationId
         if (id <= 0) {
             model.addAttribute("error", "Invalid user ID.");
-            return "ErrorPage";  // Redirect to an error page if no valid ID is found
+            return "Success";  // Redirect to an error page if no valid ID is found
         }
 
         // Fetch user details from service
@@ -106,8 +106,8 @@ public class UserLoginController {
             model.addAttribute("error", "No user found with this ID");
             return "ErrorPage";
         }
-
         return "UpdateUserProfile";
+        //return "UserProfile";
 
     }
 
@@ -144,7 +144,7 @@ public class UserLoginController {
             System.err.println("filePath=====" + filePath);
 
             RegisterDto dto = service.updateUserProfile(name, registerDto,filePath);
-            return "UpdateUserProfile";
+            return "UserSuccess";
         }
     }
 

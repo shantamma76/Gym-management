@@ -9,7 +9,7 @@
         <style>
             /* Basic styles */
             body {
-             background-image: url('https://marathonhandbook.com/wp-content/uploads/2022/08/Total-Body-Gym-Workout.jpg');
+                background-image: url('https://marathonhandbook.com/wp-content/uploads/2022/08/Total-Body-Gym-Workout.jpg');
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 0;
@@ -118,18 +118,11 @@
             <li><a href="index.jsp"><i class="fas fa-home"></i>Home</a></li>
             <li><a href="Enquiry.jsp"><i class="fas fa-question-circle"></i>Enquiry</a></li>
             <li><a href="search"><i class="fas fa-search"></i>Follow Up</a></li>
-            <li><a href="Registration.jsp"><i class="fas fa-user-plus"></i>Register</a></li>
-            <li><a href="UpdateRegister.jsp"><i class="fas fa-edit"></i>Update</a></li>
+            <li><a href="register"><i class="fas fa-user-plus"></i>Register</a></li>
+            <li><a href="update"><i class="fas fa-edit"></i>Update</a></li>
             <li><a href="trainerslots.jsp"><i class="fas fa-edit"></i>trainerSlots</a></li>
-
-                        <li>
-                            <a href = "noTrainer" class="nav-link link-body-emphasis">NoTrainer</a>
-                        </li>
-
-                        <li>
-                            <a href = "customerTrainer" class="nav-link link-body-emphasis">Customer With Trainer</a>
-                        </li>
-
+            <li> <a href="noTrainer" class="nav-link link-body-emphasis">AssignTrainer</a></li>
+            <li><a href="dietAndExercise" class="nav-link link-body-emphasis">DietAndExercise</a> </li>
 
         </ul>
 

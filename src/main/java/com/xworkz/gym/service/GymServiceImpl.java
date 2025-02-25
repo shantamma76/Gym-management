@@ -1,9 +1,9 @@
 package com.xworkz.gym.service;
 
 import com.xworkz.gym.DTO.AssignTrainersDto;
+import com.xworkz.gym.DTO.DietDto;
 import com.xworkz.gym.DTO.EnquiryDto;
 import com.xworkz.gym.DTO.RegisterDto;
-import com.xworkz.gym.DTO.TrainerDTO;
 import com.xworkz.gym.Entity.*;
 import com.xworkz.gym.constants.StatusEnum;
 import com.xworkz.gym.repository.GymRepository;
@@ -377,40 +377,41 @@ public class GymServiceImpl implements GymService {
     }
 
 
-//------------------------------------
+//-------------------Assign trainer to user-----------------
 
+    //getting data from register details
     @Override
-    public List<RegisterEntity> getAllDetails() {
+    public List<RegisterEntity> getAllRegiDetails() {
         System.out.println("----------------------get alla details in ServiceImpl- --------------");
-        if((repository.getAllDetails()!=null)){
-            return repository.getAllDetails();
+        if((repository.getAllRegiDetails()!=null)){
+            return repository.getAllRegiDetails();
         }
         return Collections.emptyList();
     }
 
-    @Override
-    public RegisterEntity getDatabyIdToAssigntrainer(int id, String trainersName) {
-        RegisterEntity registerEntity = repository.getDataById(id);
-        if (registerEntity != null) {
-            registerEntity.setTrainersName(trainersName); //setTrainername(trainer);
-            repository.updateEntity(registerEntity);
-            return registerEntity;
-        }
-        return null;
-    }
-
-    @Override
-    public List<RegisterEntity> getCustomrtDetailsWithTrainer() {
-        System.out.println("---------------CustomrtDetailsWithTrainer in service---------------");
-//        if((repository.getCustomrtDetailsWithTrainer()!=null)){
-        System.out.println("service====== :"+repository.getCustomrtDetailsWithTrainer());
-            return repository.getCustomrtDetailsWithTrainer();
+//    @Override
+//    public RegisterEntity getDatabyIdToAssigntrainer(int id, String trainersName) {
+//        RegisterEntity registerEntity = repository.getDataById(id);
+//        if (registerEntity != null) {
+//            registerEntity.setTrainersName(trainersName); //setTrainername(trainer);
+//            repository.updateEntity(registerEntity);
+//            return registerEntity;
 //        }
+//        return null;
+//    }
 //
-//        return Collections.emptyList();
-    }
+//    @Override
+//    public List<RegisterEntity> getCustomrtDetailsWithTrainer() {
+//        System.out.println("---------------CustomrtDetailsWithTrainer in service---------------");
+////        if((repository.getCustomrtDetailsWithTrainer()!=null)){
+//        System.out.println("service====== :"+repository.getCustomrtDetailsWithTrainer());
+//            return repository.getCustomrtDetailsWithTrainer();
+////        }
+////
+////        return Collections.emptyList();
+//    }
 
-//============ trial from me ======
+    //getting data from TrainerEntity
     @Override
     public List<TrainerEntity> getTrainerDetails() {
         System.out.println("======--------getTrainerDetails in ServiceImpl-------======");
@@ -440,15 +441,54 @@ public class GymServiceImpl implements GymService {
         entity.setSlotTimings(assignTrainersDto.getSlotTimings());
 
       boolean saved = repository.saveTrainerAssignDetails(entity);
-        if(saved){
+        if(saved) {
             System.out.println("saved in service");
             return true;
         }
         System.out.println("not saved in service");
         return false;
+    }
+
+    //diet plan
+    @Override
+    public boolean saveDietAndExercise(DietDto dietDto) {
+        System.out.println("saveDietAndExercise in ServiceImplement");
+        DietEntity entity = new DietEntity();
+        entity.setName(dietDto.getName());
+        entity.setAge(dietDto.getAge());
+        entity.setFitnessGoal(dietDto.getFitnessGoal());
+        entity.setDietPlan(dietDto.getDietPlan());
+        entity.setExercisePlan(dietDto.getExercisePlan());
+
+         boolean save= repository.saveDietAndExercise(entity);
+         if(save){
+             System.out.println("save data");
+             return true;
+         }System.out.println("not save data");
+         return false;
 
     }
-    
+
+    //fetching all names from EnquiryEntity in register
+    @Override
+    public List<EnquiryEntity> getAllEnquiry() {
+        System.out.println("----------------------get alla details in ServiceImpl- --------------");
+        if((repository.getAllEnquiry()!=null)){
+            return repository.getAllEnquiry();
+        }
+        return Collections.emptyList();
+    }
+
+    @Override
+    public String getPhoneNumberByName(String name) {
+        System.out.println("======getPhoneNumberByName in service=======");
+        String num = repository.getPhoneNumberByName(name);
+        return num;
+    }
+
+
+
+
 }
 
 

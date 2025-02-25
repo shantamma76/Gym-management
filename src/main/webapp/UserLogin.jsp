@@ -38,6 +38,7 @@
 
            .navbar {
                     background-color: black;
+                    justify-content: space-between;
                     /* Semi-transparent background */
                     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
                     z-index: 1;
@@ -131,15 +132,10 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="index.jsp">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="####">About</a>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="UserProfile.jsp">UserProfile</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="####">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="####">Sign In</a>
-                    </li>
+
                 </ul>
             </div>
         </div>

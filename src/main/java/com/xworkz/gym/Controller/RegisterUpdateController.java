@@ -1,6 +1,5 @@
 package com.xworkz.gym.Controller;
 
-import com.xworkz.gym.DTO.RegisterDto;
 import com.xworkz.gym.Entity.RegisterEntity;
 import com.xworkz.gym.constants.PackageEnum;
 import com.xworkz.gym.service.GymService;
@@ -20,12 +19,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 @Slf4j
-public class UpdateController {
+public class RegisterUpdateController {
 
     @Autowired
     public GymService gymService;
 
-    UpdateController() {
+    RegisterUpdateController() {
         System.out.println("No-arg const in UpdateController");
     }
 
@@ -57,7 +56,7 @@ public class UpdateController {
         return "Success";
     }
 
-    @PostMapping("/update")
+    @PostMapping("/updates")
     public String updateDetails(@RequestParam int id,
                                 @RequestParam String packages,
                                 @RequestParam String trainer,

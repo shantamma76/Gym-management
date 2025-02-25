@@ -13,6 +13,7 @@
             align-items: center;
             height: 100vh;
             background-color: #f8f9fa;
+            margin-top: 50px;
         }
 
         .success-container {
@@ -26,8 +27,39 @@
     </style>
 </head>
 <body>
+    <!-- Navbar with black background and right-aligned items -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.jsp">Home</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link active" href="UserLogin.jsp">User</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link active" href="UserProfile.jsp">UserProfile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Success message container -->
     <div class="success-container">
         <h1 class="text-success">Login Successfully Logged In</h1>
     </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

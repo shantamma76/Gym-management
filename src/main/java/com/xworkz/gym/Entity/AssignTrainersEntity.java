@@ -2,12 +2,12 @@ package com.xworkz.gym.Entity;
 
 import lombok.Data;
 
-
 import javax.persistence.*;
+
 
 @Data
 @Entity
-@Table(name="assignTrainerToUser")
+@Table(name = "assignTrainerToUser")
 public class AssignTrainersEntity {
 
     @Id
@@ -17,7 +17,7 @@ public class AssignTrainersEntity {
     @Column(name = "userName")
     private String name;
 
-    @Column(name="trainer_name")
+    @Column(name = "trainer_name")
     private String trainerName;
 
     @Column(name = "slots")
