@@ -21,33 +21,27 @@ public class TrainerAssigningController {
     @Autowired
     private GymService service;
 
-    //private List<TrainerNames> trainerNames = new ArrayList<>(Arrays.asList(TrainerNames.values()));
-
     public TrainerAssigningController() {
         log.info("This is from the CustomerDetailsController");
     }
 
+        @GetMapping("/trainer")
+        public String displayDetails(Model model) {
+        System.out.println("Fetching customer and trainer details");
 
-    //fetching data from two tables
-    @GetMapping("/noTrainer")
-    public String displayDetails(Model model) {
-        log.info("Fetching customer and trainer details");
-        // Fetch customer details without trainer
+        // Fetch register details
         List<RegisterEntity> customerList = service.getAllRegiDetails();
+        model.addAttribute("listOfNames", customerList);
 
-        // Fetch trainer details
+        // Fetch trainer and slot details
         List<TrainerEntity> trainerList = service.getTrainerDetails();
-
-        // Add both lists to the model
-        model.addAttribute("noTrainerList", customerList);
         model.addAttribute("TrainerEntityList", trainerList);
 
-        // Return the same JSP view with both data sets
-        return "AssignTrainersToUser";  // Same JSP for both sets of data
+        return "AssignTrainer";
     }
 
     //save the data to database
-    @PostMapping("/assignTrainer")
+    @PostMapping("/assign")
     public String saveAssignTrainerDetails(AssignTrainersDto dto, Model model) {
         System.out.println("===========save the trainer assign data in controller===========");
         boolean savedData = service.saveTrainerAssignDetails(dto);
@@ -57,48 +51,26 @@ public class TrainerAssigningController {
 
         } else {
             model.addAttribute("error", "Not Saved");
-            return "AssignTrainersToUser";
+            return "AssignTrainer";
         }
     }
+
 }
 
-//-----------------------------------------------------------------------------------------------------------
-//    //updating trainerName and Timing slots
-//    @PostMapping("/trainee{id}")
-//    public String assignTrainerToUsers(@PathVariable int id, @RequestParam String trainersName, String slotTimings) {
-//
-//        System.out.println("Id from the customer with trainer details: " + id + " " + trainersName + " " + slotTimings + "");
-//
-//        TrainerEntity trainerEntity = service.getByIdToAssignTrainer(id, trainersName, slotTimings);
-//        if (trainerEntity != null) {
-//            return "Success";
-//        }
-//        return "AssignTrainersToUser";
-//    }
 
-//    @GetMapping("/customerTrainer")
-//    public String customerWithTrainer(Model model){
-//        System.out.println("------------customer With Trainer in controller---------------------------");
-//        List<RegisterEntity> list = service.getCustomrtDetailsWithTrainer();
-//
-//        System.out.println("=====list===:"+list);
-//        if(list!=null){
-//            model.addAttribute("customrtWithTrainer", list);
-//            model.addAttribute("trainers", trainerNames);
-//            return "CustomrtWithTrainer";
-//        }
-//        return "Success";
-//    }
-//
-//    @PostMapping("/assign/{id}")
-//    public String assignTrainer(@PathVariable int id, @RequestParam String trainersName, String slotTimings){
-//        System.out.println("Id from the customer with trainer details: "+id+ " "+ trainersName);
-//        RegisterEntity registerEntity = service.getDatabyIdToAssigntrainer(id, trainersName);
-//        if(registerEntity!=null) {
-//            return "Success";
-//        }
-//        return "CustomrtWithTrainer";
-//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

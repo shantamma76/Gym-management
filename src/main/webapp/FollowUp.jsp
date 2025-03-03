@@ -14,6 +14,7 @@
                 body {
                     font-family: 'Roboto', Arial, sans-serif;
                     background-image: url('https://img.freepik.com/premium-photo/empty-gym-with-treadmills_564714-18757.jpg');
+
                     margin: 0;
                     padding: 20px;
                     color: #f9f9f9;

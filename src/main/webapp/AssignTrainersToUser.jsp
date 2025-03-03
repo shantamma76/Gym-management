@@ -1,3 +1,6 @@
+
+
+<!--
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -125,7 +128,7 @@
             <tbody>
                 <c:forEach var="details" items="${noTrainerList}">
                     <tr>
-
+                        <td>${details.name}</td>
                         <td>${details.phone}</td>
                         <td>${details.packages}</td>
                         <td>${details.trainer}</td>
@@ -169,3 +172,4 @@
 </body>
 
 </html>
+-->

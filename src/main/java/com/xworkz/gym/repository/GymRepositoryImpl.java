@@ -1059,6 +1059,32 @@ public class GymRepositoryImpl implements GymRepository {
     }
 
 
+
+    @Override
+    public void updateUserDetails(RegisterEntity registerEntity) {
+
+        EntityManager em=emf.createEntityManager();
+        EntityTransaction et=em.getTransaction();
+
+        try{
+            et.begin();
+            em.merge(registerEntity);
+            et.commit();
+        }
+        catch(Exception e)
+        {
+            if(et.isActive())
+            {
+                et.rollback();
+            }
+        }
+        finally {
+            em.close();
+            //` emf.close();
+        }
+    }
+
+
 }
 
 

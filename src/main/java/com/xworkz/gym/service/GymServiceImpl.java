@@ -487,8 +487,6 @@ public class GymServiceImpl implements GymService {
     }
 
 
-
-
 }
 
 

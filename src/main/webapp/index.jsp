@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOC TYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,6 +7,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+
         /* Custom styles */
         body {
             background-image: url('https://wallpaperaccess.com/full/2465431.jpg');
@@ -147,6 +148,8 @@
                        <a class="nav-link" href="UserLogin.jsp">User</a>
                    </li>
 
+
+                    </li>
                </ul>
            </div>
        </div>
@@ -160,8 +163,6 @@
 
         </div>
     </section>
-
-
 
     <!-- Footer -->
     <footer class="footer">

@@ -94,6 +94,9 @@ public interface GymRepository {
     List<EnquiryEntity> getAllEnquiry();
     String getPhoneNumberByName(String name);
 
+    //========================
+    public void updateUserDetails(RegisterEntity registerEntity);
+
 }
 
 

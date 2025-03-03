@@ -121,11 +121,10 @@
             <li><a href="register"><i class="fas fa-user-plus"></i>Register</a></li>
             <li><a href="update"><i class="fas fa-edit"></i>Update</a></li>
             <li><a href="trainerslots.jsp"><i class="fas fa-edit"></i>trainerSlots</a></li>
-            <li> <a href="noTrainer" class="nav-link link-body-emphasis">AssignTrainer</a></li>
+            <li> <a href="trainer" class="nav-link link-body-emphasis">AssignTrai</a></li>
             <li><a href="dietAndExercise" class="nav-link link-body-emphasis">DietAndExercise</a> </li>
 
         </ul>
-
 
         <h1>Login Successfully Done!</h1> <br>
     </body>

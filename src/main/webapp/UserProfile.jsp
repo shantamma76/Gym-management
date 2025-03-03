@@ -55,7 +55,6 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="UserLogin.jsp">User</a>
                     </li>
-
                 </ul>
             </div>
         </div>

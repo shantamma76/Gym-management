@@ -88,6 +88,8 @@ background-size: cover;
         <li><a href="search"><i class="fas fa-search"></i> Follow Up</a></li>
         <li><a href="register"><i class="fas fa-user-plus"></i> Register</a></li>
         <li><a href="UpdateRegister.jsp"><i class="fas fa-edit"></i> Update</a></li>
+        <li><a href="trainer"><i class="fas fa-edit"></i>Assign Trainer</a></li>
+
     </ul>
 
     <div class="container d-flex justify-content-center align-items-center" style="min-height: 120vh;">
@@ -95,8 +97,8 @@ background-size: cover;
             <div class="card-body">
 
                 <h2 class="card-title text-center mb-4">Registration Form</h2>
-                <form action="register" method="post">
 
+                <form action="register" method="post">
                     <div class="mb-2">
                        <label for="name" class="form-label"><i class="fas fa-user"></i> Name</label>
 
@@ -236,27 +238,6 @@ background-size: cover;
         </script>
 
         <script>
-            function onNameChange() {
-                console.log('this is on place name');
-                var name = document.getElementById('name');
-                var nameValue = name.value;
-
-                if (nameValue.trim().length < 3) {
-                    document.getElementById("nameDemo").innerHTML = "Name must be at least 3 characters long.";
-                    return;
-                } else {
-                    document.getElementById("nameDemo").innerHTML = "";
-                }
-
-                var xhttp = new XMLHttpRequest();
-                xhttp.open("GET", "http://localhost:8080/Shanta_Gym/name/" + nameValue);
-                xhttp.send();
-
-                xhttp.onload = function () {
-                    document.getElementById("nameDemo").innerHTML = this.responseText;
-                }
-            }
-
             function onEmailChange() {
                 console.log('this is on place email');
                 var email = document.getElementById('email');
@@ -277,28 +258,6 @@ background-size: cover;
                     document.getElementById("emailDemo").innerHTML = this.responseText;
                 }
             }
-
-            function onTrainerChange() {
-                console.log('this is on place trainer');
-                var trainer = document.getElementById('trainer');
-                var trainerValue = trainer.value;
-
-                if (trainerValue.trim().length < 3) {
-                    document.getElementById("trainerDemo").innerHTML = "Trainer Name must be at least 3 characters long.";
-                    return;
-                } else {
-                    document.getElementById("trainerDemo").innerHTML = "";
-                }
-
-                var xhttp = new XMLHttpRequest();
-                xhttp.open("GET", "http://localhost:8080/Shanta_Gym/registration/trainer/" + trainerValue);
-                xhttp.send();
-
-                xhttp.onload = function () {
-                    document.getElementById("trainerDemo").innerHTML = this.responseText;
-                }
-            }
-
 
             function onPhoneChange() {
                 console.log('this is on place phone');
@@ -322,6 +281,26 @@ background-size: cover;
                 }
             }
 
+            function onTrainerChange() {
+                console.log('this is on place trainer');
+                var trainer = document.getElementById('trainer');
+                var trainerValue = trainer.value;
+
+                if (trainerValue.trim().length < 3) {
+                    document.getElementById("trainerDemo").innerHTML = "Trainer Name must be at least 3 characters long.";
+                    return;
+                } else {
+                    document.getElementById("trainerDemo").innerHTML = "";
+                }
+
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("GET", "http://localhost:8080/Shanta_Gym/registration/trainer/" + trainerValue);
+                xhttp.send();
+
+                xhttp.onload = function () {
+                    document.getElementById("trainerDemo").innerHTML = this.responseText;
+                }
+            }
             function onGymName() {
                 console.log('this is on place GymName');
                 var gymName = document.getElementById('gymName');

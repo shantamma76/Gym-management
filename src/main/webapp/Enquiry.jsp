@@ -12,8 +12,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background-image: url('https://img.freepik.com/premium-photo/empty-gym-with-treadmills_564714-18757.jpg');
-            background-size: cover;
+            background-image: url('https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?cs=srgb&dl=action-athlete-barbell-841130.jpg&fm=jpg');
+            background-size: 1600px 1000px;  <!--width and height -->
+            background-repeat: no-repeat;
             background-position: center;
         }
     /* Navbar styling */
@@ -120,6 +121,7 @@
         <li><a href="search"><i class="fas fa-search"></i> Follow Up</a></li>
         <li><a href="register"><i class="fas fa-user-plus"></i> Register</a></li>
         <li><a href="Update.jsp"><i class="fas fa-edit"></i> Update</a></li>
+         <li><a href="trainer"><i class="fas fa-edit"></i>Assign Trainer</a></li>
     </ul>
 
     <!-- Main Content -->
@@ -133,42 +135,46 @@
                     <!-- Name Input -->
                     <div class="mb-3 input-group">
                         <span class="input-group-text"><i class="fas fa-user"></i></span>
+
                         <input type="text" class="form-control" id="name" name="name" onChange="onNameChange()"
                             placeholder="Enter your name" required>
-                        <span id="nameDemo" style="color:red;"></span>
+
                     </div>
+                    <span id="nameDemo" style="color:red;"></span>
+
+
 
                     <!-- Area Input -->
                     <div class="mb-3 input-group">
                         <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                         <input type="text" class="form-control" id="area" name="area" onChange="onArea()"
                             placeholder="Enter area" required>
-                        <span id="areaDemo" style="color:red;"></span>
                     </div>
+                    <span id="areaDemo" style="color:red;"></span>
 
                     <!-- Phone Number Input -->
                     <div class="mb-3 input-group">
                         <span class="input-group-text"><i class="fas fa-phone"></i></span>
                         <input type="number" class="form-control" id="phone" name="phone" onChange="onPhone()"
                             placeholder="Enter phone number" required>
-                        <br><span id="phoneDemo" style="color:red;"></span>
                     </div>
+                      <br><span id="phoneDemo" style="color:red;"></span>
 
                     <!-- Distance Input -->
                     <div class="mb-3 input-group">
                         <span class="input-group-text"><i class="fas fa-ruler"></i></span>
                         <input type="number" class="form-control" id="distance" name="distance" onChange="onDistance()"
                             placeholder="Enter distance" required>
-                        <span id="distanceDemo" style="color:red;"></span>
                     </div>
+                      <span id="distanceDemo" style="color:red;"></span>
 
                     <!-- Age Input -->
                     <div class="mb-3 input-group">
                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                         <input type="number" class="form-control" id="age" name="age" onChange="onAge()"
                             placeholder="Enter age" required>
-                        <span id="ageDemo" style="color:red;"></span>
                     </div>
+                         <span id="ageDemo" style="color:red;"></span>
 
                     <!-- Submit Button -->
                     <button type="submit" class="btn btn-success w-100">Submit</button>
