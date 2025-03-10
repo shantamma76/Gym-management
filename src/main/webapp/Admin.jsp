@@ -79,6 +79,12 @@
             text-decoration: underline;
         }
 
+           .success-message {
+                    text-align: center;
+                    color: green;
+                    font-size: 14px;
+                }
+
         .error-message {
             text-align: center;
             color: #dc3545;
@@ -125,15 +131,20 @@
                     <button type="submit" class="btn btn-success w-100">
                         <i class="fas fa-sign-in-alt"></i> Login
                     </button>
+
+                     <div id="loginSuccess" class="success-message">
+                     <h4> ${msg}</h4>
+                     </div>
+
+                     <!-- Error message display -->
+                    <div id="loginError" class="error-message">
+                        <h4> ${error}</h4>
+                    </div>
+
                 </form>
 
-                <!-- Additional links for password reset -->
-               <!-- <div class="reset-link">
-                    <a href="forgetPassword.jsp">Forgot Password?</a>
-                </div>
-                <div class="reset-link">
-                    <p>Don't have an account? <a href="Registration.jsp">Register</a></p>
-                </div>  -->
+
+
             </div>
         </div>
     </div>

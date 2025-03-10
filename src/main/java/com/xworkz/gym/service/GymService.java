@@ -1,9 +1,6 @@
 package com.xworkz.gym.service;
 
-import com.xworkz.gym.DTO.AssignTrainersDto;
-import com.xworkz.gym.DTO.DietDto;
-import com.xworkz.gym.DTO.EnquiryDto;
-import com.xworkz.gym.DTO.RegisterDto;
+import com.xworkz.gym.DTO.*;
 import com.xworkz.gym.Entity.*;
 import java.util.List;
 
@@ -52,6 +49,9 @@ public interface GymService {
 
     //register
     boolean saveRegister(RegisterDto registerDto);
+    //dropdown enquiry names in register
+    List<EnquiryEntity> getAllEnquiry();
+    String getPhoneNumberByName(String name);
 
     //update register details
     RegisterEntity getDetailsByEmail(String email);
@@ -82,28 +82,32 @@ public interface GymService {
     boolean getDeleteTrainerById(int id);
 
 
-  //  boolean updateTrainerToUSer(String name, String trainerName, String slotTimings);
 
-
-
-    //=======ar======
-
-   // List<RegisterEntity> getCustomrtDetailsWithTrainer();
-    //RegisterEntity getDatabyIdToAssigntrainer(int id, String trainer);
-
-    //==========Assign trainers to users========
+    //==========Assign trainers to users frm me========
     List<RegisterEntity> getAllRegiDetails();    //getting data from register details
-    List<TrainerEntity> getTrainerDetails();    //getting data from TrainerEntity
-    TrainerEntity getByIdToAssignTrainer(int id, String trainerName, String slotTimings);
-    boolean saveTrainerAssignDetails(AssignTrainersDto assignTrainersDto);
+//    List<TrainerEntity> getTrainers();    //getting data from TrainerEntity
+//    TrainerEntity getByIdToAssignTrainer(int id, String trainerName, String slotTimings);
+//    boolean saveTrainerAssignDetails(AssignTrainersDto assignTrainersDto);
 
-    boolean saveDietAndExercise(DietDto dietDto);
-
-    List<EnquiryEntity> getAllEnquiry();
-    String getPhoneNumberByName(String name);
+   // boolean saveDietAndExercise(DietDto dietDto);
 
 
 
+    //=============for assign trainers and slots working========================================================================
+    List<RegisterEntity> assignSlot();
+    List<TrainerEntity> getTrainerDetails();
+    List<SlotsEntity> getTimeSlot();
+    RegisterEntity searchDetails(String name,String email);
+    boolean updateSlot(int entityId, int trainerId);
+
+    public RegisterEntity getNamesStartingWith(String prefix);
+
+
+    //-----------------------diet plane frm cha-------------------
+    public List<RegisterEntity> getAllRegistredUsersDetailsByNameAndPhoneNo(String searchName, Long searchPhoneNo);
+    void saveUserDietAndExercise(int id, String filePath, UserExerciseAndDietDTO userExerciseAndDietDTO);
+    List<UserUpdatedExerciseAndDietEntity> getAlluserExerciseAndDietEntitiesById(int id);
+    List<UserExerciseAndDietEntity> getuserMonthlyImages(int id);
 }
 
 

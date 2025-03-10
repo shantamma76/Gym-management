@@ -13,6 +13,8 @@ import javax.persistence.*;
 //char
 //@NamedQuery(name = "getAllSlotsDetails",query = "select a from SlotsEntity a")
 //@NamedQuery(name = "deleteSlotById",query = "DELETE  from SlotsEntity a where a.id=:getId")
+
+@NamedQuery(name = "getTimeSlotEntity",query = "SELECT a FROM SlotsEntity a")
 public class SlotsEntity {
 
     @Id

@@ -1,7 +1,7 @@
 package com.xworkz.gym.Controller;
 
-import com.xworkz.gym.DTO.AssignTrainersDto;
 import com.xworkz.gym.Entity.RegisterEntity;
+import com.xworkz.gym.Entity.SlotsEntity;
 import com.xworkz.gym.Entity.TrainerEntity;
 import com.xworkz.gym.service.GymService;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 
@@ -25,34 +24,43 @@ public class TrainerAssigningController {
         log.info("This is from the CustomerDetailsController");
     }
 
-        @GetMapping("/trainer")
-        public String displayDetails(Model model) {
-        System.out.println("Fetching customer and trainer details");
-
-        // Fetch register details
-        List<RegisterEntity> customerList = service.getAllRegiDetails();
-        model.addAttribute("listOfNames", customerList);
-
-        // Fetch trainer and slot details
-        List<TrainerEntity> trainerList = service.getTrainerDetails();
-        model.addAttribute("TrainerEntityList", trainerList);
-
-        return "AssignTrainer";
+    @GetMapping("/assignSlot")
+    public String assignSlot() {
+        List<RegisterEntity> list = service.assignSlot();
+        log.info("printining list" + list);
+        return "AssignSlot";
     }
 
-    //save the data to database
-    @PostMapping("/assign")
-    public String saveAssignTrainerDetails(AssignTrainersDto dto, Model model) {
-        System.out.println("===========save the trainer assign data in controller===========");
-        boolean savedData = service.saveTrainerAssignDetails(dto);
-        if (savedData) {
-            model.addAttribute("msg", savedData);
-            return "Success";
+    @GetMapping("/searchEntity")
+    private String search(@RequestParam("name") String name, @RequestParam("email") String email, Model model) {
+        log.info("search in controller");
+        RegisterEntity entity = service.searchDetails(name, email);
+        log.info("entity" + entity);
+        model.addAttribute("entity", entity);
 
-        } else {
-            model.addAttribute("error", "Not Saved");
-            return "AssignTrainer";
+        List<SlotsEntity> list = service.getTimeSlot();
+        log.info("list" + list);
+        model.addAttribute("list", list);
+
+        List<TrainerEntity> listofdto = service.getTrainerDetails();
+        model.addAttribute("listofdto", listofdto);
+        log.info("printing entity" + listofdto);
+
+        return "AssignSlot";
+    }
+
+    @PostMapping("/assignSlot")
+    public String assignTrainer(@RequestParam("entityId") int entityId, @RequestParam("trainerId") int trainerId,Model model) {
+
+        log.info("assign slot request in controller ");
+        boolean updated = service.updateSlot(entityId, trainerId);
+        if(updated)
+        {
+            model.addAttribute("success","Updated Successfully") ;
+        }else {
+            model.addAttribute("failure","Not Updated");
         }
+        return "AssignSlot";  // Redirect to a confirmation page
     }
 
 }

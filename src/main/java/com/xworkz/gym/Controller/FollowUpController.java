@@ -1,6 +1,5 @@
 package com.xworkz.gym.Controller;
 
-import com.xworkz.gym.DTO.ViewDto;
 import com.xworkz.gym.Entity.EnquiryEntity;
 import com.xworkz.gym.Entity.ViewEntity;
 import com.xworkz.gym.constants.StatusEnum;

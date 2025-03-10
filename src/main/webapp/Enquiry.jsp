@@ -138,9 +138,8 @@
 
                         <input type="text" class="form-control" id="name" name="name" onChange="onNameChange()"
                             placeholder="Enter your name" required>
-
                     </div>
-                    <span id="nameDemo" style="color:red;"></span>
+                 <   <span id="nameDemo" style="color:red;"></span>
 
 
 
@@ -185,6 +184,7 @@
 
     <!-- JavaScript -->
     <script>
+
         function onNameChange() {
             var name = document.getElementById('name');
             var nameValue = name.value;

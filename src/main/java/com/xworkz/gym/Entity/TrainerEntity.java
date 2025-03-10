@@ -18,6 +18,9 @@ import javax.persistence.*;
 
 @NamedQuery(name = "getTrainerEntityById", query = "Select re from TrainerEntity re where re.id=:setId")
 @NamedQuery(name = "getAllTrainerEntityDetails", query = "SELECT p FROM TrainerEntity p")
+
+//--------------------------------------ren
+@NamedQuery(name = "getTrainerList", query = "SELECT a FROM TrainerEntity a ORDER BY a.slotTimings DESC")
 public class TrainerEntity {
 
     @Id

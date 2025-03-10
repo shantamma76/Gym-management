@@ -2,6 +2,7 @@ package com.xworkz.gym.repository;
 
 import com.xworkz.gym.DTO.RegisterDto;
 import com.xworkz.gym.Entity.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
-
+@Slf4j
 @Repository
 public class GymRepositoryImpl implements GymRepository {
 
@@ -377,9 +378,7 @@ public class GymRepositoryImpl implements GymRepository {
 
         try {
             String query = "SELECT u FROM RegisterEntity u WHERE u.email = :email";
-            return entityManager.createQuery(query, RegisterEntity.class)
-                    .setParameter("email", email)
-                    .getSingleResult();
+            return entityManager.createQuery(query, RegisterEntity.class).setParameter("email", email).getSingleResult();
 
         } catch (Exception e) {
             if (entityTransaction.isActive()) {
@@ -400,15 +399,7 @@ public class GymRepositoryImpl implements GymRepository {
 
         try {
             et.begin();
-            int value = em.createNamedQuery("updateValuesById")
-                    .setParameter("setPackage", packages)
-                    .setParameter("setTrainer", trainer)
-                    .setParameter("setAmount", amount)
-                    .setParameter("setPaid", paid)
-                    .setParameter("setBalance", balance)
-                    .setParameter("setInstallment", installment)
-                    .setParameter("idBy", id)
-                    .executeUpdate();
+            int value = em.createNamedQuery("updateValuesById").setParameter("setPackage", packages).setParameter("setTrainer", trainer).setParameter("setAmount", amount).setParameter("setPaid", paid).setParameter("setBalance", balance).setParameter("setInstallment", installment).setParameter("idBy", id).executeUpdate();
             et.commit();
 
             if (value > 0) {
@@ -717,7 +708,12 @@ public class GymRepositoryImpl implements GymRepository {
         int value = 0;
         try {
             et.begin();
-            value = em.createNamedQuery("updateUserProfileByName").setParameter("getAge", registerDto.getAge()).setParameter("getHeight", registerDto.getHeight()).setParameter("getWeight", registerDto.getWeight()).setParameter("getFilePath", filePath).setParameter("getName", name).executeUpdate();
+            value = em.createNamedQuery("updateUserProfileByName")
+                    .setParameter("getAge", registerDto.getAge())
+                    .setParameter("getHeight", registerDto.getHeight())
+                    .setParameter("getWeight", registerDto.getWeight())
+                    .setParameter("getFilePath", filePath).setParameter("getName", name)
+                    .executeUpdate();
 
             et.commit();
         } catch (Exception e) {
@@ -886,17 +882,18 @@ public class GymRepositoryImpl implements GymRepository {
         System.out.println("---------------get all details in RepoImpl-------------");
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
+
         try {
             Query query = entityManager.createNamedQuery("getAllDetailsOfCustomer");
             return query.getResultList();
-
         } catch (Exception e) {
             if (entityTransaction.isActive()) {
                 entityTransaction.rollback();
             }
-            e.printStackTrace();
-            return Collections.emptyList();
+        } finally {
+            entityManager.close();
         }
+        return Collections.emptyList();
     }
 
 //    @Override
@@ -920,7 +917,7 @@ public class GymRepositoryImpl implements GymRepository {
 
     //=======trial me=======
     @Override
-    public List<TrainerEntity> getTrainerDetails() {
+    public List<TrainerEntity> getTrainers() {
         System.out.println("---------------get all details in RepoImpl-------------");
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
@@ -994,29 +991,7 @@ public class GymRepositoryImpl implements GymRepository {
         }
     }
 
-    @Override
-    public boolean saveDietAndExercise(DietEntity dietEntity) {
-        System.out.println("saveDietAndExercise in RepositoryImplement");
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction et = em.getTransaction();
 
-        try {
-            et.begin();
-            em.persist(dietEntity);
-            et.commit();
-            System.out.println("Save Diet and Exercise Data to Database");
-            return true;
-        } catch (Exception e){
-            if (et.isActive()){
-                et.rollback();
-            }
-            System.out.println("Not Save Diet and Exercise Data to Database");
-            return false;
-        } finally {
-            em.close();
-        }
-
-    }
 
     @Override
     public List<EnquiryEntity> getAllEnquiry() {
@@ -1040,7 +1015,7 @@ public class GymRepositoryImpl implements GymRepository {
         System.out.println("---------------getPhoneNumberByName in RepoImpl-------------");
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
-        String phone= null;
+        String phone = null;
         try {
 
             Query query = entityManager.createNamedQuery("getPhoneNoByName");
@@ -1059,30 +1034,295 @@ public class GymRepositoryImpl implements GymRepository {
     }
 
 
-
     @Override
     public void updateUserDetails(RegisterEntity registerEntity) {
 
-        EntityManager em=emf.createEntityManager();
-        EntityTransaction et=em.getTransaction();
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
 
-        try{
+        try {
             et.begin();
             em.merge(registerEntity);
             et.commit();
-        }
-        catch(Exception e)
-        {
-            if(et.isActive())
-            {
+        } catch (Exception e) {
+            if (et.isActive()) {
                 et.rollback();
             }
-        }
-        finally {
+        } finally {
             em.close();
             //` emf.close();
         }
     }
+
+
+    //-------------------------------------------------------------------------------------
+
+    @Override
+    public List<RegisterEntity> assignSlot() {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+        log.info("getting all data in repository");
+        try {
+
+            Query query = em.createNamedQuery("assignSlot");
+            log.info("returning from database...");
+            return query.getResultList();
+        } catch (Exception e) {
+            et.isActive();
+            {
+                et.rollback();
+            }
+
+        } finally {
+            em.close();
+        }
+
+
+        return Collections.emptyList();
+    }
+
+
+    @Override
+    public List<TrainerEntity> getTrainerDetails() {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+
+        log.info("getting all data in repository");
+
+
+        try {
+
+            Query query = em.createNamedQuery("getTrainerList");
+            log.info("returning from database...");
+            return query.getResultList();
+        } catch (Exception e) {
+            et.isActive();
+            {
+                et.rollback();
+            }
+
+        } finally {
+            em.close();
+        }
+
+
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<SlotsEntity> getTimeSlot() {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+
+        log.info("getting all data in repository");
+
+
+        try {
+
+            Query query = em.createNamedQuery("getTimeSlotEntity");
+            log.info("returning from database...");
+            return query.getResultList();
+        } catch (Exception e) {
+            et.isActive();
+            {
+                et.rollback();
+            }
+
+        } finally {
+            em.close();
+        }
+        return Collections.emptyList();
+    }
+
+    @Override
+    public RegisterEntity searchDetails(String name, String email) {
+        log.info("search in repository");
+
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            log.info("query is running");
+            Query query = em.createNamedQuery("findByNameAndEmail");
+            query.setParameter("SetName", name);
+            query.setParameter("SetEmail", email);
+
+            log.info("get name and email.....");
+
+            return (RegisterEntity) query.getSingleResult();
+
+        } catch (NoResultException e) {
+            log.info("No entity found for given name and email.");
+            return null;
+        } catch (Exception e) {
+            log.error("Error fetching entity", e);
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+
+
+    @Override
+    public boolean updateSlot(int entityId, int trainerId) {
+
+        log.info("assign slot request in service ");
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+        log.info("assign slot request in service... ");
+        try {
+            et.begin();
+            log.info("begin...... ");
+            Query query = em.createNamedQuery("updateTrainerId");
+            log.info("named query is executing.... ");
+            query.setParameter("trainerId", trainerId);
+            query.setParameter("entityId", entityId);
+            log.info("named query is executing.... ");
+            int updatedRows = query.executeUpdate();
+            log.info("updating.....");
+            et.commit();
+            log.info("committing....");
+            return updatedRows > 0;
+        } catch (Exception e) {
+            if (et.isActive()) {
+                et.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+  public RegisterEntity findNamesByPrefix(String prefix){
+        System.out.println("===================reposi====================");
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+        List<String> result=null;
+
+        try {
+            et.begin();
+//            String jpql = "SELECT r.name FROM RegisterEntity r WHERE r.name LIKE ?1";
+//            return em.createQuery(jpql, String.class)
+//                    .setParameter(1, prefix + "%")
+//                    .getResultList();
+
+            result = em.createQuery("SELECT p.name FROM RegisterEntity p WHERE p.name LIKE :prefix")
+                    .setParameter("prefix", prefix + "%")
+                    .getResultList();
+
+        } catch (Exception e){
+            if (et.isActive()){
+                et.rollback();
+            }
+        } finally {
+            em.close();
+        }
+        return null;
+    }
+
+
+    //--------------------diet from chara
+    @Override
+    public List<RegisterEntity> getAllRegistredUsersDetailsByNameAndPhoneNo(String searchName, Long searchPhoneNo) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+
+        List<RegisterEntity> list = em.createNamedQuery("getAllRegistredUsersDetailsByNameAndPhoneNo").setParameter("getName",searchName).setParameter("getPhoneNo",searchPhoneNo).getResultList();
+        try {
+            et.begin();
+
+            et.commit();
+        } catch (Exception e) {
+            if (et.isActive()) {
+                et.rollback();
+            }
+        } finally {
+            em.close();
+        }
+
+        return list;
+    }
+
+
+    @Override
+    public void saveUserDietAndExercise(UserExerciseAndDietEntity entity) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+
+        try {
+            et.begin();
+            em.persist(entity);
+            et.commit();
+        } catch (Exception e) {
+            if (et.isActive()) {
+                et.rollback();
+            }        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public void saveUserUpdatedDietAndExercise(UserUpdatedExerciseAndDietEntity entity) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+
+        try {
+            et.begin();
+            em.merge(entity);
+            et.commit();
+        } catch (Exception e) {
+            if (et.isActive()) {
+                et.rollback();
+            }        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public List<UserUpdatedExerciseAndDietEntity> getAlluserExerciseAndDietEntitiesById(int id) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+        List<UserUpdatedExerciseAndDietEntity> list = em.createNamedQuery("getAlluserExerciseAndDietEntitiesById",UserUpdatedExerciseAndDietEntity.class).setParameter("getId",id).getResultList();
+
+        try {
+            et.begin();
+            et.commit();
+        }
+        catch (Exception e) {
+            if (et.isActive()) {
+                et.rollback();
+            }
+        } finally {
+            em.close();
+        }
+
+        System.out.println(list);
+        return list;
+    }
+
+
+    @Override
+    public List<UserExerciseAndDietEntity> getuserMonthlyImages(int id) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+        List<UserExerciseAndDietEntity> list= em.createNamedQuery("getuserMonthlyImages",UserExerciseAndDietEntity.class).setParameter("getId",id).getResultList();
+
+        try {
+            et.begin();
+
+            et.commit();
+        } catch (Exception e) {
+            if (et.isActive()) {
+                et.rollback();
+            }        } finally {
+            em.close();
+        }
+
+        System.out.println(list);
+        return list;
+    }
+
 
 
 }

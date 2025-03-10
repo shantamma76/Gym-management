@@ -73,7 +73,6 @@ background-size: cover;
             /* Space for icon inside input field */
         }
     </style>
-
 </head>
 
 <body class="bg-success">
@@ -83,13 +82,13 @@ background-size: cover;
         <a class="navbar-brand" href="#">
             <img src="https://x-workz.in/static/media/Logo.cf195593dc1b3f921369.png" alt="Xworkz Logo">
         </a>
+
         <li><a href="index.jsp"><i class="fas fa-home"></i> Home</a></li>
         <li><a href="Enquiry.jsp"><i class="fas fa-question-circle"></i> Enquiry</a></li>
         <li><a href="search"><i class="fas fa-search"></i> Follow Up</a></li>
         <li><a href="register"><i class="fas fa-user-plus"></i> Register</a></li>
         <li><a href="UpdateRegister.jsp"><i class="fas fa-edit"></i> Update</a></li>
         <li><a href="trainer"><i class="fas fa-edit"></i>Assign Trainer</a></li>
-
     </ul>
 
     <div class="container d-flex justify-content-center align-items-center" style="min-height: 120vh;">
@@ -104,7 +103,7 @@ background-size: cover;
 
                        <select class="form-control" id="name" name="name">
                        <option>--Select--</option>
-                           <c:forEach items="${listOfNames}" var="list">
+                           <c:forEach items="${autocomplete}" var="list">
                                 <option value="${list.name}">${list.name}</option>
                            </c:forEach>
                        </select>

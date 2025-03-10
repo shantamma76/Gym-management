@@ -54,7 +54,13 @@ import java.time.LocalDateTime;
 
 @NamedQuery(name = "getAllRegistredUsersDetails", query = "select a from RegisterEntity a")
 
+//for assigning trainer and slots
+@NamedQuery(name = "assignSlot",query = "SELECT a FROM RegisterEntity a")
+@NamedQuery(name = "findByNameAndEmail", query = "SELECT u FROM RegisterEntity u WHERE u.name = :SetName AND u.email = :SetEmail")
+@NamedQuery(name = "updateTrainerId", query = "UPDATE RegisterEntity u SET u.trainer = (SELECT t FROM TrainerEntity t WHERE t.id = :trainerId) WHERE u.id = :entityId")
 
+//for diet from chara
+@NamedQuery(name = "getAllRegistredUsersDetailsByNameAndPhoneNo", query = "select a from RegisterEntity a where a.name=:getName and a.phone=:getPhoneNo")
 public class RegisterEntity {
 
     @Id

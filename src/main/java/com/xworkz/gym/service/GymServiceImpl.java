@@ -1,9 +1,6 @@
 package com.xworkz.gym.service;
 
-import com.xworkz.gym.DTO.AssignTrainersDto;
-import com.xworkz.gym.DTO.DietDto;
-import com.xworkz.gym.DTO.EnquiryDto;
-import com.xworkz.gym.DTO.RegisterDto;
+import com.xworkz.gym.DTO.*;
 import com.xworkz.gym.Entity.*;
 import com.xworkz.gym.constants.StatusEnum;
 import com.xworkz.gym.repository.GymRepository;
@@ -139,6 +136,7 @@ public class GymServiceImpl implements GymService {
 
 
     //-------------------------------------------------------------------------
+    //admin
     @Override
     public boolean getNameByEmail(String email, String password) {
         log.info("Checking credentials for email: {}", email);
@@ -261,6 +259,7 @@ public class GymServiceImpl implements GymService {
         return repository.findByEmailCustom(email);
 
     }
+
     @Override
     public boolean updateDetailsById(String packages, String trainer, String amount, int paid, double balance, double installment, int id) {
         repository.updateValuesById(packages, trainer, amount, paid, balance, installment, id);
@@ -383,97 +382,15 @@ public class GymServiceImpl implements GymService {
     @Override
     public List<RegisterEntity> getAllRegiDetails() {
         System.out.println("----------------------get alla details in ServiceImpl- --------------");
-        if((repository.getAllRegiDetails()!=null)){
-            return repository.getAllRegiDetails();
-        }
-        return Collections.emptyList();
+        return repository.getAllRegiDetails();
     }
 
-//    @Override
-//    public RegisterEntity getDatabyIdToAssigntrainer(int id, String trainersName) {
-//        RegisterEntity registerEntity = repository.getDataById(id);
-//        if (registerEntity != null) {
-//            registerEntity.setTrainersName(trainersName); //setTrainername(trainer);
-//            repository.updateEntity(registerEntity);
-//            return registerEntity;
-//        }
-//        return null;
-//    }
-//
-//    @Override
-//    public List<RegisterEntity> getCustomrtDetailsWithTrainer() {
-//        System.out.println("---------------CustomrtDetailsWithTrainer in service---------------");
-////        if((repository.getCustomrtDetailsWithTrainer()!=null)){
-//        System.out.println("service====== :"+repository.getCustomrtDetailsWithTrainer());
-//            return repository.getCustomrtDetailsWithTrainer();
-////        }
-////
-////        return Collections.emptyList();
-//    }
-
-    //getting data from TrainerEntity
-    @Override
-    public List<TrainerEntity> getTrainerDetails() {
-        System.out.println("======--------getTrainerDetails in ServiceImpl-------======");
-        if((repository.getTrainerDetails()!=null)){
-            return repository.getTrainerDetails();
-        }
-        return Collections.emptyList();
-    }
-
-    @Override
-    public TrainerEntity getByIdToAssignTrainer(int id, String trainerName, String slotTimings) {
-        TrainerEntity trainerEntity = repository.getDataByTrainerId(id);
-        if (trainerEntity != null) {
-            trainerEntity.setTrainerName(trainerName);  //setTrainername(trainer);
-            repository.updateTrainerEntity(trainerEntity);
-            return trainerEntity;
-        }
-        return null;
-    }
-
-    @Override
-    public boolean saveTrainerAssignDetails(AssignTrainersDto assignTrainersDto) {
-        System.out.println("===========save assign trainer in service==========");
-        AssignTrainersEntity entity = new AssignTrainersEntity();
-        entity.setName(assignTrainersDto.getName());
-        entity.setTrainerName(assignTrainersDto.getTrainerName());
-        entity.setSlotTimings(assignTrainersDto.getSlotTimings());
-
-      boolean saved = repository.saveTrainerAssignDetails(entity);
-        if(saved) {
-            System.out.println("saved in service");
-            return true;
-        }
-        System.out.println("not saved in service");
-        return false;
-    }
-
-    //diet plan
-    @Override
-    public boolean saveDietAndExercise(DietDto dietDto) {
-        System.out.println("saveDietAndExercise in ServiceImplement");
-        DietEntity entity = new DietEntity();
-        entity.setName(dietDto.getName());
-        entity.setAge(dietDto.getAge());
-        entity.setFitnessGoal(dietDto.getFitnessGoal());
-        entity.setDietPlan(dietDto.getDietPlan());
-        entity.setExercisePlan(dietDto.getExercisePlan());
-
-         boolean save= repository.saveDietAndExercise(entity);
-         if(save){
-             System.out.println("save data");
-             return true;
-         }System.out.println("not save data");
-         return false;
-
-    }
 
     //fetching all names from EnquiryEntity in register
     @Override
     public List<EnquiryEntity> getAllEnquiry() {
         System.out.println("----------------------get alla details in ServiceImpl- --------------");
-        if((repository.getAllEnquiry()!=null)){
+        if ((repository.getAllEnquiry() != null)) {
             return repository.getAllEnquiry();
         }
         return Collections.emptyList();
@@ -486,8 +403,108 @@ public class GymServiceImpl implements GymService {
         return num;
     }
 
+//--------------------------------------trail frm ren------------------------------------------
+
+
+    @Override
+    public List<RegisterEntity> assignSlot() {
+
+        List<RegisterEntity> retrive = repository.assignSlot();
+        return retrive;
+    }
+
+
+    @Override
+    public List<TrainerEntity> getTrainerDetails() {
+
+        List<TrainerEntity> retrive = repository.getTrainerDetails();
+        return retrive;
+    }
+
+    @Override
+    public List<SlotsEntity> getTimeSlot() {
+
+        List<SlotsEntity> retrive = repository.getTimeSlot();
+        return retrive;
+    }
+
+    @Override
+    public RegisterEntity searchDetails(String name, String email) {
+
+        log.info("search in service");
+
+        RegisterEntity entity = repository.searchDetails(name, email);
+        return entity;
+    }
+
+    @Override
+    public boolean updateSlot(int entityId, int trainerId) {
+        log.info("assign slot request in service ");
+        boolean updated = repository.updateSlot(entityId, trainerId);
+        return true;
+    }
+
+    //trial frm me
+    @Override
+    public RegisterEntity getNamesStartingWith(String prefix) {
+      System.out.println("============service============");
+        return repository.findNamesByPrefix(prefix);  // Example method to get names by prefix
+    }
+
+
+    //diet plan
+    @Override
+    public List<RegisterEntity> getAllRegistredUsersDetailsByNameAndPhoneNo(String searchName, Long searchPhoneNo) {
+        return repository.getAllRegistredUsersDetailsByNameAndPhoneNo(searchName, searchPhoneNo);
+    }
+
+    @Override
+    public void saveUserDietAndExercise(int id, String filePath, UserExerciseAndDietDTO userExerciseAndDietDTO) {
+
+        UserExerciseAndDietEntity entity = new UserExerciseAndDietEntity();
+        entity.setId(id);
+        entity.setMonday(userExerciseAndDietDTO.getMonday());
+        entity.setTuesday(userExerciseAndDietDTO.getTuesday());
+        entity.setWednesday(userExerciseAndDietDTO.getWednesday());
+        entity.setThursday(userExerciseAndDietDTO.getThursday());
+        entity.setFriday(userExerciseAndDietDTO.getFriday());
+        entity.setSaturday(userExerciseAndDietDTO.getSaturday());
+        entity.setSunday(userExerciseAndDietDTO.getSunday());
+        entity.setMonth(userExerciseAndDietDTO.getMonth());
+        entity.setDietPlan(userExerciseAndDietDTO.getDietPlan());
+        entity.setUsermonthlyImage(filePath);
+        repository.saveUserDietAndExercise(entity);
+
+        UserUpdatedExerciseAndDietEntity userUpdatedExerciseAndDietEntity = new UserUpdatedExerciseAndDietEntity();
+        userUpdatedExerciseAndDietEntity.setId(id);
+        userUpdatedExerciseAndDietEntity.setMonday(userExerciseAndDietDTO.getMonday());
+        userUpdatedExerciseAndDietEntity.setTuesday(userExerciseAndDietDTO.getTuesday());
+        userUpdatedExerciseAndDietEntity.setWednesday(userExerciseAndDietDTO.getWednesday());
+        userUpdatedExerciseAndDietEntity.setThursday(userExerciseAndDietDTO.getThursday());
+        userUpdatedExerciseAndDietEntity.setFriday(userExerciseAndDietDTO.getFriday());
+        userUpdatedExerciseAndDietEntity.setSaturday(userExerciseAndDietDTO.getSaturday());
+        userUpdatedExerciseAndDietEntity.setSunday(userExerciseAndDietDTO.getSunday());
+        userUpdatedExerciseAndDietEntity.setMonth(userExerciseAndDietDTO.getMonth());
+        userUpdatedExerciseAndDietEntity.setDietPlan(userExerciseAndDietDTO.getDietPlan());
+        userUpdatedExerciseAndDietEntity.setUsermonthlyImage(filePath);
+        repository.saveUserUpdatedDietAndExercise(userUpdatedExerciseAndDietEntity);
+    }
+
+    @Override
+    public List<UserUpdatedExerciseAndDietEntity> getAlluserExerciseAndDietEntitiesById(int id) {
+        return repository.getAlluserExerciseAndDietEntitiesById(id);
+    }
+
+    @Override
+    public List<UserExerciseAndDietEntity> getuserMonthlyImages(int id) {
+        return repository.getuserMonthlyImages(id);
+    }
+
+
 
 }
+
+
 
 
 

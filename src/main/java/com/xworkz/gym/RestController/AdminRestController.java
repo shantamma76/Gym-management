@@ -35,6 +35,7 @@ public class AdminRestController {
         }
     }
 
+
     @GetMapping(value = "/password/{password}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String onAdminPasswords(@PathVariable String password) {
         log.info("Password is=" +password);

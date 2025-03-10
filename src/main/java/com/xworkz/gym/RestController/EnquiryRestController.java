@@ -4,6 +4,7 @@ import com.xworkz.gym.service.GymService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,9 +23,10 @@ public class EnquiryRestController {
     GymService  service;
 
     @GetMapping(value = "/name/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String onCountName(@PathVariable String name) {
-        log.info("Name is=" +name);
-      Long count =  this.service.countName(name);
+    public String onCountName(@PathVariable String name, Model model) {
+        log.info("Name is=" + name);
+        Long count = this.service.countName(name);
+
         if (count == 0) {
             System.out.println("name does not exist");
             return "does not exist";
@@ -32,6 +34,7 @@ public class EnquiryRestController {
             System.out.println("name is exists");
             return "exist";
         }
+
     }
 
 //    @GetMapping(value = "/email/{email}", produces = MediaType.APPLICATION_JSON_VALUE)

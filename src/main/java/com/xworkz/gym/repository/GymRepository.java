@@ -82,14 +82,12 @@ public interface GymRepository {
 
     //--------------meeeeeeeeee--------------------------
     List<RegisterEntity> getAllRegiDetails();
-    List<TrainerEntity> getTrainerDetails();
-
+    List<TrainerEntity> getTrainers();
     TrainerEntity getDataByTrainerId(int id);
     boolean updateTrainerEntity(TrainerEntity entity);
-
     boolean saveTrainerAssignDetails(AssignTrainersEntity assignTrainersEntity);
 
-    boolean saveDietAndExercise(DietEntity dietEntity);
+    //boolean saveDietAndExercise(DietEntity dietEntity);
 
     List<EnquiryEntity> getAllEnquiry();
     String getPhoneNumberByName(String name);
@@ -97,7 +95,26 @@ public interface GymRepository {
     //========================
     public void updateUserDetails(RegisterEntity registerEntity);
 
+    //-----------------------assign trainer ren working-------------------------
+    List<RegisterEntity> assignSlot();
+    List<TrainerEntity> getTrainerDetails();
+    List<SlotsEntity> getTimeSlot();
+    RegisterEntity searchDetails(String name,String email);
+    boolean updateSlot(int entityId, int trainerId);
+
+    RegisterEntity findNamesByPrefix(String prefix);
+
+
+
+    //-----diet from char---
+    List<RegisterEntity> getAllRegistredUsersDetailsByNameAndPhoneNo(String searchName, Long searchPhoneNo);
+    void saveUserDietAndExercise(UserExerciseAndDietEntity entity);
+    void saveUserUpdatedDietAndExercise(UserUpdatedExerciseAndDietEntity entity);
+
+    List<UserUpdatedExerciseAndDietEntity> getAlluserExerciseAndDietEntitiesById(int id);
+    List<UserExerciseAndDietEntity> getuserMonthlyImages(int id);
 }
+
 
 
 
