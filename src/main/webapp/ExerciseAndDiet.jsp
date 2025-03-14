@@ -289,7 +289,7 @@ input[type="month"] {
 
     <!-- Navigation centered -->
      <nav class="nav">
-           <a href="index.jsp">Home</a>
+           <a href="Success.jsp">Home</a>
            <a href="Enquiry.jsp">Enquiry</a>
            <a href="search">FollowUp</a>
            <a href="register">Registration</a>
@@ -308,18 +308,19 @@ input[type="month"] {
 
     <!-- Toggle Menu -->
     <nav class="mobile-nav">
-           <a href="index.jsp">Home</a>
+           <a href="Success.jsp">Home</a>
            <a href="Enquiry.jsp">Enquiry</a>
            <a href="search">FollowUp</a>
            <a href="register">Registration</a>
            <a href="update">Update</a>
-           <a href="trainerslots.jsp">Slots</a>
+           <a href="trainerslots">Slots</a>
           <!-- <a href="viewtrainer">View Trainer</a> -->
            <a href="assignSlot">AssignUsers</a>
             <a href="UpdateExerciseAndDiet">UpdateUserExerciseAndDiet</a>
            <a href="index.jsp">Logout</a>
        </nav>
   </header>
+
 
 <form id="exercisediet" enctype="multipart/form-data" action="exercisediet" method="post">
 
@@ -420,7 +421,6 @@ input[type="month"] {
 
     <button type="submit" id="submit-btn">Submit</button>
 </form>
-
 
 <script>
 

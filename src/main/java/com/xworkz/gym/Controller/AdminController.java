@@ -22,7 +22,7 @@ public class AdminController {
         boolean read = service.getNameByEmail(email, password);
         if (read) {
             model.addAttribute("msg", "login successfully");
-            return "Success";
+            return "AdminSuccess";
         }
         model.addAttribute("error", "Login failure");
         return "Admin";

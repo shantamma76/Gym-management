@@ -6,9 +6,13 @@ import com.xworkz.gym.Entity.TrainerEntity;
 import com.xworkz.gym.service.GymService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,7 +28,7 @@ public class TrainerAssigningController {
         log.info("This is from the CustomerDetailsController");
     }
 
-    @GetMapping("/assignSlot")
+    @GetMapping("/assignTrainer")
     public String assignSlot() {
         List<RegisterEntity> list = service.assignSlot();
         log.info("printining list" + list);
@@ -35,6 +39,7 @@ public class TrainerAssigningController {
     private String search(@RequestParam("name") String name, @RequestParam("email") String email, Model model) {
         log.info("search in controller");
         RegisterEntity entity = service.searchDetails(name, email);
+        System.out.println("==========:"+entity);
         log.info("entity" + entity);
         model.addAttribute("entity", entity);
 
@@ -62,6 +67,23 @@ public class TrainerAssigningController {
         }
         return "AssignSlot";  // Redirect to a confirmation page
     }
+
+
+    //auto complete
+//    @GetMapping("/searchEntities")
+//    @ResponseBody
+//    public List<String> searchEntity(@RequestParam("term") String term) {
+//        // Your existing code to search and return results as JSON
+//        List<String> matchingNames = service.findMatchingNames(term);
+//        return matchingNames;
+//    }
+
+
+
+
+
+
+
 
 }
 

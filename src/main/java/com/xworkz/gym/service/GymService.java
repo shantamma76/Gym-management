@@ -66,6 +66,9 @@ public interface GymService {
     RegisterEntity getEmail(String email, String password);
     String resetPassword(String email, String oldPassword, String newPassword, String confirmPassword);
 
+    //forget password
+    String resetPasswordByEmail(String email,String newPassword,String confirmPassword);
+
     //Update Profile
     List<RegisterEntity> getAllRegisteredUserDetailsById(int id);
     RegisterDto updateUserProfile(String name,RegisterDto registrationDTO, String filePath);
@@ -85,13 +88,6 @@ public interface GymService {
 
     //==========Assign trainers to users frm me========
     List<RegisterEntity> getAllRegiDetails();    //getting data from register details
-//    List<TrainerEntity> getTrainers();    //getting data from TrainerEntity
-//    TrainerEntity getByIdToAssignTrainer(int id, String trainerName, String slotTimings);
-//    boolean saveTrainerAssignDetails(AssignTrainersDto assignTrainersDto);
-
-   // boolean saveDietAndExercise(DietDto dietDto);
-
-
 
     //=============for assign trainers and slots working========================================================================
     List<RegisterEntity> assignSlot();
@@ -100,14 +96,21 @@ public interface GymService {
     RegisterEntity searchDetails(String name,String email);
     boolean updateSlot(int entityId, int trainerId);
 
-    public RegisterEntity getNamesStartingWith(String prefix);
+   // public RegisterEntity getNamesStartingWith(String prefix);
 
 
     //-----------------------diet plane frm cha-------------------
     public List<RegisterEntity> getAllRegistredUsersDetailsByNameAndPhoneNo(String searchName, Long searchPhoneNo);
     void saveUserDietAndExercise(int id, String filePath, UserExerciseAndDietDTO userExerciseAndDietDTO);
+
     List<UserUpdatedExerciseAndDietEntity> getAlluserExerciseAndDietEntitiesById(int id);
     List<UserExerciseAndDietEntity> getuserMonthlyImages(int id);
+
+    //----user profile
+    RegisterEntity getAllRegistredUsersDetailsById(String name);
+    public AssignTrainersEntity getTrainerAndSlotByUserName(String name);
+
+
 }
 
 

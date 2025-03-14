@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
+
 @Slf4j
 @RestController
 @RequestMapping("/registration")
@@ -28,10 +29,10 @@ public class RegisterRestController {
         Long count = this.service.countNameBy(name);
         if (count == 0) {
             System.out.println("name does not exist");
-            return "does not exist";
+            return "";
         } else {
             System.out.println("name is exists");
-            return "exist";
+            return "";
         }
     }
 
@@ -41,10 +42,10 @@ public class RegisterRestController {
         Long count = this.service.countByEmail(email);
         if (count == 0) {
             System.out.println("email does not exist");
-            return "does not exist";
+            return "";
         } else {
             System.out.println("email is exists");
-            return "exist";
+            return "";
         }
     }
 
@@ -54,10 +55,10 @@ public class RegisterRestController {
         Long count = this.service.countByTrainer(trainer);
         if (count == 0) {
             System.out.println("trainer does not exist");
-            return "does not exist";
+            return "";
         } else {
             System.out.println("trainer is exists");
-            return "exist";
+            return "";
         }
     }
 
@@ -67,10 +68,10 @@ public class RegisterRestController {
         Long count = this.service.countByPhone(phone);
         if (count == 0) {
             System.out.println("phone does not exist");
-            return "does not exist";
+            return "";
         } else {
             System.out.println("phone is exists");
-            return "exist";
+            return "";
         }
     }
 
@@ -80,10 +81,10 @@ public class RegisterRestController {
         Long count = this.service.countByGymName(gymName);
         if (count == 0) {
             System.out.println("gymName does not exist");
-            return "does not exist";
+            return "";
         } else {
             System.out.println("gymName is exists");
-            return "exist";
+            return "";
         }
     }
 
@@ -112,5 +113,6 @@ public class RegisterRestController {
 //            return "exist";
 //        }
 //    }
+
 
 }

@@ -282,7 +282,7 @@
            <a href="search">FollowUp</a>
            <a href="register">Registration</a>
            <a href="update">Update</a>
-           <a href="trainerslots.jsp">Slots</a>
+           <a href="trainerslots">Slots</a>
           <!-- <a href="viewtrainer">View Trainer</a> -->
            <a href="assignSlot">AssignUsers</a>
             <a href="UpdateExerciseAndDiet">UpdateUserExerciseAndDiet</a>
@@ -354,10 +354,10 @@
     </div>
 </div>
 
-<!--
+
 <script>
 
-    document.getElementById('month-image').addEventListener('change', function(event) {
+/* document.getElementById('month-image').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
@@ -368,7 +368,8 @@
             }
             reader.readAsDataURL(file);
         }
-    }); -->
+    }  */
+
 
     function toggleMenu() {
         document.querySelector('.mobile-nav').classList.toggle('show');

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -676,6 +677,39 @@ public class GymRepositoryImpl implements GymRepository {
         return "Account lock time is set";
     }
 
+    @Override
+    public String resetPasswordByEmail(String email, String newPassword) {
+        System.out.println("Entering repository resetPasswordByEmail");
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+
+        try {
+            et.begin();
+
+            Query query = em.createNamedQuery("resetPasswordByEmail");
+            query.setParameter("setNewPassword", newPassword);
+            query.setParameter("emailBy", email);
+
+            int value = query.executeUpdate();
+            et.commit();
+
+            System.out.println("Rows affected:" + value);
+
+            if (value > 0) {
+                return "password updated successfully";
+            } else {
+                return "Password Updated";
+            }
+        } catch (Exception e) {
+            if (et.isActive()) {
+                et.rollback();
+            }
+        } finally {
+            em.close();
+        }
+        return "password updated successfully";
+    }
+
 
     //--------------------
 
@@ -723,8 +757,30 @@ public class GymRepositoryImpl implements GymRepository {
         } finally {
             em.close();
         }
-        return null;
+
+        return registerDto;
     }
+
+
+//    @Override
+//    public int updateUserProfile(RegistrationEntity entity, String filePath,int id) {
+//        EntityManager em = entityManagerFactory.createEntityManager();
+//        EntityTransaction et = em.getTransaction();
+//        int value=0;
+//        try {
+//            et.begin();
+//            value=em.createNamedQuery("updateUserProfile").setParameter("getprofileImage",filePath).setParameter("getName",entity.getName()).setParameter("getEmail",entity.getEmail()).setParameter("getPhoneNo",entity.getPhoneNumber()).setParameter("getAge",entity.getAge()).setParameter("getWeight",entity.getWeight()).setParameter("getHeight",entity.getHeight()).setParameter("getChestSize",entity.getChestSize()).setParameter("getId",id).executeUpdate();
+//
+//            et.commit();
+//        } catch (Exception e) {
+//            if (et.isActive()) {
+//                et.rollback();
+//            }
+//        } finally {
+//            em.close();
+//        }
+//        return value;
+//    }
 
 
     //------------time slot-------
@@ -795,6 +851,7 @@ public class GymRepositoryImpl implements GymRepository {
 
     @Override
     public List<TrainerEntity> findAlltrainerlist() {
+        System.out.println("=====find All trainer list in repo======");
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
@@ -992,7 +1049,6 @@ public class GymRepositoryImpl implements GymRepository {
     }
 
 
-
     @Override
     public List<EnquiryEntity> getAllEnquiry() {
         System.out.println("---------------getAllEnquiry in RepoImpl-------------");
@@ -1113,12 +1169,8 @@ public class GymRepositoryImpl implements GymRepository {
     public List<SlotsEntity> getTimeSlot() {
         EntityManager em = emf.createEntityManager();
         EntityTransaction et = em.getTransaction();
-
         log.info("getting all data in repository");
-
-
         try {
-
             Query query = em.createNamedQuery("getTimeSlotEntity");
             log.info("returning from database...");
             return query.getResultList();
@@ -1164,7 +1216,6 @@ public class GymRepositoryImpl implements GymRepository {
 
     @Override
     public boolean updateSlot(int entityId, int trainerId) {
-
         log.info("assign slot request in service ");
         EntityManager em = emf.createEntityManager();
         EntityTransaction et = em.getTransaction();
@@ -1193,34 +1244,6 @@ public class GymRepositoryImpl implements GymRepository {
         }
     }
 
-    @Override
-  public RegisterEntity findNamesByPrefix(String prefix){
-        System.out.println("===================reposi====================");
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction et = em.getTransaction();
-        List<String> result=null;
-
-        try {
-            et.begin();
-//            String jpql = "SELECT r.name FROM RegisterEntity r WHERE r.name LIKE ?1";
-//            return em.createQuery(jpql, String.class)
-//                    .setParameter(1, prefix + "%")
-//                    .getResultList();
-
-            result = em.createQuery("SELECT p.name FROM RegisterEntity p WHERE p.name LIKE :prefix")
-                    .setParameter("prefix", prefix + "%")
-                    .getResultList();
-
-        } catch (Exception e){
-            if (et.isActive()){
-                et.rollback();
-            }
-        } finally {
-            em.close();
-        }
-        return null;
-    }
-
 
     //--------------------diet from chara
     @Override
@@ -1228,7 +1251,7 @@ public class GymRepositoryImpl implements GymRepository {
         EntityManager em = emf.createEntityManager();
         EntityTransaction et = em.getTransaction();
 
-        List<RegisterEntity> list = em.createNamedQuery("getAllRegistredUsersDetailsByNameAndPhoneNo").setParameter("getName",searchName).setParameter("getPhoneNo",searchPhoneNo).getResultList();
+        List<RegisterEntity> list = em.createNamedQuery("getAllRegistredUsersDetailsByNameAndPhoneNo").setParameter("getName", searchName).setParameter("getPhoneNo", searchPhoneNo).getResultList();
         try {
             et.begin();
 
@@ -1257,7 +1280,8 @@ public class GymRepositoryImpl implements GymRepository {
         } catch (Exception e) {
             if (et.isActive()) {
                 et.rollback();
-            }        } finally {
+            }
+        } finally {
             em.close();
         }
     }
@@ -1274,22 +1298,23 @@ public class GymRepositoryImpl implements GymRepository {
         } catch (Exception e) {
             if (et.isActive()) {
                 et.rollback();
-            }        } finally {
+            }
+        } finally {
             em.close();
         }
     }
 
     @Override
     public List<UserUpdatedExerciseAndDietEntity> getAlluserExerciseAndDietEntitiesById(int id) {
+        System.out.println("===== getAlluserExerciseAndDietEntitiesById in repo ====");
         EntityManager em = emf.createEntityManager();
         EntityTransaction et = em.getTransaction();
-        List<UserUpdatedExerciseAndDietEntity> list = em.createNamedQuery("getAlluserExerciseAndDietEntitiesById",UserUpdatedExerciseAndDietEntity.class).setParameter("getId",id).getResultList();
+        List<UserUpdatedExerciseAndDietEntity> list = em.createNamedQuery("getAlluserExerciseAndDietEntitiesById", UserUpdatedExerciseAndDietEntity.class).setParameter("getId", id).getResultList();
 
         try {
             et.begin();
             et.commit();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             if (et.isActive()) {
                 et.rollback();
             }
@@ -1306,7 +1331,7 @@ public class GymRepositoryImpl implements GymRepository {
     public List<UserExerciseAndDietEntity> getuserMonthlyImages(int id) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction et = em.getTransaction();
-        List<UserExerciseAndDietEntity> list= em.createNamedQuery("getuserMonthlyImages",UserExerciseAndDietEntity.class).setParameter("getId",id).getResultList();
+        List<UserExerciseAndDietEntity> list = em.createNamedQuery("getuserMonthlyImages", UserExerciseAndDietEntity.class).setParameter("getId", id).getResultList();
 
         try {
             et.begin();
@@ -1315,13 +1340,90 @@ public class GymRepositoryImpl implements GymRepository {
         } catch (Exception e) {
             if (et.isActive()) {
                 et.rollback();
-            }        } finally {
+            }
+        } finally {
             em.close();
         }
 
         System.out.println(list);
         return list;
     }
+
+
+    @Override
+    public RegisterEntity getAllRegistredUsersDetailsById(String name) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+        RegisterEntity registrationEntity = null;
+        try {
+            et.begin();
+            List<RegisterEntity> list = em.createNamedQuery("getAllRegistredUsersDetailsById").setParameter("getId", name).getResultList();
+
+            if (!list.isEmpty()) {
+                registrationEntity = list.get(0);
+            }
+
+            et.commit();
+
+        } catch (Exception e) {
+            if (et.isActive()) {
+                et.rollback();
+            }
+        } finally {
+            em.close();
+        }
+        return registrationEntity;
+    }
+
+    @Override
+    public AssignTrainersEntity getTrainerAndSlotByUserName(String name) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+        AssignTrainersEntity entity = null;
+
+        try {
+            et.begin();
+            List<AssignTrainersEntity> trainerEntities = em.createNamedQuery("getTrainerAndSlotByUserName", AssignTrainersEntity.class).setParameter("getUserName", name).getResultList();
+            if (!trainerEntities.isEmpty()) {
+                entity = trainerEntities.get(0);
+            }
+            et.commit();
+        } catch (Exception e) {
+            if (et.isActive()) {
+                et.rollback();
+            }
+        } finally {
+            em.close();
+        }
+        return entity;
+    }
+
+    //--------------
+//    @Override
+//    public RegisterEntity findNamesByPrefix(String prefix) {
+//        System.out.println("===================reposi====================");
+//        EntityManager em = emf.createEntityManager();
+//        EntityTransaction et = em.getTransaction();
+//        List<RegisterEntity> result = null;
+//
+//        try {
+//            et.begin();
+//            result = em.createQuery("SELECT p.name FROM RegisterEntity p WHERE p.name LIKE :prefix")
+//                    .setParameter("prefix", prefix + "%")
+//                    .getResultList();
+//
+//        } catch (Exception e) {
+//            if (et.isActive()) {
+//                et.rollback();
+//            }
+//        } finally {
+//            em.close();
+//        }
+//        return null;
+//    }
+
+
+
 
 
 

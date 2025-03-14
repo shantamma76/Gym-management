@@ -7,26 +7,129 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        body {
-            background: url('https://static.vecteezy.com/system/resources/thumbnails/035/987/056/small_2x/ai-generated-still-life-of-interior-modern-fitness-center-gym-with-a-workout-room-empty-space-for-text-ai-generated-photo.jpg') no-repeat center center fixed;
-            background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+          body {
+                   background: url('https://static.vecteezy.com/system/resources/thumbnails/035/987/056/small_2x/ai-generated-still-life-of-interior-modern-fitness-center-gym-with-a-workout-room-empty-space-for-text-ai-generated-photo.jpg') no-repeat center center fixed;
+                   background-size: cover;
+                   display: flex;
+                   justify-content: center;
+                   align-items: center;
+                   height: 100vh;
+                   margin: 0;
+                   padding-top: 80px;
+               }
 
-        .form-container {
-            background-color: rgba(255, 255, 255, 0.9);
-            color: black;
-            border-radius: 25px;
-            margin-top: 200px;
-            padding: 30px;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-            width: 600px;
-            max-height: 700px;
-            overflow-y: auto;
-        }
+               .form-container {
+                   background-color: rgba(255, 255, 255, 0.9);
+                   color: black;
+                   margin-top:60px;
+                   border-radius: 35px;
+                   padding: 30px;
+                   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+                   width: 600px;
+                   max-height: 700px;
+                   overflow-y: auto;
+                   z-index: 1;
+               }
+
+               .header {
+                   display: flex;
+                   justify-content: space-between;
+                   align-items: center;
+                   padding: 10px 30px;
+                   position: fixed;
+                   top: 0;
+                   width: 100%;
+                   z-index: 999;
+                   color: white;
+                   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                   background-color: #0E0E0E;
+               }
+
+               .logo-img {
+                   max-height: 51px;
+                   height: auto;
+               }
+
+               .nav {
+                   display: flex;
+                   align-items: center;
+                   gap: 30px;
+                   justify-content: center;
+                   flex-grow: 1;
+               }
+
+               .nav a {
+                   color: white;
+                   text-decoration: none;
+                   font-size: 1rem;
+                   transition: color 0.3s;
+               }
+
+               .nav a:hover {
+                   color: #f0c14b;
+               }
+
+               .menu-toggle {
+                   display: flex;
+                   flex-direction: column;
+                   cursor: pointer;
+                   margin-left: 15px;
+               }
+
+               .menu-toggle div {
+                   width: 30px;
+                   height: 3px;
+                   background-color: white;
+                   margin: 5px 0;
+                   transition: 0.3s;
+               }
+
+               .mobile-nav {
+                   display: none;
+                   flex-direction: column;
+                   position: absolute;
+                   top: 70px;
+                   right: 0;
+                   background: rgba(14, 14, 14, 0.9);
+                   width: 100%;
+                   padding: 15px 0;
+                   align-items: center;
+                   z-index: 9999;
+               }
+
+               .mobile-nav a {
+                   padding: 10px;
+                   color: white;
+                   text-decoration: none;
+                   font-size: 1rem;
+                   text-align: center;
+                   display: block;
+                   width: 100%;
+                   transition: color 0.3s;
+               }
+
+               .mobile-nav a:hover {
+                   color: #f0c14b;
+               }
+
+               .mobile-nav.show {
+                   display: flex;
+               }
+
+               @media (max-width: 768px) {
+                   .nav {
+                       display: none;
+                   }
+                   .menu-toggle {
+                       display: flex;
+                   }
+                   .mobile-nav {
+                       display: none;
+                   }
+                   .mobile-nav.show {
+                       display: flex;
+                   }
+               }
 
         .fitness-image {
             width: 6cm;
@@ -93,91 +196,56 @@
             }
         }
 
-        .navbar {
-            display: flex;
-            justify-content: flex-end;
-            list-style-type: none;
-            padding: 10px;
-            margin: 0;
-            background-color: black;
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-        }
 
-        .navbar ul {
-            justify-content: flex-end;
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .navbar ul li {
-            justify-content: flex-end;
-            margin-right: 30px;
-            display: inline-block;
-        }
-
-        .navbar ul li a {
-            color: pink;
-            font-size: 18px;
-            font-weight: 600;
-            text-decoration: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
-
-        .navbar ul li a:hover {
-            background-color: black;
-            color: gray;
-        }
-
-        .navbar ul li.active a {
-            background-color: red;
-            color: blue;
-        }
     </style>
 </head>
 
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav"> <!-- use justify-content-end here -->
-                <ul class="navbar-nav">
-                <li class="nav-item">
-                                        <a class="nav-link active" href="index.jsp"><i class="fas fa-search"></i>Home</a>
-                                    </li>
+      <!-- Header Section -->
+               <header class="header">
+                   <!-- Logo -->
+                   <div class="logo">
+                       <img src="https://x-workz.in/static/media/Logo.cf195593dc1b3f921369.png" alt="Logo" class="logo-img">
+                   </div>
 
-                    <li class="nav-item">
-                        <a class="nav-link active" href="Enquiry.jsp"><i class="fas fa-search"></i>Enquiry</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="search"><i class="fas fa-users"></i> FollowUp</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="Registration.jsp"><i class="fas fa-user-plus"></i> Registration</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="update"><i class="fas fa-edit"></i> Update</a>
-                    </li>
-                     <li class="nav-item">
-                                            <a class="nav-link active" href="trainerslots.jsp"><i class="fas fa-edit"></i>trainerSlots</a>
-                                        </li>
-                                         <li class="nav-item">
-                                                                <a class="nav-link active" href="noTrainer"><i class="fas fa-edit"></i>AssignTrainer</a>
-                                                            </li>
+                   <!-- Navigation centered -->
+                   <nav class="nav">
+                       <a href="Success.jsp">Home</a>
+                       <a href="Enquiry.jsp">Enquiry</a>
+                       <a href="search">FollowUp</a>
+                       <a href="register">Registration</a>
+                   </nav>
 
-                </ul>
-            </div>
-        </div>
-    </nav>
+                   <!-- Profile Image + Toggle Menu (Right Side) -->
+                   <div style="display: flex; align-items: center;">
+                       <div class="menu-toggle" onclick="toggleMenu()">
+                           <div></div>
+                           <div></div>
+                           <div></div>
+                       </div>
+                   </div>
+               </header>
+
+               <!-- Toggle Menu -->
+               <nav class="mobile-nav">
+                   <a href="Success.jsp">Home</a>
+                   <a href="Enquiry.jsp">Enquiry</a>
+                   <a href="search">FollowUp</a>
+                   <a href="register">Registration</a>
+                   <a href="update">Update</a>
+                   <a href="trainerslots">Slots</a>
+                   <a href="assign">AssignUsers</a>
+                   <a href="UpdateExerciseAndDiet">UpdateUserExerciseAndDiet</a>
+                   <a href="index.jsp">Logout</a>
+               </nav>
+
+               <script>
+                   // Toggle mobile menu visibility
+                   function toggleMenu() {
+                       const mobileNav = document.querySelector('.mobile-nav');
+                       mobileNav.classList.toggle('show');
+                   }
+               </script>
 
     <div class="form-container">
         <!-- Search Form -->

@@ -20,7 +20,7 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import javax.sql.DataSource;
-import java.util.Arrays;
+
 
 @Configuration
 @ComponentScan("com.xworkz.gym")
@@ -84,6 +84,9 @@ public class GymConfiguration {
         resolver.setCharacterEncoding("UTF-8");
         return resolver;
     }
+
+
+
 
 //    @Override
 //    public void addViewControllers(ViewControllerRegistry registry) {

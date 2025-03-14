@@ -33,7 +33,6 @@ import java.time.LocalDateTime;
 
 //account locked
 @NamedQuery(name="accountLockedTimeByEmail", query="update RegisterEntity p set p.accountLockedTime = :accountLockedTimeBy where p.email = :emailBy")
-//@NamedQuery(name="getEmailPassword",query = "SELECT p FROM RegisterEntity p WHERE p.email = :emailBy AND p.password = :passwordBy")
 
 //forget password
 @NamedQuery(name = "resetPasswordByEmail", query = "update RegisterEntity p set p.password = :setNewPassword where p.email = :emailBy")
@@ -61,6 +60,9 @@ import java.time.LocalDateTime;
 
 //for diet from chara
 @NamedQuery(name = "getAllRegistredUsersDetailsByNameAndPhoneNo", query = "select a from RegisterEntity a where a.name=:getName and a.phone=:getPhoneNo")
+
+//for profile
+@NamedQuery(name = "getAllRegistredUsersDetailsById",query = "select a from RegisterEntity a where a.name=:getId")
 public class RegisterEntity {
 
     @Id

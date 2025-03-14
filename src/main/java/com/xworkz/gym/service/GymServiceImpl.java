@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -326,6 +327,17 @@ public class GymServiceImpl implements GymService {
         return "password updated successfully";
     }
 
+    //forget Password
+    @Override
+    public String resetPasswordByEmail(String email, String newPassword, String confirmPassword) {
+        System.out.println("reset password in service");
+        if(newPassword.equals(confirmPassword)){
+            repository.userSave(email);
+            return repository.resetPasswordByEmail(email, newPassword);
+        }
+        return "password updated successfully";
+    }
+
     //------------------profile------------------------trial
     @Override
     public List<RegisterEntity> getAllRegisteredUserDetailsById(int id) {
@@ -337,6 +349,11 @@ public class GymServiceImpl implements GymService {
     public RegisterDto updateUserProfile(String name, RegisterDto registerDto, String filePath) {
         return repository.updateUserProfile(name, registerDto, filePath);
     }
+
+//    @Override
+//    public RegisterDto updateUserProfile(int id, RegisterDto registerDto, String filePath) {
+//        return repository.updateUserProfile(id, registerDto, filePath);
+//    }
 
     //------time slot----
     @Override
@@ -445,11 +462,11 @@ public class GymServiceImpl implements GymService {
     }
 
     //trial frm me
-    @Override
-    public RegisterEntity getNamesStartingWith(String prefix) {
-      System.out.println("============service============");
-        return repository.findNamesByPrefix(prefix);  // Example method to get names by prefix
-    }
+//    @Override
+//    public RegisterEntity getNamesStartingWith(String prefix) {
+//      System.out.println("============service============");
+//        return repository.findNamesByPrefix(prefix);  // Example method to get names by prefix
+//    }
 
 
     //diet plan
@@ -492,6 +509,7 @@ public class GymServiceImpl implements GymService {
 
     @Override
     public List<UserUpdatedExerciseAndDietEntity> getAlluserExerciseAndDietEntitiesById(int id) {
+        System.out.println("=======getAlluserExerciseAndDietEntitiesById in service======");
         return repository.getAlluserExerciseAndDietEntitiesById(id);
     }
 
@@ -499,6 +517,19 @@ public class GymServiceImpl implements GymService {
     public List<UserExerciseAndDietEntity> getuserMonthlyImages(int id) {
         return repository.getuserMonthlyImages(id);
     }
+
+
+    @Override
+    public RegisterEntity getAllRegistredUsersDetailsById(String name) {
+        return repository.getAllRegistredUsersDetailsById(name);
+    }
+
+    @Override
+    public AssignTrainersEntity getTrainerAndSlotByUserName(String name) {
+        return  repository.getTrainerAndSlotByUserName(name);
+    }
+
+
 
 
 

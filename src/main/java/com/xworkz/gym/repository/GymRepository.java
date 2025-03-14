@@ -60,6 +60,9 @@ public interface GymRepository {
     String updatePasswordByEmail(String email, String newPassword);
     String updateLockedAccountTimeByEmail(String email);
 
+    //forget password
+    String resetPasswordByEmail(String email, String newPassword);
+
     //------------------Update Profile---------------------------
     List<RegisterEntity> getAllRegisteredUserDetailsById(int id);
     RegisterDto updateUserProfile(String name, RegisterDto registrationDTO, String filePath);
@@ -75,10 +78,6 @@ public interface GymRepository {
     //delete slot
     public boolean getDeleteTrainerById(int id);
 
-    //----------------------------------------------
-    //RegisterEntity getDataById(int id);
-    //boolean updateEntity(RegisterEntity entity);
-    //List<RegisterEntity> getCustomrtDetailsWithTrainer();
 
     //--------------meeeeeeeeee--------------------------
     List<RegisterEntity> getAllRegiDetails();
@@ -87,7 +86,7 @@ public interface GymRepository {
     boolean updateTrainerEntity(TrainerEntity entity);
     boolean saveTrainerAssignDetails(AssignTrainersEntity assignTrainersEntity);
 
-    //boolean saveDietAndExercise(DietEntity dietEntity);
+
 
     List<EnquiryEntity> getAllEnquiry();
     String getPhoneNumberByName(String name);
@@ -102,7 +101,7 @@ public interface GymRepository {
     RegisterEntity searchDetails(String name,String email);
     boolean updateSlot(int entityId, int trainerId);
 
-    RegisterEntity findNamesByPrefix(String prefix);
+  //  RegisterEntity findNamesByPrefix(String prefix);
 
 
 
@@ -113,6 +112,11 @@ public interface GymRepository {
 
     List<UserUpdatedExerciseAndDietEntity> getAlluserExerciseAndDietEntitiesById(int id);
     List<UserExerciseAndDietEntity> getuserMonthlyImages(int id);
+
+    //user profile-----------------
+    RegisterEntity getAllRegistredUsersDetailsById(String name);
+    AssignTrainersEntity getTrainerAndSlotByUserName(String name);
+
 }
 
 

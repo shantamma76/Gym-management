@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -32,6 +33,7 @@ public class FollowUpController {
         } else {
             enquiryList = service.getEnquiries();
         }
+        Collections.reverse(enquiryList);   //all lists are in descending order
         model.addAttribute("enquiryList", enquiryList);
         model.addAttribute("statusOptions", Arrays.asList(StatusEnum.values()));
         model.addAttribute("selectedStatus", status);

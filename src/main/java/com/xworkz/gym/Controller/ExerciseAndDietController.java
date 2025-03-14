@@ -71,6 +71,7 @@ public class ExerciseAndDietController {
 
     @PostMapping("/exercisediet")
     public String onUpdates(@RequestParam("dietImage") MultipartFile multipartFile, @RequestParam int id, UserExerciseAndDietDTO userExerciseAndDietDTO , Model model, HttpSession httpSession) throws IOException {
+        System.out.println("========== onUpdate in controller ==========:");
         System.out.println(id);
         System.out.println(userExerciseAndDietDTO);
         String filePath;
@@ -98,7 +99,8 @@ public class ExerciseAndDietController {
     }
 
     @GetMapping("/viewUserExercise")
-    public String onupdate(@RequestParam int id, HttpSession httpSession, Model model){
+    public String onupdate(@RequestParam int id, HttpSession httpSession, Model model) {
+
         System.out.println(id);
         List<UserUpdatedExerciseAndDietEntity> userExerciseAndDietEntities =service.getAlluserExerciseAndDietEntitiesById(id);
         System.out.println(userExerciseAndDietEntities);
@@ -108,11 +110,12 @@ public class ExerciseAndDietController {
 
         model.addAttribute("viewUserExercise",userExerciseAndDietEntities);
         model.addAttribute("monthlyImages",userMonthlyImages);
+
         AdminEntity adminEntity=(AdminEntity) httpSession.getAttribute("adminEntity");
         System.out.println("========-------------------:adminEntity");
         model.addAttribute("listimg",adminEntity);
-        return "ViewExerciseAndDiet";
 
+        return "ViewExerciseAndDiet";
     }
 
 

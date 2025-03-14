@@ -29,10 +29,10 @@ public class EnquiryRestController {
 
         if (count == 0) {
             System.out.println("name does not exist");
-            return "does not exist";
+            return "";
         } else {
             System.out.println("name is exists");
-            return "exist";
+            return "";
         }
 
     }
@@ -69,10 +69,10 @@ public class EnquiryRestController {
         Long count = this.service.countArea(area);
         if (count == 0) {
             System.out.println("does not exist");
-            return "not exist";
+            return "";
         } else {
             System.out.println("exists");
-            return "exists";
+            return "";
         }
     }
 
@@ -82,10 +82,10 @@ public class EnquiryRestController {
         Long count = this.service.countPhone(phone);
         if (count == 0) {
             System.out.println("does not exist");
-            return "not exist";
+            return "";
         } else {
             System.out.println("exists");
-            return "exists";
+            return "";
         }
     }
 
@@ -95,10 +95,10 @@ public class EnquiryRestController {
         Long count = this.service.countDistance(distance);
         if (count == 0) {
             System.out.println("does not exist");
-            return "not exist";
+            return "";
         } else {
             System.out.println("exists");
-            return "exists";
+            return "";
         }
     }
 
@@ -108,10 +108,10 @@ public class EnquiryRestController {
         Long count = this.service.countAge(age);
         if (count == 0) {
             System.out.println("does not exist");
-            return "not exist";
+            return "";
         } else {
             System.out.println("exists");
-            return "exists";
+            return "";
 }
 
 }

@@ -14,11 +14,135 @@
                 body {
                     font-family: 'Roboto', Arial, sans-serif;
                     background-image: url('https://img.freepik.com/premium-photo/empty-gym-with-treadmills_564714-18757.jpg');
-
                     margin: 0;
-                    padding: 20px;
+                    padding: 30px;
                     color: #f9f9f9;
                 }
+
+                .header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 10px 30px;
+                    margin-left: -28px;
+                    position: fixed;
+                    top: 0;
+                    width: 96%;
+                    z-index: 999;
+                    color: white;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                    background-color: #0E0E0E;
+                }
+
+                .logo-img {
+                    max-height: 51px;
+                    height: auto;
+                }
+
+
+                .nav {
+                    display: flex;
+                    align-items: center;
+                    gap: 30px;
+                    justify-content: center;
+                    flex-grow: 1;
+                }
+
+                .nav a {
+                    color: white;
+                    text-decoration: none;
+                    font-size: 1rem;
+                    transition: color 0.3s;
+                }
+
+                .nav a:hover {
+                    color: #f0c14b;
+                }
+
+                .menu-toggle {
+                    display: flex;
+                    flex-direction: column;
+                    cursor: pointer;
+                    margin-left: 15px;
+                    background-color: #000;
+                    /* Temporary background for visibility */
+                    padding: 10px;
+                }
+
+                .menu-toggle div {
+                    width: 30px;
+                    height: 3px;
+                    background-color: white;
+                    margin: 5px 0;
+                    transition: 0.3s;
+                }
+
+                .mobile-nav {
+                    display: none;
+                    flex-direction: column;
+                    position: absolute;
+                    top: 70px;
+                    right: 0;
+                    background: rgba(14, 14, 14, 0.9);
+                    width: 100%;
+                    padding: 15px 0;
+                    align-items: center;
+                    z-index: 9999;
+                }
+
+
+                .mobile-nav a {
+                    padding: 10px;
+                    color: white;
+                    text-decoration: none;
+                    font-size: 1rem;
+                    text-align: center;
+                    display: block;
+                    width: 100%;
+                    transition: color 0.3s;
+                }
+
+                .mobile-nav a:hover {
+                    color: #f0c14b;
+                }
+
+                .mobile-nav.show {
+                    display: flex;
+                }
+
+                @media (max-width: 768px) {
+                    .nav {
+                        display: none;
+                    }
+
+                    .menu-toggle {
+                        display: flex;
+                    }
+
+                    .mobile-nav {
+                        display: none;
+                    }
+
+                    .mobile-nav.show {
+                        display: flex;
+                    }
+                }
+
+                @media (max-width: 768px) {
+                    .nav {
+                        display: none;
+                    }
+
+                    .menu-toggle {
+                        display: flex;
+                    }
+
+                    .mobile-nav {
+                        display: flex;
+                    }
+                }
+
+
 
                 h1 {
                     text-align: center;
@@ -31,7 +155,7 @@
 
                 .container {
                     max-width: 1200px;
-                    margin: 50px;
+                    margin: 70px;
                     background: white;
                     border-radius: 8px;
                     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -156,57 +280,56 @@
                         margin-bottom: 10px;
                     }
                 }
-
-                /* Navbar styling */
-                .navbar {
-                               display: flex;
-                               justify-content: flex-end;
-                               /* Aligns the items to the right */
-                               list-style-type: none;
-                               padding: 8px;
-                               margin: 0;
-                               background-color: #333;
-                               width: 100%;
-                               position: fixed;
-                               /* Fix the navbar at the top */
-                               top: 0;
-                               left: 0;
-                               z-index: 1000;
-                               /* Ensures the navbar is above other content */
-                           }
-
-                .navbar li {
-                    padding: 15px;
-                }
-
-                .navbar a {
-                    text-decoration: none;
-                    color: white;
-                    font-size: 1.1rem;
-                    display: flex;
-                    align-items: center;
-                }
-
-                .navbar a i {
-                    margin-right: 8px;
-                }
-
-                .navbar a:hover {
-                    background-color: #555;
-                    border-radius: 5px;
-                }
             </style>
         </head>
 
         <body>
-            <!-- Navigation Menu -->
-            <ul class="navbar">
-                <li><a href="index.jsp"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="Enquiry.jsp"><i class="fas fa-question-circle"></i> Enquiry</a></li>
-                <li><a href="search"><i class="fas fa-search"></i> Follow Up</a></li>
-                <li><a href="register"><i class="fas fa-user-plus"></i> Register</a></li>
-                <li><a href="Update.jsp"><i class="fas fa-edit"></i> Update</a></li>
-            </ul>
+            <!-- Header Section -->
+            <header class="header">
+                <!-- Logo -->
+                <div class="logo">
+                    <img src="https://x-workz.in/static/media/Logo.cf195593dc1b3f921369.png" alt="Logo"
+                        class="logo-img">
+                </div>
+
+                <!-- Navigation centered -->
+                <nav class="nav">
+                    <a href="Success.jsp">Home</a>
+                    <a href="Enquiry.jsp">Enquiry</a>
+                    <a href="search">FollowUp</a>
+                    <a href="register">Registration</a>
+                </nav>
+
+                <!-- Toggle Menu (Right Side) -->
+                <div style="display: flex; align-items: center;">
+                    <div class="menu-toggle" onclick="toggleMenu()">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Toggle Menu -->
+            <nav class="mobile-nav">
+                <a href="Success.jsp">Home</a>
+                <a href="Enquiry.jsp">Enquiry</a>
+                <a href="search">FollowUp</a>
+                <a href="register">Registration</a>
+                <a href="update">Update</a>
+                <a href="trainerslots">Slots</a>
+                <a href="assignTrainer">AssignUsers</a>
+                <a href="UpdateExerciseAndDiet">UpdateUserExerciseAndDiet</a>
+                <a href="index.jsp">Logout</a>
+            </nav>
+
+            <script>
+                function toggleMenu() {
+                    console.log("Toggling menu");
+                    const mobileNav = document.querySelector('.mobile-nav');
+                    mobileNav.classList.toggle('show');
+                }
+            </script>
 
             <div class="container">
                 <h1>FollowUp List</h1>
@@ -254,7 +377,8 @@
                                     <td>
                                         <select name="status">
                                             <c:forEach var="status" items="${statusOptions}">
-                                                <option value="${status}" ${status==enquiry.status ? 'selected' : '' }>
+                                                <option value="${status}" ${status.equals(enquiry.status) ? 'selected'
+                                                    : '' }>
                                                     ${status}
                                                 </option>
                                             </c:forEach>
@@ -268,7 +392,7 @@
                                     <td>
                                         <input type="hidden" name="name" value="${enquiry.name}" />
                                         <button type="submit" class="btn"><i class="fas fa-edit"></i>Update</button>
-                                       <a href="view?id=${enquiry.id}" class="btn"><i class="fas fa-eye"></i> View </a>
+                                        <a href="view?id=${enquiry.id}" class="btn"><i class="fas fa-eye"></i> View </a>
                                     </td>
 
                                 </form>

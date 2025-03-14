@@ -22,9 +22,11 @@ public class TrainerAllotmentController {
     }
 
     @GetMapping("/trainersAllotmentact")
-    public String ontrainermanage(Model model) {
+    public String onTrainermanage(Model model) {
+        System.out.println("====onTrainermanage in controller===");
         List<SlotsEntity> slots = gymService.getAllslots();
         model.addAttribute("slots", slots);
+
         List<TrainerEntity> trainerinfolist = gymService.getAlltrainerdetails();
         model.addAttribute("trainerInfoList", trainerinfolist);
         return "trainerslots";
@@ -49,7 +51,9 @@ public class TrainerAllotmentController {
 
     @GetMapping("trainerslots")
     public String displayTrainer(Model model){
+        System.out.println("===displayTrainer in controller====");
            List<TrainerEntity> trainerList = gymService.getAlltrainerdetails();
+           System.out.println("======= trainers list =========:"+trainerList);
            trainerList.forEach((n)-> System.out.println(n));
            model.addAttribute("trainerInfoList",trainerList);
            return "trainerslots";

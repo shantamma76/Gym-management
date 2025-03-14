@@ -174,7 +174,7 @@
 
     <!-- Message Centered -->
     <div class="message-container">
-        <h1>WelCome to Gym Managment</h1>
+        <h1>Login Successfully Done!</h1>
     </div>
 
     <script>

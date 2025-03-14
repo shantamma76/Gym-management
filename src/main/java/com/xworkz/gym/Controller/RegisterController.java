@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -25,6 +26,7 @@ public class RegisterController {
     public String displayEnquiryDetails(Model model) {
         System.out.println("displayEnquiryDetails in Controller");
         List<EnquiryEntity> listOfNames = service.getAllEnquiry();
+        Collections.reverse(listOfNames);
         model.addAttribute("listOfNames", listOfNames);
         return "Registration";
     }

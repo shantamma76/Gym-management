@@ -272,7 +272,7 @@
 
     <!-- Navigation centered -->
     <nav class="nav">
-        <a href="index.jsp">Home</a>
+        <a href="Success.jsp">Home</a>
         <a href="Enquiry.jsp">Enquiry</a>
         <a href="search">FollowUp</a>
         <a href="register">Registration</a>
@@ -290,12 +290,12 @@
 
     <!-- Toggle Menu -->
     <nav class="mobile-nav">
-        <a href="index.jsp">Home</a>
+        <a href="Success.jsp">Home</a>
         <a href="Enquiry.jsp">Enquiry</a>
         <a href="search">FollowUp</a>
         <a href="register">Registration</a>
         <a href="update">Update</a>
-        <a href="trainerslots.jsp">Slots</a>
+        <a href="trainerslots">Slots</a>
        <!-- <a href="viewtrainer">View Trainer</a> -->
         <a href="assignSlot">AssignUsers</a>
          <a href="UpdateExerciseAndDiet">UpdateUserExerciseAndDiet</a>

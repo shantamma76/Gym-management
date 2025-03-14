@@ -28,10 +28,10 @@ public class AdminRestController {
         Long count = this.service.countEmail(email);
         if (count == 0) {
             System.out.println("emaail does not exist");
-            return "does not exist";
+            return " ";
         } else {
             System.out.println("email is exists");
-            return "exist";
+            return "";
         }
     }
 
@@ -42,10 +42,10 @@ public class AdminRestController {
         Long count = this.service.countPassword(password);
         if (count == 0) {
             System.out.println("Password does not exist");
-            return "does not exist";
+            return "";
         } else {
             System.out.println("Password is exists");
-            return "exist";
+            return "";
         }
     }
 
