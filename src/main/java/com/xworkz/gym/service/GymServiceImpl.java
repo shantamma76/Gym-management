@@ -98,6 +98,7 @@ public class GymServiceImpl implements GymService {
     @Override
     public boolean updateStatusAndReason(String name, String status, String reasons) {
         System.out.println("updateStatusAndReason in GymServiceImpl");
+
         boolean saved = repository.updateStatusAndReason(name, status, reasons);
         EnquiryEntity enquiryEntity = repository.getEnquiryEntityByName(name);
         EnquiryEntity enquiry = new EnquiryEntity();
@@ -138,10 +139,16 @@ public class GymServiceImpl implements GymService {
 
     //-------------------------------------------------------------------------
     //admin
+
     @Override
     public boolean getNameByEmail(String email, String password) {
         log.info("Checking credentials for email: {}", email);
-        return repository.getNameByEmail(email, password);
+        AdminEntity adminentity = repository.adminentity(email);
+        System.out.println("................."+adminentity);
+        if(adminentity.getEmail().equals(email) && adminentity.getPassword().equals(password)){
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -215,7 +222,6 @@ public class GymServiceImpl implements GymService {
         for (int i = 0; i < 8; i++) {
             password.append(characters.charAt(random.nextInt(characters.length())));
         }
-
         return password.toString();
     }
 
@@ -262,8 +268,10 @@ public class GymServiceImpl implements GymService {
     }
 
     @Override
-    public boolean updateDetailsById(String packages, String trainer, String amount, int paid, double balance, double installment, int id) {
-        repository.updateValuesById(packages, trainer, amount, paid, balance, installment, id);
+    public boolean updateDetailsById(String packages, String amount, int paid, double balance, double installment, String name) {
+
+        repository.updateValuesById(packages, amount, paid, balance, installment, name);
+
         return true;
     }
 //    @Override
@@ -471,8 +479,8 @@ public class GymServiceImpl implements GymService {
 
     //diet plan
     @Override
-    public List<RegisterEntity> getAllRegistredUsersDetailsByNameAndPhoneNo(String searchName, Long searchPhoneNo) {
-        return repository.getAllRegistredUsersDetailsByNameAndPhoneNo(searchName, searchPhoneNo);
+    public List<RegisterEntity> getAllRegistredUsersDetailsByNameAndPhoneNo(String searchName, Long searchPhone) {
+        return repository.getAllRegistredUsersDetailsByNameAndPhoneNo(searchName, searchPhone);
     }
 
     @Override

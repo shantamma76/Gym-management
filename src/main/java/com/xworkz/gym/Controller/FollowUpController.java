@@ -25,7 +25,7 @@ public class FollowUpController {
         System.out.println("No-arg Constructor in FollowUpController");
     }
 
-    @GetMapping("search")
+    @GetMapping("followup")
     public String onFollow(@RequestParam(value = "status", required = false) String status, Model model) {
         List<EnquiryEntity> enquiryList;
         if (status != null && !status.isEmpty()) {
@@ -51,6 +51,7 @@ public class FollowUpController {
             List<EnquiryEntity> enquiryList = service.getEnquiries();
             if (enquiryList != null) {
                 enquiryList.forEach((n) -> System.out.println(n));
+
                 // session.setAttribute("enquiryList", enquiryList);
                 model.addAttribute("enquiryList", enquiryList);
                 model.addAttribute("statusOptions", Arrays.asList(StatusEnum.values()));

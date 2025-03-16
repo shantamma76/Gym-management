@@ -78,11 +78,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link active" href="updateProfile">UdpateUserProfile</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link active" href="exerciseDiet">Exercise and Diet</a>
+                                <a class="nav-link active" href="updateProfile">UdpateProfile</a>
                             </li>
 
                         </ul>

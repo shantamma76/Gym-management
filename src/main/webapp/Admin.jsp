@@ -117,7 +117,7 @@
                     <!-- Email field with icon -->
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                        <input type="email" class="form-control" id="email" name="email" onChange="onEmailChange()" required placeholder="Enter your email">
+                        <input type="email" class="form-control" id="email" name="email" onChange="onEmailChange()" required placeholder="Enter your email" value="${adminemail}">
                     </div>
                     <span id="emailDemoo" class="error-message"></span>
 

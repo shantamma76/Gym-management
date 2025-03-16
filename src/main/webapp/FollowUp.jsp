@@ -90,7 +90,6 @@
                     z-index: 9999;
                 }
 
-
                 .mobile-nav a {
                     padding: 10px;
                     color: white;
@@ -155,7 +154,7 @@
 
                 .container {
                     max-width: 1200px;
-                    margin: 70px;
+                    margin: 100px;
                     background: white;
                     border-radius: 8px;
                     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -221,10 +220,12 @@
                     font-size: 0.9rem;
                 }
 
+
                 tr:nth-child(even) {
                     background-color: white;
                     color: black;
                 }
+
 
                 tr:nth-child(odd) {
                     background-color: white;
@@ -280,6 +281,7 @@
                         margin-bottom: 10px;
                     }
                 }
+
             </style>
         </head>
 
@@ -296,7 +298,7 @@
                 <nav class="nav">
                     <a href="Success.jsp">Home</a>
                     <a href="Enquiry.jsp">Enquiry</a>
-                    <a href="search">FollowUp</a>
+                    <a href="followup">FollowUp</a>
                     <a href="register">Registration</a>
                 </nav>
 
@@ -314,9 +316,9 @@
             <nav class="mobile-nav">
                 <a href="Success.jsp">Home</a>
                 <a href="Enquiry.jsp">Enquiry</a>
-                <a href="search">FollowUp</a>
+                <a href="followup">FollowUp</a>
                 <a href="register">Registration</a>
-                <a href="update">Update</a>
+                <a href="updateRegi">Update</a>
                 <a href="trainerslots">Slots</a>
                 <a href="assignTrainer">AssignUsers</a>
                 <a href="UpdateExerciseAndDiet">UpdateUserExerciseAndDiet</a>
@@ -336,7 +338,7 @@
 
                 <!-- Search Bar -->
                 <div class="search-bar">
-                    <form action="search" method="get">
+                    <form action="followUp" method="get">
                         <label for="status"><i class="fas fa-filter"></i> Filter by Status:</label>
                         <select name="status" id="status">
                             <option value="">--Select Status--</option>

@@ -186,7 +186,6 @@ public class UserLoginController {
     public String onUpdate(HttpSession httpSession,Model model){
         RegisterEntity entity1=(RegisterEntity) httpSession.getAttribute("userRegEntityHttp");
         String name = entity1.getName();
-       // int id=entity1.getId();
         RegisterEntity entity=service.getAllRegistredUsersDetailsById(name);
         model.addAttribute("register",entity);
         return "UpdateUserProfile";
@@ -252,18 +251,6 @@ public class UserLoginController {
 
         return "ViewUserExerciseDiet";
     }
-
-
-
-
-
-
-
-
-//========================================================================
-
-
-
 
 }
 

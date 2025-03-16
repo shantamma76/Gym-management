@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,12 +40,35 @@ public class GymRepositoryImpl implements GymRepository {
             }
             System.out.println("it is null");
             return false;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             if (entityTransaction.isActive()) {
                 entityTransaction.rollback();
             }
             return false;
         } finally {
+            entityManager.close();
+        }
+    }
+
+    @Override
+    public AdminEntity adminentity(String email) {
+        EntityManager entityManager = emf.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        System.out.println("---------------------------------------------------------------");
+        try {
+            transaction.begin();
+            Query namedQuery = entityManager.createNamedQuery("findAdmion");
+            Query query = namedQuery.setParameter("ademail", email);
+            Object singleResult = query.getSingleResult();
+            System.out.println("===================0"+singleResult);
+            return (AdminEntity) singleResult;
+        }
+        catch (Exception e){
+            System.out.println("getting exception in adminentity.."+e.getMessage());
+            return null;
+        }
+        finally {
             entityManager.close();
         }
     }
@@ -394,20 +416,24 @@ public class GymRepositoryImpl implements GymRepository {
 
 
     @Override
-    public boolean updateValuesById(String packages, String trainer, String amount, int paid, double balance, double installment, int id) {
+    public boolean updateValuesById(String packages, String amount, int paid, double balance, double installment, String name) {
+        System.out.println("==============updated in repo=============");
         EntityManager em = emf.createEntityManager();
         EntityTransaction et = em.getTransaction();
 
         try {
             et.begin();
-            int value = em.createNamedQuery("updateValuesById").setParameter("setPackage", packages).setParameter("setTrainer", trainer).setParameter("setAmount", amount).setParameter("setPaid", paid).setParameter("setBalance", balance).setParameter("setInstallment", installment).setParameter("idBy", id).executeUpdate();
-            et.commit();
+            int value = em.createNamedQuery("updateValuesById")
+                    .setParameter("setPackage", packages)
+                    .setParameter("setAmount", amount)
+                    .setParameter("setPaid", paid)
+                    .setParameter("setBalance", balance)
+                    .setParameter("setInstallment", installment)
+                    .setParameter("byName", name).executeUpdate();
 
-            if (value > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            et.commit();
+            return true;
+
         } catch (Exception e) {
             if (et.isActive()) {
                 et.rollback();
@@ -417,6 +443,7 @@ public class GymRepositoryImpl implements GymRepository {
         } finally {
             em.close();
         }
+
     }
 
 
@@ -941,7 +968,7 @@ public class GymRepositoryImpl implements GymRepository {
         EntityTransaction entityTransaction = entityManager.getTransaction();
 
         try {
-            Query query = entityManager.createNamedQuery("getAllDetailsOfCustomer");
+            Query query = entityManager.createNamedQuery("getAllRegistredUsersDetails");
             return query.getResultList();
         } catch (Exception e) {
             if (entityTransaction.isActive()) {
@@ -1247,11 +1274,11 @@ public class GymRepositoryImpl implements GymRepository {
 
     //--------------------diet from chara
     @Override
-    public List<RegisterEntity> getAllRegistredUsersDetailsByNameAndPhoneNo(String searchName, Long searchPhoneNo) {
+    public List<RegisterEntity> getAllRegistredUsersDetailsByNameAndPhoneNo(String searchName, Long searchPhone) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction et = em.getTransaction();
 
-        List<RegisterEntity> list = em.createNamedQuery("getAllRegistredUsersDetailsByNameAndPhoneNo").setParameter("getName", searchName).setParameter("getPhoneNo", searchPhoneNo).getResultList();
+        List<RegisterEntity> list = em.createNamedQuery("getAllRegistredUsersDetailsByNameAndPhoneNo").setParameter("getName", searchName).setParameter("getPhone", searchPhone).getResultList();
         try {
             et.begin();
 

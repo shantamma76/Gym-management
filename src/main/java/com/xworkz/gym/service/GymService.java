@@ -55,7 +55,7 @@ public interface GymService {
 
     //update register details
     RegisterEntity getDetailsByEmail(String email);
-    public boolean updateDetailsById(String packages, String trainer, String amount, int paid, double balance, double installment, int id);
+    public boolean updateDetailsById(String packages,  String amount, int paid, double balance, double installment, String name);
 
     // boolean updateRegister(RegisterDto registerDto, String name, long phone);
 

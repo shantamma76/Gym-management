@@ -194,13 +194,11 @@
  <nav class="nav">
       <a href="userHome">Home</a>
        <a href="UserLogin.jsp">SignIn</a>
-     <a href="userProfile">UserProfile</a>
+     <a href="userProfile">User Profile</a>
      <a href="trainerAndSlot">Trainer And Slot</a>
      <a href="exerciseDiet">Exercise and Diet</a>
 
-      <!--  <a href="userProfile">Personal Profile</a> -->
-      <!--  <a href="UpdateUserProfile.jsp">UpdatedUserProfile</a> -->
-      <!--  <a href="UserProfile">UserPage</a> -->
+
 
 
 
@@ -238,7 +236,7 @@
            <!-- <img src="https://i.ibb.co/zWy1BBG4/exercise-1.png" alt="Trainer And Slot Icon" style="width: 20px; height: 20px;"> -->
                      Exercise and Diet
                     </a>
-            +
+
 
 
      <a href="index.jsp">Logout</a>

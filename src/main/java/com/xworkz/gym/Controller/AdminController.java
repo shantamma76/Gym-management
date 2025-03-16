@@ -16,6 +16,7 @@ public class AdminController {
         System.out.println("No-arg Const in GymController");
     }
 
+
     @GetMapping("/signIn")
     public String onSignIn(String email, String password, Model model) {
         System.out.println("Running  onSignIn in GymController");
@@ -25,6 +26,7 @@ public class AdminController {
             return "AdminSuccess";
         }
         model.addAttribute("error", "Login failure");
+        model.addAttribute("adminemail",email);
         return "Admin";
     }
 

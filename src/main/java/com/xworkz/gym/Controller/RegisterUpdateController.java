@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/")
@@ -28,6 +26,33 @@ public class RegisterUpdateController {
         System.out.println("No-arg const in UpdateController");
     }
 
+    @GetMapping("/updateRegi")
+    public String displayDetails(Model model) {
+        System.out.println("Fetching customer and trainer details");
+        List<RegisterEntity> customerList = gymService.getAllRegiDetails();
+        Collections.reverse(customerList);
+        model.addAttribute("registerDetails", customerList);
+        return "Update";
+    }
+
+    @PostMapping("/updateDetails")
+    public String updateDetails(@RequestParam String name, @RequestParam String packages, @RequestParam String amount,
+                                @RequestParam int paid, @RequestParam double balance, @RequestParam double installment, Model model) {
+        System.out.println("updateDetails in register update Controller");
+        System.out.println(name);
+        boolean value = gymService.updateDetailsById(packages, amount, paid, balance, installment, name);
+        if (value) {
+            return "Success";
+        }
+        return "Update";
+
+    }
+}
+
+
+
+
+
 //    @PostMapping("/update")
 //    public String updateRegister(RegisterDto registerDto, String name, long phone) {
 //        log.debug("UpdateController================== ");
@@ -39,41 +64,30 @@ public class RegisterUpdateController {
 //        }
 //    }
 
-    @GetMapping("/update")
-    public String showUpdatePage(Model model) {
-        List<PackageEnum> packages = new ArrayList<>(Arrays.asList(PackageEnum.values()));
-        model.addAttribute("packages", packages);
-        return "UpdateRegister";
-    }
+//    @GetMapping("/update")
+//    public String showUpdatePage(Model model) {
+//        List<PackageEnum> packages = new ArrayList<>(Arrays.asList(PackageEnum.values()));
+//        model.addAttribute("packages", packages);
+//        return "UpdateRegister";
+//    }
+//
+//    @PostMapping("/searchEmail")
+//    public String getDetailsByEmail(@RequestParam String email, Model model) {
+//        RegisterEntity details = gymService.getDetailsByEmail(email);
+//        if (details != null) {
+//            model.addAttribute("details", details);
+//            return "UpdateRegister";
+//        }
+//        return "Success";
+//    }
 
-    @PostMapping("/searchEmail")
-    public String getDetailsByEmail(@RequestParam String email, Model model) {
-        RegisterEntity details = gymService.getDetailsByEmail(email);
-        if (details != null) {
-            model.addAttribute("details", details);
-            return "UpdateRegister";
-        }
-        return "Success";
-    }
 
-    @PostMapping("/updates")
-    public String updateDetails(@RequestParam int id,
-                                @RequestParam String packages,
-                                @RequestParam String trainer,
-                                @RequestParam String amount,
-                                @RequestParam int paid,
-                                @RequestParam double balance,
-                                @RequestParam double installment, Model model) {
-        boolean value = gymService.updateDetailsById(packages, trainer, amount, paid, balance, installment, id);
-        if (value) {
-            return "Success";
-        }
+//---------------------------------------------------------------------
 
-        return "UpdateRegister";
 
-}
 
-}
+
+
 
 
 

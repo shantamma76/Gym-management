@@ -59,12 +59,12 @@
     <ul class="navbar">
         <li><a href="index.jsp"><i class="fas fa-home"></i>Home</a></li>
         <li><a href="Enquiry.jsp"><i class="fas fa-question-circle"></i>Enquiry</a></li>
-        <li><a href="search"><i class="fas fa-search"></i>Follow Up</a></li>
+        <li><a href="followup"><i class="fas fa-search"></i>Follow Up</a></li>
         <li><a href="register"><i class="fas fa-user-plus"></i>Register</a></li>
-        <li><a href="update"><i class="fas fa-edit"></i>Update</a></li>
-        <li><a href="trainerslots.jsp"><i class="fas fa-edit"></i>Trainer Slots</a></li>
-        <li><a href="assignSlot"><i class="fas fa-edit"></i>Assign Slot</a></li>
-        <li><a href="DietPlan.jsp"><i class="fas fa-edit"></i>Diet Plan</a></li>
+        <li><a href="updateRegi"><i class="fas fa-edit"></i>Update</a></li>
+        <li><a href="trainerslots"><i class="fas fa-edit"></i>Trainer Slots</a></li>
+        <li><a href="assignTrainer"><i class="fas fa-edit"></i>Assign Trainer</a></li>
+
     </ul>
 
     <div class="container mt-5">

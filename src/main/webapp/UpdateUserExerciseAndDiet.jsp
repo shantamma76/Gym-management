@@ -292,9 +292,9 @@
     <nav class="mobile-nav">
         <a href="Success.jsp">Home</a>
         <a href="Enquiry.jsp">Enquiry</a>
-        <a href="search">FollowUp</a>
+        <a href="followup">FollowUp</a>
         <a href="register">Registration</a>
-        <a href="update">Update</a>
+        <a href="updateRegi">Update</a>
         <a href="trainerslots">Slots</a>
        <!-- <a href="viewtrainer">View Trainer</a> -->
         <a href="assignSlot">AssignUsers</a>
@@ -312,16 +312,13 @@
 
             <input type="text" class="form-control" id="searchName" name="searchName" placeholder="Search name" oninput="onField()" required>
             <input type="text" class="form-control" id="searchPhone" name="searchPhone" placeholder="Search phone number" oninput="onField()" required>
-            <button type="submit" class="btn btn-primary">Search</button>
 
+            <button type="submit" class="btn btn-primary">Search</button>
         </form>
 
         <!-- Div to display validation or result message below the form -->
         <div id="nameValid" style="margin-top: 0px; color: red; margin-right:170px"></div>
     </div>
-
-
-
 
     <!-- This div is for the messages -->
     <div class="search-message">
@@ -347,7 +344,6 @@
                     </colgroup>
 
                     <thead>
-
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
@@ -360,7 +356,7 @@
                 <tbody>
                     <c:forEach items="${list}" var="enquiry">
                         <tr>
-                            <form action="updateDiet" >  <!-- Form for each row -->
+                            <form action="updateDiet">  <!-- Form for each row -->
                                 <!-- Hidden input to store the enquiry id -->
                                 <input type="hidden" name="id" value="${enquiry.id}" />
 
@@ -371,9 +367,11 @@
                                 <td>
                                     <button type="submit" class="btn btn-success" style="margin-left:20px;">Update Diet</button>  <!-- Update button for each row -->
                                 </td>
+
                                 <td>
                                     <a href="viewUserExercise?id=${enquiry.id}" class="btn btn-success">View</a>
                                 </td>
+
                             </form>
 
                         </tr>
@@ -388,7 +386,7 @@
         <c:if test="${totalPages > 1}">
             <div class="pagination">
                 <c:forEach begin="1" end="${totalPages}" var="i">
-                 <a href="followupoperation?page=${i}" class="page-link ${currentPage == i ? 'active' : ''}">${i}</a>
+                <!-- <a href="followupoperation?page=${i}" class="page-link ${currentPage == i ? 'active' : ''}">${i}</a> -->
                 </c:forEach>
             </div>
         </c:if>

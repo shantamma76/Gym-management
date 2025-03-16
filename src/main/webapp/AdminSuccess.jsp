@@ -163,14 +163,13 @@
         <a href="Enquiry.jsp">Enquiry</a>
         <a href="search">FollowUp</a>
         <a href="register">Registration</a>
-        <a href="update">Update</a>
+        <a href="updateRegi">UpdateRegi</a>
         <a href="trainerslots">Slots</a>
         <a href="assignTrainer">AssignUsers</a>
         <a href="UpdateExerciseAndDiet">UpdateUserExerciseAndDiet</a>
         <a href="index.jsp">Logout</a>
     </nav>
 
-    <
 
     <!-- Message Centered -->
     <div class="message-container">

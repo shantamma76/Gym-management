@@ -34,7 +34,7 @@ public class ExerciseAndDietController {
     public String onUpdate(HttpSession httpSession, Model model){
         System.out.println("====onUpdate in Controller===");
         List<RegisterEntity> list = service.getAllRegiDetails();
-
+        System.out.println("================:"+list);
         AdminEntity adminEntity = (AdminEntity) httpSession.getAttribute("adminEntity");
         model.addAttribute("listimg",adminEntity);
         model.addAttribute("list",list);
@@ -59,6 +59,8 @@ public class ExerciseAndDietController {
         model.addAttribute("list",registrationEntityList);
         return "UpdateUserExerciseAndDiet";
     }
+
+//-----------------------------------------------------
 
     @GetMapping("/updateDiet")
     public String onUpdateDiet(@RequestParam("id") int id , HttpSession httpSession, Model model){

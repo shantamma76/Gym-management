@@ -13,8 +13,6 @@ import java.time.LocalDateTime;
 @ToString
 @Table(name = "register_table")
 
-//@NamedQuery(name = "updatedDetailsByName", query = "UPDATE RegisterEntity p SET p.packages = :packagesBy, p.trainer = :trainerBy, p.amount = :amountBy, p.balance = :balanceBy WHERE p.name = :nameBy")
-
 @NamedQuery(name = "countNameBy", query = "SELECT COUNT(e) FROM RegisterEntity e WHERE e.name = :setName")
 @NamedQuery(name = "countByEmail", query = "SELECT COUNT(e) FROM RegisterEntity e WHERE e.email = :setEmail")
 @NamedQuery(name = "countByTrainer", query = "SELECT COUNT(e) FROM RegisterEntity e WHERE e.trainer = :setTrainer")
@@ -40,13 +38,11 @@ import java.time.LocalDateTime;
 //Update Profile
 @NamedQuery(name = "getAllRegDetailsById",query = "select re from RegisterEntity re where re.id = :getRegistrationId")
 @NamedQuery(name = "updateUserProfileByName", query = "UPDATE RegisterEntity re SET re.age=:getAge,re.height=:getHeight,re.weight=:getWeight,re.filePath=:getFilePath where re.name=:getName")
+//for profile
+@NamedQuery(name = "getAllRegistredUsersDetailsById",query = "select a from RegisterEntity a where a.name=:getId")
 
 //update register
-@NamedQuery(name = "updateValuesById", query = "UPDATE RegisterEntity p SET p.packages = :setPackage, p.trainer = :setTrainer, p.amount = :setAmount, p.paid = :setPaid, p.balance = :setBalance, p.installment = :setInstallment where p.id = :idBy")
-
-//===
-@NamedQuery(name = "getAllDetailsOfCustomer", query = "select re from RegisterEntity re")
-@NamedQuery(name = "getAllDetailsofCustomrtWithTrainer", query = "select a from RegisterEntity a")
+@NamedQuery(name = "updateValuesById", query = "UPDATE RegisterEntity p SET p.packages = :setPackage, p.amount = :setAmount, p.paid = :setPaid, p.balance = :setBalance, p.installment = :setInstallment where p.name = :byName")
 
 @NamedQuery(name = "getRegisterEntityById", query = "Select re from RegisterEntity re where re.id=:setId")
 @NamedQuery(name = "updateDetails", query = "update RegisterEntity re set re.packages=: setPackage, re.trainer=: setTrainer, re.installment=: setInstallement, re.amount=: setTotalammount, re.balance=: setBalanceammount, re.paid=: setInstallmentAmount where re.id=: setId")
@@ -58,11 +54,10 @@ import java.time.LocalDateTime;
 @NamedQuery(name = "findByNameAndEmail", query = "SELECT u FROM RegisterEntity u WHERE u.name = :SetName AND u.email = :SetEmail")
 @NamedQuery(name = "updateTrainerId", query = "UPDATE RegisterEntity u SET u.trainer = (SELECT t FROM TrainerEntity t WHERE t.id = :trainerId) WHERE u.id = :entityId")
 
-//for diet from chara
-@NamedQuery(name = "getAllRegistredUsersDetailsByNameAndPhoneNo", query = "select a from RegisterEntity a where a.name=:getName and a.phone=:getPhoneNo")
+//for diet
+@NamedQuery(name = "getAllRegistredUsersDetailsByNameAndPhoneNo", query = "select a from RegisterEntity a where a.name = :getName and a.phone = :getPhone")
 
-//for profile
-@NamedQuery(name = "getAllRegistredUsersDetailsById",query = "select a from RegisterEntity a where a.name=:getId")
+
 public class RegisterEntity {
 
     @Id
@@ -91,11 +86,6 @@ public class RegisterEntity {
 
     @Column(name = "login_count")
     private Integer loginCount;
-
-    //  Constructor to initialize loginCount with default value
-//    public RegisterEntity() {
-//        this.loginCount = 0;
-//    }
 
     @Column(name="account_locked_time")
     private LocalDateTime accountLockedTime;

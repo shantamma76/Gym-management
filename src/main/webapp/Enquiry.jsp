@@ -62,14 +62,6 @@
                 color: #f0c14b;
             }
 
-            /* Profile Image */
-            .profile-img {
-                max-height: 40px;
-                width: 40px;
-                border-radius: 50%;
-                margin-right: 10px;
-            }
-
             /* Toggle button */
             .menu-toggle {
                 display: flex;
@@ -206,9 +198,9 @@
         <nav class="mobile-nav">
             <a href="Success.jsp">Home</a>
             <a href="Enquiry.jsp">Enquiry</a>
-            <a href="search">FollowUp</a>
+            <a href="followup">FollowUp</a>
             <a href="register">Registration</a>
-            <a href="update">Update</a>
+            <a href="updateRegi">Update</a>
             <a href="trainerslots">Slots</a>
             <a href="assignTrainer">AssignUsers</a>
             <a href="UpdateExerciseAndDiet">UpdateUserExerciseAndDiet</a>

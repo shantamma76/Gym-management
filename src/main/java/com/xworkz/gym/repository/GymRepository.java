@@ -9,6 +9,8 @@ public interface GymRepository {
 
     boolean getNameByEmail(String email, String password); //admin login
 
+    AdminEntity adminentity(String email);
+
     boolean saveEnquiry(EnquiryEntity enquiryEntity);//for enquiry form
 
     //For admin ajax validation
@@ -43,7 +45,7 @@ public interface GymRepository {
     boolean saveRegister(RegisterEntity registerEntity);
     //update register
     public RegisterEntity findByEmailCustom(String email);
-    public boolean updateValuesById(String packages, String trainer, String amount, int paid, double balance, double installment, int id);
+    public boolean updateValuesById(String packages, String amount, int paid, double balance, double installment, String name);
 
     //public RegisterEntity updateRegister(String name, long phone);
 
