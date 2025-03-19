@@ -141,9 +141,9 @@
 
         <!-- Navigation centered -->
         <nav class="nav">
-            <a href="index.jsp">Home</a>
+            <a href="Success.jsp">Home</a>
             <a href="Enquiry.jsp">Enquiry</a>
-            <a href="search">FollowUp</a>
+            <a href="followup">FollowUp</a>
             <a href="register">Registration</a>
         </nav>
 
@@ -161,11 +161,13 @@
     <nav class="mobile-nav">
         <a href="Success.jsps">Home</a>
         <a href="Enquiry.jsp">Enquiry</a>
-        <a href="search">FollowUp</a>
+        <a href="followup">FollowUp</a>
         <a href="register">Registration</a>
-        <a href="updateRegi">UpdateRegi</a>
+        <a href="updateRegi">Update</a>
+        <a href="viewRegistered">viewRegisterDetails</a>
         <a href="trainerslots">Slots</a>
-        <a href="assignTrainer">AssignUsers</a>
+        <a href="assignTrainer">AssignTrainer</a>
+         <a href="viewTrainerAssign">View Trainer Assign</a>
         <a href="UpdateExerciseAndDiet">UpdateUserExerciseAndDiet</a>
         <a href="index.jsp">Logout</a>
     </nav>

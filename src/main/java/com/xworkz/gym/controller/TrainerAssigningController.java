@@ -1,18 +1,15 @@
-package com.xworkz.gym.Controller;
+package com.xworkz.gym.controller;
 
-import com.xworkz.gym.Entity.RegisterEntity;
-import com.xworkz.gym.Entity.SlotsEntity;
-import com.xworkz.gym.Entity.TrainerEntity;
+import com.xworkz.gym.Entity.*;
 import com.xworkz.gym.service.GymService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -29,11 +26,29 @@ public class TrainerAssigningController {
     }
 
     @GetMapping("/assignTrainer")
-    public String assignSlot() {
+    public String assignSlot(Model model) {
         List<RegisterEntity> list = service.assignSlot();
         log.info("printining list" + list);
+
+        //register names
+        List<RegisterEntity> listOfRegister = service.getAllRegiDetails();
+        Collections.reverse(listOfRegister);
+        model.addAttribute("registerDetails",listOfRegister);
+
         return "AssignSlot";
     }
+
+    @RequestMapping("/getEmailByName")
+    @ResponseBody
+    public String getPhoneNumberByName(@RequestParam String name) {
+        System.out.println("====----------------getPhoneNumberByName in controller------------------===");
+        String email = service.getEmailByName(name); //fetches the phone number based on name
+        System.out.println("email of that name:" + email);
+        return email;
+    }
+
+
+
 
     @GetMapping("/searchEntity")
     private String search(@RequestParam("name") String name, @RequestParam("email") String email, Model model) {
@@ -66,6 +81,20 @@ public class TrainerAssigningController {
             model.addAttribute("failure","Not Updated");
         }
         return "AssignSlot";  // Redirect to a confirmation page
+    }
+
+
+
+
+
+    @GetMapping("/viewTrainerAssign")
+    public String viewTrainer(Model model) {
+        System.out.println("==============viewTrainer in controller===================");
+
+        List<AssignTrainersEntity> trainerList = service.getAllAssignTrainer();
+        model.addAttribute("assignTrainerList",trainerList);
+        return "VewTrainerAndSlot";
+
     }
 
 

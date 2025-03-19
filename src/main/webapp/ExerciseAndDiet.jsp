@@ -383,14 +383,14 @@ input[type="month"] {
                 </select>
             </div>
 
-            <div class="day"><h3>Sunday</h3>
+           <!-- <div class="day"><h3>Sunday</h3>
                 <select name="sunday" required>
                     <option  value="">Select Exercise</option>
                     <option value="Hiking">Hiking</option>
                     <option  value="Stretching">Stretching</option>
                     <option  value="Light Cardio">Light Cardio</option>
                 </select>
-            </div>
+            </div>  -->
 
         </div>
     </div>

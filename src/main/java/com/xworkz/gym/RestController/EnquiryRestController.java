@@ -29,10 +29,10 @@ public class EnquiryRestController {
 
         if (count == 0) {
             System.out.println("name does not exist");
-            return "";
+            return "not exist";
         } else {
             System.out.println("name is exists");
-            return "";
+            return "exist";
         }
 
     }

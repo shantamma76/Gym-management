@@ -1,4 +1,4 @@
-package com.xworkz.gym.Controller;
+package com.xworkz.gym.controller;
 
 import com.xworkz.gym.Entity.SlotsEntity;
 import com.xworkz.gym.service.GymService;

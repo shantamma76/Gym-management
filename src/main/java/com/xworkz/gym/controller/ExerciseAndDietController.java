@@ -1,4 +1,4 @@
-package com.xworkz.gym.Controller;
+package com.xworkz.gym.controller;
 
 import com.xworkz.gym.DTO.UserExerciseAndDietDTO;
 import com.xworkz.gym.Entity.AdminEntity;

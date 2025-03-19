@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RegisterDto {
 
+    private int id;
     private String name;
     private String email;
-    //private String password;
+    private String password;
     private int age;
     private String packages;
     private String trainer;

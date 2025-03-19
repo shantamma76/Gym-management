@@ -1,7 +1,6 @@
-package com.xworkz.gym.Controller;
+package com.xworkz.gym.controller;
 
 import com.xworkz.gym.Entity.RegisterEntity;
-import com.xworkz.gym.constants.PackageEnum;
 import com.xworkz.gym.service.GymService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +25,28 @@ public class RegisterUpdateController {
         System.out.println("No-arg const in UpdateController");
     }
 
+    //pagination
     @GetMapping("/updateRegi")
-    public String displayDetails(Model model) {
-        System.out.println("Fetching customer and trainer details");
-        List<RegisterEntity> customerList = gymService.getAllRegiDetails();
-        Collections.reverse(customerList);
+    public String displayDetails(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10")
+                             int size, Model model) {
+        System.out.println("Fetching customer and trainer details with pagination");
+        int pageSize = 10; // Number of records per page
+        int startIndex = (page - 1) * pageSize;
+
+        List<RegisterEntity> customerList = gymService.getAllRegiDetails(page, size);
+
+        long totalRecords = gymService.getTotalRecords();
+        // Calculate total pages
+        int totalPages = (int) Math.ceil((double) totalRecords / pageSize);
+
+        // Add paginated data to model
         model.addAttribute("registerDetails", customerList);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+
         return "Update";
     }
+
 
     @PostMapping("/updateDetails")
     public String updateDetails(@RequestParam String name, @RequestParam String packages, @RequestParam String amount,
@@ -45,12 +58,19 @@ public class RegisterUpdateController {
             return "Success";
         }
         return "Update";
-
     }
+
 }
 
 
-
+//    @GetMapping("/updateRegi")
+//    public String displayDetails(Model model) {
+//        System.out.println("Fetching customer and trainer details");
+//        List<RegisterEntity> customerList = gymService.getAllRegiDetails();
+//        Collections.reverse(customerList);
+//        model.addAttribute("registerDetails", customerList);
+//        return "Update";
+//    }
 
 
 //    @PostMapping("/update")

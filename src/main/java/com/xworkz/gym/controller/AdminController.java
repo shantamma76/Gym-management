@@ -1,4 +1,4 @@
-package com.xworkz.gym.Controller;
+package com.xworkz.gym.controller;
 import com.xworkz.gym.service.GymService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

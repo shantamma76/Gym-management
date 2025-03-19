@@ -11,9 +11,20 @@
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
             <style>
+                body {
+                    background-color: #fafafa;
+                    font-family: 'Roboto', sans-serif;
+                    background-image: url('https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?cs=srgb&dl=action-athlete-barbell-841130.jpg&fm=jpg');
+                    background-size: 1600px 1300px;
+                    /*width and height */
+                    background-repeat: no-repeat;
+                    background-position: center;
+                }
+
                 .container {
                     max-width: 600px;
-                    margin-top: 80px;
+                    margin-top: 70px;
+                    margin-bottom: 20px;
                 }
 
                 .form-container {
@@ -56,6 +67,11 @@
                     max-height: 51px;
                     height: auto;
                 }
+
+                h2 {
+                    color: white;
+                    font-weight: bold;
+                }
             </style>
         </head>
 
@@ -85,8 +101,8 @@
                                 <a class="nav-link active" href="UserLogin.jsp">User</a>
                             </li>
 
-                           <li class="nav-item">
-                                <a class="nav-link active"  href="userProfile">UserProfile</a>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="userProfile">UserProfile</a>
                             </li>
 
                         </ul>
@@ -108,7 +124,8 @@
 
                         <div class="form-group">
                             <label for="age" class="form-label">Age</label>
-                            <input type="number" id="age" name="age" class="form-control" required>
+                            <input type="number" id="age" name="age" class="form-control" value="${register.age}"
+                                required>
                         </div>
 
                         <div class="form-group">
@@ -138,4 +155,3 @@
         </body>
 
         </html>
-

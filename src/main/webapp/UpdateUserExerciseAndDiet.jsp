@@ -295,7 +295,7 @@
         <a href="followup">FollowUp</a>
         <a href="register">Registration</a>
         <a href="updateRegi">Update</a>
-        <a href="trainerslots">Slots</a>
+        <a href="trainerslots">Add Slots & Trainer</a>
        <!-- <a href="viewtrainer">View Trainer</a> -->
         <a href="assignSlot">AssignUsers</a>
          <a href="UpdateExerciseAndDiet">UpdateUserExerciseAndDiet</a>

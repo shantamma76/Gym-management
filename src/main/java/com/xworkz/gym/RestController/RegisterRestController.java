@@ -36,18 +36,18 @@ public class RegisterRestController {
         }
     }
 
-//    @GetMapping(value = "/email/{email}", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public String onEmailCount(@PathVariable String email) {
-//        log.info("Email is=" +email);
-//        Long count = this.service.countByEmail(email);
-//        if (count == 0) {
-//            System.out.println("email does not exist");
-//            return "";
-//        } else {
-//            System.out.println("email is exists");
-//            return "";
-//        }
-//    }
+    @GetMapping(value = "/email/{email}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String onEmailCount(@PathVariable String email) {
+        log.info("Email is=" +email);
+        Long count = this.service.countByEmail(email);
+        if (count == 0) {
+            System.out.println("email does not exist");
+            return "";
+        } else {
+            System.out.println("email is exists");
+            return "";
+        }
+    }
 
     @GetMapping(value = "/trainer/{trainer}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String onTrainerCount(@PathVariable String trainer) {

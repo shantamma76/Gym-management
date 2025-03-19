@@ -3,7 +3,6 @@
         <%@ page isELIgnored="false" %>
             <!DOCTYPE html>
             <html>
-
             <head>
                 <title>View Enquiry Details</title>
                 <style>
@@ -14,7 +13,6 @@
                         padding: 0px;
                         color: #f9f9f9;
                         background-size: 1600px 1000px;
-
                     }
 
                     /* Header */
@@ -193,8 +191,9 @@
                     <a href="followup">FollowUp</a>
                     <a href="register">Registration</a>
                     <a href="updateRegi">Update</a>
-                    <a href="trainerslots">Slots</a>
+                    <a href="trainerslots">Add Slots & Trainer</a>
                     <a href="assignTrainer">AssignUsers</a>
+                    <a href="viewTrainerAssign">View Trainer Assign</a>
                     <a href="UpdateExerciseAndDiet">UpdateUserExerciseAndDiet</a>
                     <a href="index.jsp">Logout</a>
                 </nav>
@@ -209,25 +208,24 @@
 
                 <div class="container">
 
-                    <h2>View Details</h2>
+                    <h2>View Assigned Trainers To Users </h2>
 
                     <table>
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Area</th>
-                                <th>Phone No</th>
-                                <th>Reasons</th>
+                                <th>User Name</th>
+                                <th>Trainer Name</th>
+                                <th>Slots</th>
+
                             </tr>
                         </thead>
                         <tbody>
 
-                            <c:forEach var="item" items="${enquiryList}">
+                            <c:forEach var="item" items="${assignTrainerList}">
                                 <tr>
                                     <td>${item.name}</td>
-                                    <td>${item.area}</td>
-                                    <td>${item.phone}</td>
-                                    <td>${item.reasons}</td>
+                                    <td>${item.trainerName}</td>
+                                    <td>${item.slotTimings}</td>
 
                                 </tr>
                             </c:forEach>

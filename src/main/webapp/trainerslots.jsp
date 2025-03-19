@@ -10,9 +10,12 @@
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
             <style>
                 body {
-                    background-color: #f8f9fa;
-                    font-family: Arial, sans-serif;
-                }
+                             background-image: url('https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?cs=srgb&dl=action-athlete-barbell-841130.jpg&fm=jpg');
+                             background-size: 1600px 1200px;
+                             /*width and height */
+                             background-repeat: no-repeat;
+                             background-position: center;
+                         }
 
                 .header {
                     display: flex;
@@ -166,13 +169,15 @@
                 <a href="followup">FollowUp</a>
                 <a href="register">Registration</a>
                 <a href="updateRegi">Update</a>
-                <a href="trainerslots">Slots</a>
+                 <a href="viewRegistered">View Register Details</a>
+                <a href="trainerslots">Add Slots & Trainer</a>
                 <a href="assignTrainer">AssignUsers</a>
                 <a href="UpdateExerciseAndDiet">UpdateUserExerciseAndDiet</a>
                 <a href="index.jsp">Logout</a>
             </nav>
 
             <script>
+
                 // Toggle mobile menu visibility
                 function toggleMenu() {
                     const mobileNav = document.querySelector('.mobile-nav');

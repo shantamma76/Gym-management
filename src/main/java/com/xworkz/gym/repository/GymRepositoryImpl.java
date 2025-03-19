@@ -40,8 +40,7 @@ public class GymRepositoryImpl implements GymRepository {
             }
             System.out.println("it is null");
             return false;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             if (entityTransaction.isActive()) {
                 entityTransaction.rollback();
             }
@@ -61,14 +60,12 @@ public class GymRepositoryImpl implements GymRepository {
             Query namedQuery = entityManager.createNamedQuery("findAdmion");
             Query query = namedQuery.setParameter("ademail", email);
             Object singleResult = query.getSingleResult();
-            System.out.println("===================0"+singleResult);
+            System.out.println("===================0" + singleResult);
             return (AdminEntity) singleResult;
-        }
-        catch (Exception e){
-            System.out.println("getting exception in adminentity.."+e.getMessage());
+        } catch (Exception e) {
+            System.out.println("getting exception in adminentity.." + e.getMessage());
             return null;
-        }
-        finally {
+        } finally {
             entityManager.close();
         }
     }
@@ -980,6 +977,74 @@ public class GymRepositoryImpl implements GymRepository {
         return Collections.emptyList();
     }
 
+    @Override
+    public List<RegisterEntity> getAllRegisterDetails(int startIndex, int pageSize) {
+        System.out.println("---------------get paginated details in RepoImpl-------------");
+        EntityManager entityManager = emf.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+
+        try {
+            Query query = entityManager.createNamedQuery("getAllUsersDetails");
+            query.setFirstResult(startIndex); // start index for pagination
+            query.setMaxResults(pageSize); // page size
+
+            return query.getResultList();
+        } catch (Exception e) {
+            if (entityTransaction.isActive()) {
+                entityTransaction.rollback();
+            }
+        } finally {
+            entityManager.close();
+        }
+
+        return Collections.emptyList();
+    }
+
+    public long getTotalRecords() {
+        EntityManager entityManager = emf.createEntityManager();
+        EntityTransaction et = entityManager.getTransaction();
+        try {
+            Query query = entityManager.createNamedQuery("getAllRegistredUsersDetailsCount");
+            return (long) query.getSingleResult();
+        } catch (Exception e) {
+            if(et.isActive()){
+                et.rollback();
+            }
+        } finally {
+            entityManager.close();
+        }
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //    @Override
 //    public List<RegisterEntity> getCustomrtDetailsWithTrainer() {
 //        System.out.println("-----------get getCustomrtDetailsWithTrainer in Repo----------");
@@ -1082,7 +1147,7 @@ public class GymRepositoryImpl implements GymRepository {
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         try {
-            Query query = entityManager.createNamedQuery("getAllDetailsOfEnquiry");
+            Query query = entityManager.createNamedQuery("getJoiningNamesOnly");
             return query.getResultList();
         } catch (Exception e) {
             if (entityTransaction.isActive()) {
@@ -1099,10 +1164,11 @@ public class GymRepositoryImpl implements GymRepository {
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         String phone = null;
-        try {
 
+        try {
             Query query = entityManager.createNamedQuery("getPhoneNoByName");
             query.setParameter("setName", name);
+
             Long phoneNumber = (Long) query.getSingleResult();  // Assuming it's stored as Long in DB
             return phoneNumber.toString(); // Convert to String if needed
 
@@ -1111,9 +1177,37 @@ public class GymRepositoryImpl implements GymRepository {
                 entityTransaction.rollback();
             }
             e.printStackTrace();
-
         }
         return phone;
+    }
+
+
+    @Override
+    public String getEmailByName(String name) {
+        System.out.println("---------------getEmailByName in RepoImpl-------------");
+        EntityManager entityManager = emf.createEntityManager();
+        String email = null;
+
+        try {
+            Query query = entityManager.createNamedQuery("getEmailAddByName");
+            query.setParameter("byName", name);
+
+            String emailAddress = (String) query.getSingleResult();  // Assuming it's stored as String in DB
+            if (emailAddress != null) {
+                email = emailAddress;  // Return email if found
+            }
+
+        } catch (NoResultException e) {
+            System.out.println("No result found for name: " + name);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (entityManager != null && entityManager.isOpen()) {
+                entityManager.close();  // Always close the EntityManager
+            }
+        }
+
+        return email;
     }
 
 
@@ -1378,13 +1472,13 @@ public class GymRepositoryImpl implements GymRepository {
 
 
     @Override
-    public RegisterEntity getAllRegistredUsersDetailsById(String name) {
+    public RegisterEntity getAllRegistredUsersDetailsById(String name, int age) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction et = em.getTransaction();
         RegisterEntity registrationEntity = null;
         try {
             et.begin();
-            List<RegisterEntity> list = em.createNamedQuery("getAllRegistredUsersDetailsById").setParameter("getId", name).getResultList();
+            List<RegisterEntity> list = em.createNamedQuery("getAllRegistredUsersDetailsById").setParameter("getName", name).setParameter("getAge", age).getResultList();
 
             if (!list.isEmpty()) {
                 registrationEntity = list.get(0);
@@ -1425,36 +1519,134 @@ public class GymRepositoryImpl implements GymRepository {
         return entity;
     }
 
-    //--------------
-//    @Override
-//    public RegisterEntity findNamesByPrefix(String prefix) {
-//        System.out.println("===================reposi====================");
-//        EntityManager em = emf.createEntityManager();
-//        EntityTransaction et = em.getTransaction();
-//        List<RegisterEntity> result = null;
-//
-//        try {
-//            et.begin();
-//            result = em.createQuery("SELECT p.name FROM RegisterEntity p WHERE p.name LIKE :prefix")
-//                    .setParameter("prefix", prefix + "%")
-//                    .getResultList();
-//
-//        } catch (Exception e) {
-//            if (et.isActive()) {
-//                et.rollback();
-//            }
-//        } finally {
-//            em.close();
-//        }
-//        return null;
-//    }
+    @Override
+    public boolean saveGymDetails(AddGymEntity addGymEntity) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
 
+        try {
+            et.begin();
+            em.persist(addGymEntity);
+            et.commit();
+            return true;
+        } catch (Exception e) {
+            if (et.isActive()) {
+                et.rollback();
+            }
+            return false;
+        } finally {
+            em.close();
+        }
+    }
 
+    @Override
+    public List<AddGymEntity> getAllGymDetails() {
+        System.out.println("---------------getAllEnquiry in RepoImpl-------------");
+        EntityManager entityManager = emf.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        try {
+            Query query = entityManager.createNamedQuery("getAllGymDetails");
+            return query.getResultList();
+        } catch (Exception e) {
+            if (entityTransaction.isActive()) {
+                entityTransaction.rollback();
+            }
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
 
+    @Override
+    public List<AssignTrainersEntity> getAllAssignTrainer() {
+        System.out.println("---------------getAllEnquiry in RepoImpl-------------");
+        EntityManager entityManager = emf.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        try {
+            Query query = entityManager.createNamedQuery("getAllAssignTrainerDetails");
+            return query.getResultList();
+        } catch (Exception e) {
+            if (entityTransaction.isActive()) {
+                entityTransaction.rollback();
+            }
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+
+    }
+
+    @Override
+    public RegisterEntity onEmail(String name) {
+        EntityManager entityManager = emf.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            Query findbyemail = entityManager.createNamedQuery("findbyemail");
+            Query query = findbyemail.setParameter("name", name);
+            Object singleResult = query.getSingleResult();
+            return (RegisterEntity) singleResult;
+        } catch (Exception e) {
+            System.out.println("invoking in the exception.........." + e.getMessage());
+            return null;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    //pagination  in update
+    @Override
+    public List<RegisterEntity> getAllRegiDetails(int page, int size) {
+        System.out.println("Fetching paginated register details");
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+
+        // Calculate the starting index for pagination
+        int startIndex = page * size;
+
+        try {
+            Query query = em.createNamedQuery("getAllRegistredUsersDetails");
+            query.setFirstResult(startIndex); // Start from the correct index
+            query.setMaxResults(size);        // Limit the results to the page size
+            return query.getResultList();  // Return the actual result list here
+
+        } catch (Exception e) {
+            if (et.isActive()) {
+                et.rollback();
+            }
+            e.printStackTrace();  // Print stack trace for debugging
+        } finally {
+            em.close();
+        }
+        return Collections.emptyList(); // Return an empty list in case of error
+    }
+
+    @Override
+    public int getTotalRegisterCount() {
+        System.out.println("getTotalRegisterCount in repoImpl");
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+
+        try {
+            // Get the total number of records
+            Query query = em.createQuery("SELECT COUNT(r) FROM RegisterEntity r");
+            return ((Long) query.getSingleResult()).intValue();
+        } catch (Exception e) {
+            if (et.isActive()) {
+                et.rollback();
+            }
+        } finally {
+            em.close();
+        }
+        return 0;
+    }
 
 
 
 }
+
+
+
+
+
+
 
 
 

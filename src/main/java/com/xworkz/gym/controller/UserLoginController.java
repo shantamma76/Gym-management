@@ -1,8 +1,9 @@
-package com.xworkz.gym.Controller;
+package com.xworkz.gym.controller;
 
 import com.xworkz.gym.DTO.RegisterDto;
 import com.xworkz.gym.Entity.*;
 import com.xworkz.gym.constants.ProfileImagePath;
+import com.xworkz.gym.repository.GymRepository;
 import com.xworkz.gym.service.GymService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
@@ -36,6 +38,8 @@ public class UserLoginController {
 //        return "UserLogin";
 //    }
 
+    @Autowired
+    private GymRepository repository;
 
 
     @PostMapping("/signIn")
@@ -186,41 +190,61 @@ public class UserLoginController {
     public String onUpdate(HttpSession httpSession,Model model){
         RegisterEntity entity1=(RegisterEntity) httpSession.getAttribute("userRegEntityHttp");
         String name = entity1.getName();
-        RegisterEntity entity=service.getAllRegistredUsersDetailsById(name);
+        int age = entity1.getAge();
+        RegisterEntity entity=service.getAllRegistredUsersDetailsById(name,age);
         model.addAttribute("register",entity);
         return "UpdateUserProfile";
     }
 
-    @PostMapping("/updateUserProfile")
-    public String onUpdate(@RequestParam("thisfile") MultipartFile multipartFile, RegisterDto registerDto, Model model,HttpSession httpSession) throws IOException {
-        RegisterEntity entity1 = (RegisterEntity) httpSession.getAttribute("userRegEntityHttp");
-        String name = entity1.getName();
-        // int id = entity1.getId();
-        String filePath;
 
-        if (multipartFile.isEmpty()) {
-            return "UpdateUserProfile";
-        } else {
+    @PostMapping("/updateUserProfile")
+    public String onUpdate(@RequestParam("thisfile") MultipartFile multipartFile,
+                           RegisterDto registerDto,
+                           Model model,
+                           HttpServletRequest httpSession) throws IOException {
+
+        // Get the current user from the session
+//        RegisterEntity entity1 = (RegisterEntity) httpSession.getAttribute("userRegEntityHttp");
+//        System.out.println("=============:"+entity1);
+//        String name = entity1.getName();
+
+        String filePath = null;
+
+        if (!multipartFile.isEmpty()) {
             System.out.println(multipartFile);
             System.out.println(multipartFile.getOriginalFilename());
+
             byte[] bytes = multipartFile.getBytes();
             Path path = Paths.get(ProfileImagePath.ProfileImagePath.getPath() + System.currentTimeMillis() + ".jpg");
             Files.write(path, bytes);
+
             filePath = path.getFileName().toString();
+
         }
-        RegisterDto updatedValue = service.updateUserProfile(name,registerDto,filePath);
-        if(updatedValue != null) {
-            RegisterEntity entity=service.getAllRegistredUsersDetailsById(name);
-            model.addAttribute("register",entity);
+
+        RegisterDto updatedValue = service.updateUserProfile(registerDto.getName(), registerDto, filePath);
+        httpSession.setAttribute("userRegEntityHttp",updatedValue);
+
+        if (updatedValue != null) {
+            RegisterEntity entity = service.getAllRegistredUsersDetailsById(registerDto.getName(),registerDto.getAge());
+
+            HttpSession httpsession = httpSession.getSession(true);
+            httpSession.setAttribute("register", entity);
+            httpSession.setAttribute("picPaths", filePath);
             return "UserProfile";
         }
         return "UserHome";
     }
 
+
     @GetMapping("/userProfile")
-    public String onUserProfile(HttpSession httpSession,Model model) {
+    public String onUserProfile(HttpSession httpSession,Model model,String name) {
         RegisterEntity registrationEntity = (RegisterEntity) httpSession.getAttribute("userRegEntityHttp");
-        model.addAttribute("register",registrationEntity);
+       model.addAttribute("register",registrationEntity);
+
+        List<RegisterEntity> listRegi = service.getAllRegiDetails();
+        System.out.println("========================================================="+listRegi);
+        httpSession.setAttribute("register",listRegi);
         return "UserProfile";
     }
 
@@ -255,3 +279,53 @@ public class UserLoginController {
 }
 
 
+
+//
+//    @PostMapping("/updateUserProfile")
+//    public String onUpdate(@RequestParam("thisfile") MultipartFile multipartFile,
+//                           RegisterDto registerDto,
+//                           Model model) throws IOException {
+//
+//        String filePath = null;
+//
+//        if (!multipartFile.isEmpty()) {
+//            System.out.println(multipartFile);
+//            System.out.println(multipartFile.getOriginalFilename());
+//
+//            byte[] bytes = multipartFile.getBytes();
+//            Path path = Paths.get(ProfileImagePath.ProfileImagePath.getPath() + System.currentTimeMillis() + ".jpg");
+//            Files.write(path, bytes);
+//
+//            filePath = path.getFileName().toString();
+//        }
+//        RegisterDto updatedValue = service.updateUserProfile(registerDto.getName(), registerDto, filePath);
+//
+//        if (updatedValue != null) {
+//            // Fetch the updated user details
+//            RegisterEntity entity = service.getAllRegistredUsersDetailsById(registerDto.getName(), registerDto.getAge());
+//            model.addAttribute("register", entity);
+////            model.addAttribute("picPaths", filePath);
+//            return "UserProfile";
+//        }
+//        return "UserHome";
+//    }
+
+
+
+
+//    @GetMapping("/userProfile")
+//    public String onUserProfile(HttpSession httpSession,Model model) {
+//
+//        RegisterEntity entity = service.getAllRegistredUsersDetailsById(registerDto.getName(),registerDto.getAge());
+//
+//        HttpSession httpsession = httpSession.getSession(true);
+//        httpSession.setAttribute("register", entity);
+//        httpSession.setAttribute("picPaths", filePath);
+//
+//        return "UserProfile";
+//
+//
+//        RegisterEntity registrationEntity = (RegisterEntity) httpSession.getAttribute("userRegEntityHttp");
+//        model.addAttribute("register",registrationEntity);
+//        return "UserProfile";
+//    }

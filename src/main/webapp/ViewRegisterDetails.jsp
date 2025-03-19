@@ -7,17 +7,29 @@
             <head>
                 <title>View Enquiry Details</title>
                 <style>
-                    body {
-                        font-family: 'Roboto', Arial, sans-serif;
-                        background-image: url('https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?cs=srgb&dl=action-athlete-barbell-841130.jpg&fm=jpg');
-                        margin: 0px;
-                        padding: 0px;
-                        color: #f9f9f9;
-                        background-size: 1600px 1000px;
 
+                    body,h2,table,th,td,a {
+                        margin: 0;
+                        padding: 0;
+                        box-sizing: border-box;
                     }
 
-                    /* Header */
+
+                    body {
+                     font-family: 'Roboto', Arial, sans-serif;
+                        background-image: url('https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?cs=srgb&dl=action-athlete-barbell-841130.jpg&fm=jpg');
+                        background-size: 1600px 1000px;
+                        /*width and height */
+                        background-repeat: no-repeat;
+                        background-position: center;
+                    }
+
+                    h2 {
+                        text-align: center;
+                        color: #333;
+                        margin-bottom: 30px;
+                    }
+
                     .header {
                         display: flex;
                         justify-content: space-between;
@@ -25,7 +37,7 @@
                         padding: 15px 30px;
                         position: sticky;
                         top: 0;
-                        width: 1480px;
+                        width: 96%;
                         height: 55px;
                         z-index: 999;
                         color: white;
@@ -47,7 +59,6 @@
                         position: absolute;
                         left: 50%;
                         transform: translateX(-50%);
-
                     }
 
                     .nav a {
@@ -111,55 +122,76 @@
                     }
 
                     h2 {
+                        color: white;
                         text-align: center;
-                        color: black;
                     }
 
+                    /* Table Styling */
                     table {
-                        width: 1200px;
+                        width: 90%;
+                        margin-bottom: 30px;
+                        margin-left: 80px;
                         border-collapse: collapse;
-                        margin: 20px auto;
+                        background-color: #fff;
+                        border-radius: 5px;
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                     }
 
                     th,
                     td {
-                        border: 1px solid black;
-                        padding: 10px;
+                        padding: 12px 15px;
                         text-align: center;
+                        border: 1px solid #ddd;
                     }
 
                     th {
                         background-color: darkblue;
-                        color: #fff;
-                        font-weight: bold;
+                        color: white;
                         text-transform: uppercase;
-                        font-size: 0.9rem;
                     }
 
                     td {
-                        background-color: white;
-                        color: black;
+                        background-color: #fafafa;
                     }
 
-                    tr:nth-child(even) {
-                        background-color: #222;
+                    tr:nth-child(even) td {
+                        background-color: #f1f1f1;
                     }
 
-                    .container {
-                        max-width: 1200px;
-                        margin-left: 150px;
-                        margin-right: 50px;
-                        background: white;
-                        border-radius: 8px;
-                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-                        padding: 20px;
+                    /* Pagination Styling */
+                    .pagination {
+                        text-align: center;
+                        margin-top: 20px;
+                    }
+
+                    .pagination a,
+                    .pagination .current {
+                        padding: 10px 15px;
+                        margin: 0 5px;
+                        text-decoration: none;
+                        color: #333;
+                        background-color: #f0f0f0;
+                        border-radius: 5px;
+                    }
+
+                    .pagination a:hover {
+                        background-color: #f0c14b;
+                    }
+
+                    .pagination .current {
+                        background-color: #0E0E0E;
+                        color: white;
+                    }
+
+                    .pagination a:disabled {
+                        color: #ccc;
+                        cursor: not-allowed;
                     }
                 </style>
-
             </head>
 
             <body>
-
+                <!-- Header and other parts of the page here -->
                 <!-- Header Section -->
                 <header class="header">
                     <!-- Logo -->
@@ -193,7 +225,7 @@
                     <a href="followup">FollowUp</a>
                     <a href="register">Registration</a>
                     <a href="updateRegi">Update</a>
-                    <a href="trainerslots">Slots</a>
+                    <a href="trainerslots">Add Slots & Trainer</a>
                     <a href="assignTrainer">AssignUsers</a>
                     <a href="UpdateExerciseAndDiet">UpdateUserExerciseAndDiet</a>
                     <a href="index.jsp">Logout</a>
@@ -207,33 +239,69 @@
                     }
                 </script>
 
+
+
+                <!-- Main Content -->
                 <div class="container">
+                    <h2>All Registered Details</h2>
 
-                    <h2>View Details</h2>
-
+                    <!-- Table for Registered Details -->
                     <table>
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Area</th>
-                                <th>Phone No</th>
-                                <th>Reasons</th>
+                                <th>User Name</th>
+                                <th>Email</th>
+                                <th>Phone No.</th>
+                                <th>Gym Name</th>
+                                <th>Packages</th>
+                                <th>Amount</th>
+                                <th>Paid</th>
+                                <th>Discount</th>
+                                <th>Balance</th>
+                                <th>Installment</th>
                             </tr>
                         </thead>
                         <tbody>
-
-                            <c:forEach var="item" items="${enquiryList}">
+                            <c:forEach var="item" items="${viewRegisterList}">
                                 <tr>
                                     <td>${item.name}</td>
-                                    <td>${item.area}</td>
+                                    <td>${item.email}</td>
                                     <td>${item.phone}</td>
-                                    <td>${item.reasons}</td>
-
+                                    <td>${item.gymName}</td>
+                                    <td>${item.packages}</td>
+                                    <td>${item.amount}</td>
+                                    <td>${item.paid}</td>
+                                    <td>${item.discount}</td>
+                                    <td>${item.balance}</td>
+                                    <td>${item.installment}</td>
                                 </tr>
                             </c:forEach>
                         </tbody>
                     </table>
+
+                    <!-- Pagination Controls -->
+                    <div class="pagination">
+                        <c:if test="${currentPage > 1}">
+                            <a href="viewRegistered?page=${currentPage - 1}">Previous</a>
+                        </c:if>
+
+                        <c:forEach var="i" begin="1" end="${totalPages}">
+                            <c:choose>
+                                <c:when test="${i == currentPage}">
+                                    <span class="current">${i}</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="viewRegistered?page=${i}">${i}</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+
+                        <c:if test="${currentPage < totalPages}">
+                            <a href="viewRegistered?page=${currentPage + 1}">Next</a>
+                        </c:if>
+                    </div>
                 </div>
+
             </body>
 
             </html>

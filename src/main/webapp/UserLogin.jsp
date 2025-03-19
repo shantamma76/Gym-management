@@ -14,14 +14,19 @@
             body {
                 background-color: #fafafa;
                 font-family: 'Roboto', sans-serif;
+                 background-image: url('https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?cs=srgb&dl=action-athlete-barbell-841130.jpg&fm=jpg');
+                                background-size: 1600px 1000px;
+                                /*width and height */
+                                background-repeat: no-repeat;
+                                background-position: center;
             }
 
             .form-container {
                 background-color: #fff;
                 border-radius: 10px;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
                 padding: 30px;
-                margin-top: 50px;
+                margin-top: 90px;
             }
 
             .form-group label {
@@ -30,23 +35,11 @@
 
             .form-control {
                 border-radius: 5px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
                 padding: 10px;
                 font-size: 14px;
                 margin-bottom: 20px;
                 border: 1px solid #ddd;
-            }
-
-            .navbar {
-                background-color: black;
-                justify-content: space-between;
-                /* Semi-transparent background */
-                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-                z-index: 1;
-            }
-
-            .navbar-brand img {
-                width: 120px;
-                height: auto;
             }
 
             .btn-primary {
@@ -116,33 +109,6 @@
     </head>
 
     <body>
-
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-
-                <a class="navbar-brand" href="#">
-                    <img src="https://x-workz.in/static/media/Logo.cf195593dc1b3f921369.png" alt="Xworkz Logo">
-                </a>
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
-
-
-                        <li class="nav-item active">
-                            <a class="nav-link" href="index.jsp">LogOut</a>
-                        </li>
-
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
         <!-- Sign In Form -->
         <div class="container">
             <div class="row justify-content-center">

@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weekly Exercise & Monthly Diet Plan</title>
     <style>
+
+
         /* Basic Reset and Body Styles */
         * {
             margin: 0;
@@ -15,9 +17,12 @@
         }
         body {
             font-family: Arial, sans-serif;
-            background: #000000;
-            background: -webkit-linear-gradient(to bottom, #434343, #000000);
-            background: linear-gradient(to top, #434343, #000000);
+            background-image: url('https://easyfitgaragedoor.co.uk/wp-content/uploads/2018/08/DALL%C2%B7E-2024-02-29-15.08.50-Create-an-illustration-of-two-free-weights-specifically-dumbbells-on-a-gym-floor.-The-dumbbells-should-have-a-sleek-modern-design-with-chrome-handl.webp');
+              background-size: 1600px 1300px;
+                            /*width and height */
+                            background-repeat: no-repeat;
+                            background-position: center;
+
         }
 
         /* Header Styles */
@@ -307,10 +312,10 @@
                     <h3>Saturday</h3>
                     <p>${exercisePlan.saturday}</p>
                 </div>
-                <div class="day">
+            <!--    <div class="day">
                     <h3>Sunday</h3>
                     <p>${exercisePlan.sunday}</p>
-                </div>
+                </div>  -->
             </div>
         </c:forEach>
     </div>

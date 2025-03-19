@@ -8,17 +8,18 @@
     <title>Trainer and Slot Page</title>
 
     <style>
+
      @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@200;300;400;500;600;700&display=swap");
         /* General Styles */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #000000;  /* fallback for old browsers */
-            background: -webkit-linear-gradient(to bottom, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
-            background: linear-gradient(to top, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+         body {
+                  font-family: Arial, sans-serif;
+                  background-image: url('https://easyfitgaragedoor.co.uk/wp-content/uploads/2018/08/DALL%C2%B7E-2024-02-29-15.08.50-Create-an-illustration-of-two-free-weights-specifically-dumbbells-on-a-gym-floor.-The-dumbbells-should-have-a-sleek-modern-design-with-chrome-handl.webp');
+                    background-size: 1600px 1500px;
+                                  /*width and height */
+                                  background-repeat: no-repeat;
+                                  background-position: center;
 
-        }
+              }
 
 
 

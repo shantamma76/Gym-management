@@ -13,10 +13,11 @@
             <style>
                 body {
                     font-family: 'Roboto', Arial, sans-serif;
-                    background-image: url('https://img.freepik.com/premium-photo/empty-gym-with-treadmills_564714-18757.jpg');
+                      background-image: url('https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?cs=srgb&dl=action-athlete-barbell-841130.jpg&fm=jpg');
                     margin: 0;
                     padding: 30px;
                     color: #f9f9f9;
+                    background-size: 1600px 1000px;
                 }
 
                 .header {
@@ -38,7 +39,6 @@
                     max-height: 51px;
                     height: auto;
                 }
-
 
                 .nav {
                     display: flex;
@@ -141,16 +141,13 @@
                     }
                 }
 
-
-
                 h1 {
                     text-align: center;
                     color: black;
                     font-size: 2em;
                     margin-bottom: 20px;
-                    text-transform: uppercase;
-                }
 
+                }
 
                 .container {
                     max-width: 1200px;
@@ -241,7 +238,7 @@
                 td input {
                     padding: 5px;
                     font-size: 0.9rem;
-                    border: 1px solid #7f8c8d;
+                    border: 1px solid black;
                     border-radius: 5px;
                     width: 90%;
                     background-color: white;
@@ -319,8 +316,9 @@
                 <a href="followup">FollowUp</a>
                 <a href="register">Registration</a>
                 <a href="updateRegi">Update</a>
+                 <a href="viewRegistered">View Register Details</a>
                 <a href="trainerslots">Slots</a>
-                <a href="assignTrainer">AssignUsers</a>
+                <a href="assignTrainer">AssignTrainer</a>
                 <a href="UpdateExerciseAndDiet">UpdateUserExerciseAndDiet</a>
                 <a href="index.jsp">Logout</a>
             </nav>
@@ -338,7 +336,7 @@
 
                 <!-- Search Bar -->
                 <div class="search-bar">
-                    <form action="followUp" method="get">
+                    <form action="followup" method="get">
                         <label for="status"><i class="fas fa-filter"></i> Filter by Status:</label>
                         <select name="status" id="status">
                             <option value="">--Select Status--</option>
@@ -378,7 +376,9 @@
 
                                     <td>
                                         <select name="status">
+                                        <option>select</option>
                                             <c:forEach var="status" items="${statusOptions}">
+
                                                 <option value="${status}" ${status.equals(enquiry.status) ? 'selected'
                                                     : '' }>
                                                     ${status}
@@ -388,7 +388,7 @@
                                     </td>
 
                                     <td>
-                                        <input type="text" name="reasons" value="${enquiry.reasons}" />
+                                        <input type="text" name="reasons" value="${enquiry.reasons}"/>
                                     </td>
 
                                     <td>

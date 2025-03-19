@@ -13,6 +13,7 @@ import javax.persistence.*;
 //@NamedQuery(name = "getUsersAssignedToTrainerByTrainerName",query = "select a from AssignTrainersEntity a where a.trainerName=:getTrainerName")
 
 @NamedQuery(name = "getUsersAssignedToTrainerByTrainerName",query = "select a from AssignTrainersEntity a where a.trainerName=:getTrainerName")
+@NamedQuery(name="getAllAssignTrainerDetails",query = "select a from AssignTrainersEntity a")
 public class AssignTrainersEntity {
 
     @Id

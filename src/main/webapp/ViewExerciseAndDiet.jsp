@@ -38,6 +38,7 @@
         .logo-img {
             max-height: 51px;
             height: auto;
+
         }
 
         /* Center navigation */
@@ -281,7 +282,7 @@
            <a href="Enquiry.jsp">Enquiry</a>
            <a href="search">FollowUp</a>
            <a href="register">Registration</a>
-           <a href="update">Update</a>
+           <a href="updateRegi">Update</a>
            <a href="trainerslots">Slots</a>
           <!-- <a href="viewtrainer">View Trainer</a> -->
            <a href="assignSlot">AssignUsers</a>
@@ -293,7 +294,7 @@
 <div class="container">
     <!-- Weekly Exercise Plan -->
     <div class="week-container">
-        <h2 style="color:red;">Weekly Exercise Plan</h2>
+        <h2 style="color:#00fdff;">Weekly Exercise Plan</h2>
 
         <c:forEach items="${viewUserExercise}" var="viewUserExercise">
 

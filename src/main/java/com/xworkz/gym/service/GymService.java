@@ -53,6 +53,8 @@ public interface GymService {
     List<EnquiryEntity> getAllEnquiry();
     String getPhoneNumberByName(String name);
 
+    String getEmailByName(String name);
+
     //update register details
     RegisterEntity getDetailsByEmail(String email);
     public boolean updateDetailsById(String packages,  String amount, int paid, double balance, double installment, String name);
@@ -107,11 +109,25 @@ public interface GymService {
     List<UserExerciseAndDietEntity> getuserMonthlyImages(int id);
 
     //----user profile
-    RegisterEntity getAllRegistredUsersDetailsById(String name);
+    RegisterEntity getAllRegistredUsersDetailsById(String name,int age);
     public AssignTrainersEntity getTrainerAndSlotByUserName(String name);
 
+    //add gym details
+    public boolean saveGymDetails(AddGymDto addGymDto);
+    List<AddGymEntity> getAllGymDetails();
 
+    //view assign trainer
+    List<AssignTrainersEntity> getAllAssignTrainer();
+
+    //------pagination---
+    List<RegisterEntity> getAllRegiDetails(int page, int size);
+    int getTotalPages(int size);
+
+    public List<RegisterEntity> getAllRegisterDetails(int startIndex, int pageSize);
+    public long getTotalRecords();
 }
+
+
 
 
 

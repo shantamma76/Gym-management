@@ -38,8 +38,9 @@ import java.time.LocalDateTime;
 //Update Profile
 @NamedQuery(name = "getAllRegDetailsById",query = "select re from RegisterEntity re where re.id = :getRegistrationId")
 @NamedQuery(name = "updateUserProfileByName", query = "UPDATE RegisterEntity re SET re.age=:getAge,re.height=:getHeight,re.weight=:getWeight,re.filePath=:getFilePath where re.name=:getName")
+
 //for profile
-@NamedQuery(name = "getAllRegistredUsersDetailsById",query = "select a from RegisterEntity a where a.name=:getId")
+@NamedQuery(name = "getAllRegistredUsersDetailsById",query = "select a from RegisterEntity a where a.name=:getName and a.age=:getAge")
 
 //update register
 @NamedQuery(name = "updateValuesById", query = "UPDATE RegisterEntity p SET p.packages = :setPackage, p.amount = :setAmount, p.paid = :setPaid, p.balance = :setBalance, p.installment = :setInstallment where p.name = :byName")
@@ -57,7 +58,14 @@ import java.time.LocalDateTime;
 //for diet
 @NamedQuery(name = "getAllRegistredUsersDetailsByNameAndPhoneNo", query = "select a from RegisterEntity a where a.name = :getName and a.phone = :getPhone")
 
+//getting the email by name in assign trainer page
+@NamedQuery(name="getEmailAddressByName", query = "select p.email from RegisterEntity p where p.name = :setName")
 
+@NamedQuery(name="findbyemail",query = "select e from RegisterEntity e where e.name=:name")
+
+//pagination
+@NamedQuery(name = "getAllUsersDetails", query = "SELECT r FROM RegisterEntity r ORDER BY r.id DESC")
+@NamedQuery(name = "getAllRegistredUsersDetailsCount", query = "SELECT COUNT(r) FROM RegisterEntity r")
 public class RegisterEntity {
 
     @Id

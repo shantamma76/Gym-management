@@ -180,7 +180,7 @@
             <nav class="nav">
                 <a href="Success.jsp">Home</a>
                 <a href="Enquiry.jsp">Enquiry</a>
-                <a href="search">FollowUp</a>
+                <a href="followup">FollowUp</a>
                 <a href="register">Registration</a>
             </nav>
 
@@ -201,8 +201,9 @@
             <a href="followup">FollowUp</a>
             <a href="register">Registration</a>
             <a href="updateRegi">Update</a>
+             <a href="viewRegistered">View Register Details</a>
             <a href="trainerslots">Slots</a>
-            <a href="assignTrainer">AssignUsers</a>
+            <a href="assignTrainer">AssignTrainer</a>
             <a href="UpdateExerciseAndDiet">UpdateUserExerciseAndDiet</a>
             <a href="index.jsp">Logout</a>
         </nav>
@@ -231,6 +232,14 @@
                                 placeholder="Enter your name" required>
                         </div>
                         <span id="nameDemo" style="color:red;"></span>
+
+                        <div class="mb-3 input-group">
+
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            <input type="text" class="form-control" id="email" name="email" onchange="validateName()"
+                                placeholder="Enter your email" required>
+                        </div>
+
 
                         <!-- Area Input -->
                         <div class="mb-3 input-group">
@@ -295,7 +304,6 @@
                 }
                 return valid;
             }
-
             function validateName() {
                 var name = document.getElementById('name');
                 var nameValue = name.value;
@@ -315,6 +323,7 @@
                     document.getElementById("nameAjax").innerHTML = this.responseText;
                 }
             }
+
 
             function validateArea() {
                 var area = document.getElementById('area');
@@ -355,7 +364,6 @@
                 xhttp.onload = function () {
                     document.getElementById("phoneAjax").innerHTML = this.responseText;
                 }
-
             }
 
             function validateDistance() {

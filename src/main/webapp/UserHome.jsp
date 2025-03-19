@@ -194,7 +194,7 @@
  <nav class="nav">
       <a href="userHome">Home</a>
        <a href="UserLogin.jsp">SignIn</a>
-     <a href="userProfile">User Profile</a>
+     <a href="userProfile?name=${list.name}">User Profile</a>
      <a href="trainerAndSlot">Trainer And Slot</a>
      <a href="exerciseDiet">Exercise and Diet</a>
 

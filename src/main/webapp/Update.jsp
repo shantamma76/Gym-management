@@ -7,9 +7,10 @@
             <style>
                 body {
                     background-image: url('https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?cs=srgb&dl=action-athlete-barbell-841130.jpg&fm=jpg');
+                    background-size: 1600px 1000px;
+                    /*width and height */
                     background-repeat: no-repeat;
                     background-position: center;
-
                 }
 
                 .header {
@@ -33,7 +34,7 @@
                     height: auto;
                 }
 
-                /* Center navigation */
+
                 .nav {
                     display: flex;
                     align-items: center;
@@ -54,7 +55,7 @@
                     color: #f0c14b;
                 }
 
-                /* Toggle button */
+
                 .menu-toggle {
                     display: flex;
                     flex-direction: column;
@@ -70,7 +71,7 @@
                     transition: 0.3s;
                 }
 
-                /* Dropdown menu - hidden by default */
+
                 .mobile-nav {
                     display: none;
                     flex-direction: column;
@@ -103,70 +104,47 @@
                     display: flex;
                 }
 
-            <!--    .container {
-                    margin: 65px;
-                    padding: 0px;
-                    max-width: 1400px;
-
-                } -->
-
-                   .scrollable-container {
-                            max-height: 900px;
-                            overflow-y: auto;
-                            border: 1px solid black;
-                            padding: 10px;
-                        }
-
-                        .form-element {
-                            margin-bottom: 10px;
-                        }
-
                 h3 {
-
+                    color: white;
                     text-align: center;
-                    margin-top: -8px;
-                    /* Remove any top margin */
+                }
+
+
+                .pagination {
+                    text-align: center;
+                    margin-left:500px;
+                    margin-top: 20px;
+                }
+
+                .pagination a,
+                .pagination .current {
+                    padding: 10px 15px;
+                    margin: 0 5px;
+                    text-decoration: none;
+                    color: #333;
+                    background-color: #f0f0f0;
+                    border-radius: 5px;
+                }
+
+                .pagination a:hover {
+                    background-color: #f0c14b;
+                }
+
+                .pagination .current {
+                    background-color: #0E0E0E;
                     color: white;
                 }
 
-                /* Table styling */
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    margin-top: 25px;
+                .pagination a:disabled {
+                    color: #ccc;
+                    cursor: not-allowed;
                 }
 
-                table th {
-
-                    background-color: darkblue !important;
-                    color: white !important;
-                    font-weight: bold;
-                    text-transform: uppercase !important;
-
-
-                }
-
-                th,
-                td {
-                    padding: 12px;
-                    text-align: center;
-                    border: 1px solid black;
-                }
-
-
-                tr:nth-child(even) {
-                    background-color: #f2f2f2;
-                }
-
-
-                tr:hover {
-                    background-color: pink;
-                    /* Highlight row on hover */
-                }
             </style>
         </head>
 
         <body>
+            <!-- Header and other parts of the page here -->
             <!-- Header Section -->
             <header class="header">
                 <!-- Logo -->
@@ -199,8 +177,9 @@
                 <a href="Enquiry.jsp">Enquiry</a>
                 <a href="followup">FollowUp</a>
                 <a href="register">Registration</a>
-                <a href="update">Update</a>
-                <a href="trainerslots">Slots</a>
+                <a href="updateRegi">Update</a>
+                <a href="viewRegistered">View Register Details</a>
+                <a href="trainerslots">Add Slots & Trainer</a>
                 <a href="assignTrainer">AssignUsers</a>
                 <a href="UpdateExerciseAndDiet">UpdateUserExerciseAndDiet</a>
                 <a href="index.jsp">Logout</a>
@@ -214,91 +193,109 @@
                 }
             </script>
 
-
-            <!-- Main content -->
+            <!-- Table and Data Display -->
             <div class="container">
-<h3>Update Registered Details</h3>
-        <div class="scrollable-container">
-            <div class="form-element">
+                <h3>Update Registered Details</h3>
+                <div class="scrollable-container">
+                    <div class="form-element">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone No</th>
+                                    <th>Package</th>
+                                    <th>Amount</th>
+                                    <th>Paid</th>
+                                    <th>Balance</th>
+                                    <th>Installment</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Check if registerDetails are being populated -->
+                                <c:forEach var="details" items="${registerDetails}">
+                                    <tr>
+                                        <td>
+                                            <c:out value="${details.name}" />
+                                        </td>
+                                        <td>
+                                            <c:out value="${details.email}" />
+                                        </td>
+                                        <td>
+                                            <c:out value="${details.phone}" />
+                                        </td>
 
+                                        <form method="post" action="updateDetails">
+                                            <input type="hidden" name="name" value="${details.name}">
+                                            <td>
+                                                <select class="form-control package" name="packages"
+                                                    id="packages-${status.index}" value="${details.packages}" required>
+                                                    <option value="" data-amount="0">select packages</option>
+                                                    <option value="Silver" data-amount="30000">Silver-30000</option>
+                                                    <option value="Premium" data-amount="40000">Premium-40000</option>
+                                                    <option value="Gold" data-amount="50000">Gold-50000</option>
+                                                </select>
+                                            </td>
 
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone No</th>
-                            <th>Package</th>
-                            <th>Amount</th>
-                            <th>Paid</th>
-                            <th>Balance</th>
-                            <th>Installment</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
+                                            <td>
+                                                <input type="number" step="0.01" class="form-control amount"
+                                                    name="amount" id="amount-${status.index}" value="${details.amount}"
+                                                    readonly required>
+                                            </td>
 
-                    <tbody>
-                        <c:forEach var="details" items="${registerDetails}">
-                            <tr>
-                                <td>${details.name}</td>
-                                <td>${details.email}</td>
-                                <td>${details.phone}</td>
+                                            <td>
+                                                <input type="number" name="paid" class="form-control paid"
+                                                    id="paid-${status.index}" value="${details.paid}" required>
+                                            </td>
 
+                                            <td>
+                                                <input type="number" step="0.01" class="form-control balance"
+                                                    name="balance" id="balance-${status.index}"
+                                                    value="${details.balance}" readonly required>
+                                            </td>
 
-                                <form method="post" action="updateDetails">
-                                    <input type="hidden" id="name" name="name" value="${details.name}">
+                                            <td>
+                                                <select name="installment" class="form-control installment"
+                                                    id="installment-${status.index}" value="${details.installment}">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                </select>
+                                            </td>
 
-                                    <td>
-                                        <select class="form-control package" name="packages"
-                                            id="packages-${status.index}" required>
-                                            <option value="" data-amount="0">select packages</option>
-                                            <option value="Silver" data-amount="30000">Silver-30000</option>
-                                            <option value="Premium" data-amount="40000">Premium-40000</option>
-                                            <option value="Gold" data-amount="50000">Gold-50000</option>
-                                        </select>
-                                    </td>
-
-                                    <td>
-                                        <input type="number" step="0.01" class="form-control amount" name="amount"
-                                            id="amount-${status.index}" readonly required>
-                                    </td>
-
-                                    <td>
-                                        <input type="number" name="paid" class="form-control paid"
-                                            id="paid-${status.index}" required>
-                                    </td>
-
-                                    <td>
-                                        <input type="number" step="0.01" class="form-control balance" name="balance"
-                                            id="balance-${status.index}" readonly required>
-                                    </td>
-
-                                    <td>
-                                        <select name="installment" class="form-control installment"
-                                            id="installment-${status.index}">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                        </select>
-                                    </td>
-
-
-                                    <td>
-                                        <button type="submit" class="btn btn-success">Update</button>
-                                    </td>
-
-                                </form>
-                            </tr>
-
-                        </c:forEach>
-
-                    </tbody>
-
-                </table>
+                                            <td>
+                                                <button type="submit" class="btn btn-success">Update</button>
+                                            </td>
+                                        </form>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                </div>
 
+                <div class="pagination">
+                    <c:if test="${currentPage > 1}">
+                        <a href="updateRegi?page=${currentPage - 1}">Previous</a>
+                    </c:if>
+
+                    <c:forEach var="i" begin="1" end="${totalPages}">
+                        <c:choose>
+                            <c:when test="${i == currentPage}">
+                                <span class="current">${i}</span>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="updateRegi?page=${i}">${i}</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+
+                    <c:if test="${currentPage < totalPages}">
+                        <a href="updateRegi?page=${currentPage + 1}">Next</a>
+                    </c:if>
+                </div>
             </div>
 
             <script>

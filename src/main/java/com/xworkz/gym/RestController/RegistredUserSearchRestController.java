@@ -26,19 +26,19 @@ public class RegistredUserSearchRestController {
         return "";
     }
 
-    @GetMapping(value = "/regEmail/{email}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getName(@PathVariable String email) {
-        System.out.println(email);
-
-        long count = gymService.countEmail(email); // getCountOfRegEmail(email);
-        System.out.println(count);
-        if (count > 0) {
-            System.out.println("enquiry Email exists");
-            return "Email already exists";
-        } else {
-            System.out.println("enquiry Email doesn't exists");
-            return "";
-        }
-    }
+//    @GetMapping(value = "/regEmail/{email}", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public String getName(@PathVariable String email) {
+//        System.out.println(email);
+//
+//        long count = gymService.countEmail(email); // getCountOfRegEmail(email);
+//        System.out.println(count);
+//        if (count > 0) {
+//            System.out.println("enquiry Email exists");
+//            return "Email already exists";
+//        } else {
+//            System.out.println("enquiry Email doesn't exists");
+//            return "";
+//        }
+//    }
 }
 

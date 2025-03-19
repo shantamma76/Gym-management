@@ -1,5 +1,6 @@
 package com.xworkz.gym.repository;
 
+import com.xworkz.gym.DTO.AddGymDto;
 import com.xworkz.gym.DTO.RegisterDto;
 import com.xworkz.gym.Entity.*;
 
@@ -93,6 +94,8 @@ public interface GymRepository {
     List<EnquiryEntity> getAllEnquiry();
     String getPhoneNumberByName(String name);
 
+    String getEmailByName(String name);
+
     //========================
     public void updateUserDetails(RegisterEntity registerEntity);
 
@@ -116,10 +119,30 @@ public interface GymRepository {
     List<UserExerciseAndDietEntity> getuserMonthlyImages(int id);
 
     //user profile-----------------
-    RegisterEntity getAllRegistredUsersDetailsById(String name);
+    RegisterEntity getAllRegistredUsersDetailsById(String name,int age);
     AssignTrainersEntity getTrainerAndSlotByUserName(String name);
 
+    //add gym details
+    public boolean saveGymDetails(AddGymEntity addGymEntity);
+    public List<AddGymEntity> getAllGymDetails();
+
+    //view of assign trainers
+    List<AssignTrainersEntity> getAllAssignTrainer();
+
+    //trial for
+    RegisterEntity onEmail(String name);
+
+    //pagination
+    List<RegisterEntity> getAllRegiDetails(int page, int size);
+    public int getTotalRegisterCount();
+
+    //pagination in registerView
+    public List<RegisterEntity> getAllRegisterDetails(int startIndex, int pageSize);
+    public long getTotalRecords();
+
 }
+
+
 
 
 

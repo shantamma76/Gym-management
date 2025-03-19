@@ -161,11 +161,13 @@ public class GymServiceImpl implements GymService {
         }
         EnquiryEntity entity = new EnquiryEntity();
         entity.setName(enquiryDto.getName());
+        entity.setEmail(enquiryDto.getEmail());
         entity.setArea(enquiryDto.getArea());
         entity.setPhone(enquiryDto.getPhone());
         entity.setDistance(enquiryDto.getDistance());
         entity.setAge(enquiryDto.getAge());
         entity.setStatus(StatusEnum.Enquired.name());
+
 
         boolean enquirySaved = repository.saveEnquiry(entity);
 
@@ -192,7 +194,7 @@ public class GymServiceImpl implements GymService {
         entity.setEmail(registerDto.getEmail());
         entity.setAge(registerDto.getAge());
         entity.setPackages(registerDto.getPackages());
-        entity.setTrainer(registerDto.getTrainer());
+      entity.setTrainer(registerDto.getTrainer());
         entity.setPhone(registerDto.getPhone());
         entity.setAmount(registerDto.getAmount());
         entity.setDiscount(registerDto.getDiscount());
@@ -269,9 +271,7 @@ public class GymServiceImpl implements GymService {
 
     @Override
     public boolean updateDetailsById(String packages, String amount, int paid, double balance, double installment, String name) {
-
         repository.updateValuesById(packages, amount, paid, balance, installment, name);
-
         return true;
     }
 //    @Override
@@ -428,6 +428,14 @@ public class GymServiceImpl implements GymService {
         return num;
     }
 
+
+    @Override
+    public String getEmailByName(String name) {
+        System.out.println("======getPhoneNumberByName in service=======");
+        String mail = repository.getEmailByName(name);
+        return mail;
+    }
+
 //--------------------------------------trail frm ren------------------------------------------
 
 
@@ -485,7 +493,7 @@ public class GymServiceImpl implements GymService {
 
     @Override
     public void saveUserDietAndExercise(int id, String filePath, UserExerciseAndDietDTO userExerciseAndDietDTO) {
-
+//copy utils: BEanUtils.copy
         UserExerciseAndDietEntity entity = new UserExerciseAndDietEntity();
         entity.setId(id);
         entity.setMonday(userExerciseAndDietDTO.getMonday());
@@ -528,8 +536,8 @@ public class GymServiceImpl implements GymService {
 
 
     @Override
-    public RegisterEntity getAllRegistredUsersDetailsById(String name) {
-        return repository.getAllRegistredUsersDetailsById(name);
+    public RegisterEntity getAllRegistredUsersDetailsById(String name,int age) {
+        return repository.getAllRegistredUsersDetailsById(name,age);
     }
 
     @Override
@@ -537,7 +545,60 @@ public class GymServiceImpl implements GymService {
         return  repository.getTrainerAndSlotByUserName(name);
     }
 
+    @Override
+    public boolean saveGymDetails(AddGymDto addGymDto) {
+        AddGymEntity entity = new AddGymEntity();
+        entity.setGymName(addGymDto.getGymName());
+        entity.setOwnerName(addGymDto.getOwnerName());
+        entity.setLocation(addGymDto.getLocation());
 
+       boolean saved = repository.saveGymDetails(entity);
+       if(saved){
+           System.out.println("this is saved");
+           return true;
+       }
+       System.out.println("this is not saved");
+        return false;
+    }
+
+    @Override
+    public List<AddGymEntity> getAllGymDetails() {
+        System.out.println("getAllGymDetails in service");
+        return  repository.getAllGymDetails();
+
+    }
+
+    @Override
+    public  List<AssignTrainersEntity> getAllAssignTrainer(){
+        System.out.println("getAllAssignTrainer in serviceImpl");
+        return repository.getAllAssignTrainer();
+    }
+
+    //pagination in update-----------------------------------------------
+    @Override
+    public List<RegisterEntity> getAllRegiDetails(int page, int size) {
+        // Pass the page and size to the repository for pagination
+        return repository.getAllRegiDetails(page, size);
+    }
+
+    @Override
+    public int getTotalPages(int size) {
+        // Calculate total number of pages based on the total count and page size
+        int totalCount = repository.getTotalRegisterCount();
+        return (int) Math.ceil((double) totalCount / size);
+    }
+
+    //pagination in view register details------------------
+    @Override
+    public List<RegisterEntity> getAllRegisterDetails(int startIndex, int pageSize) {
+        System.out.println("----------------------get paginated details in ServiceImpl- --------------");
+        return repository.getAllRegisterDetails(startIndex,pageSize);
+    }
+
+    @Override
+    public long getTotalRecords() {
+        return repository.getTotalRecords();
+    }
 
 
 
