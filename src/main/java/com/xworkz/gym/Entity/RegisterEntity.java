@@ -66,6 +66,9 @@ import java.time.LocalDateTime;
 //pagination
 @NamedQuery(name = "getAllUsersDetails", query = "SELECT r FROM RegisterEntity r ORDER BY r.id DESC")
 @NamedQuery(name = "getAllRegistredUsersDetailsCount", query = "SELECT COUNT(r) FROM RegisterEntity r")
+
+//------------
+@NamedQuery(name="getNameById", query = "select e.name from RegisterEntity e where e.id = :byId")
 public class RegisterEntity {
 
     @Id

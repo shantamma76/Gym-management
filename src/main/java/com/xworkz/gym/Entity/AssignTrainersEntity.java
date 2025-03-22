@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "assignTrainerToUser")
+@Table(name = "assigntrainertouser")
 
 @NamedQuery(name = "getTrainerAndSlotByUserName",query = "select a from AssignTrainersEntity a where a.name=:getUserName")
 //@NamedQuery(name = "getUsersAssignedToTrainerByTrainerName",query = "select a from AssignTrainersEntity a where a.trainerName=:getTrainerName")

@@ -49,6 +49,7 @@ public class TrainerAllotmentController {
         return "trainerslots";
 }
 
+
     @GetMapping("trainerslots")
     public String displayTrainer(Model model){
         System.out.println("===displayTrainer in controller====");
@@ -58,6 +59,7 @@ public class TrainerAllotmentController {
            model.addAttribute("trainerInfoList",trainerList);
            return "trainerslots";
     }
+
 
     @GetMapping("/delete")
     public String deleteTrainer(@RequestParam int id,Model model) {

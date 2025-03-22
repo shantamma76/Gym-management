@@ -149,10 +149,12 @@
                             <th>Discount</th>
                             <td>${register.discount}</td>
                         </tr>
+
                         <tr>
                             <th>Amount Paid</th>
                             <td>${register.paid}</td>
                         </tr>
+
                         <tr>
                             <th>Balance Amount</th>
                             <td>${register.balance}</td>

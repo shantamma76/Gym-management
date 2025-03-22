@@ -1,5 +1,6 @@
 package com.xworkz.gym.controller;
 
+import com.xworkz.gym.DTO.AssignTrainersDto;
 import com.xworkz.gym.Entity.*;
 import com.xworkz.gym.service.GymService;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +34,7 @@ public class TrainerAssigningController {
         //register names
         List<RegisterEntity> listOfRegister = service.getAllRegiDetails();
         Collections.reverse(listOfRegister);
-        model.addAttribute("registerDetails",listOfRegister);
+        model.addAttribute("registerDetails", listOfRegister);
 
         return "AssignSlot";
     }
@@ -48,13 +49,11 @@ public class TrainerAssigningController {
     }
 
 
-
-
     @GetMapping("/searchEntity")
     private String search(@RequestParam("name") String name, @RequestParam("email") String email, Model model) {
         log.info("search in controller");
         RegisterEntity entity = service.searchDetails(name, email);
-        System.out.println("==========:"+entity);
+        System.out.println("==========:" + entity);
         log.info("entity" + entity);
         model.addAttribute("entity", entity);
 
@@ -70,32 +69,72 @@ public class TrainerAssigningController {
     }
 
     @PostMapping("/assignSlot")
-    public String assignTrainer(@RequestParam("entityId") int entityId, @RequestParam("trainerId") int trainerId,Model model) {
+    public String saveTrainers(AssignTrainersDto dto, Model model) {
+        System.out.println("=========== saveTrainers ============");
+        boolean saved = service.saveTrainer(dto);
+        System.out.println("======+++++++++++++++=====:" + saved);
+        System.out.println();
+        if (saved) {
+            model.addAttribute("success", "saved");
+            return "Success";
+        } else {
+            model.addAttribute("failure", "not saves");
+            return "AssignSlot";
 
-        log.info("assign slot request in controller ");
-        boolean updated = service.updateSlot(entityId, trainerId);
-        if(updated)
-        {
-            model.addAttribute("success","Updated Successfully") ;
-        }else {
-            model.addAttribute("failure","Not Updated");
         }
-        return "AssignSlot";  // Redirect to a confirmation page
+    }
+
+        @GetMapping("/viewTrainerAssign")
+        public String viewTrainer(Model model) {
+            System.out.println("==============viewTrainer in controller===================");
+
+            List<AssignTrainersEntity> trainerList = service.getAllAssignTrainer();
+            model.addAttribute("assignTrainerList",trainerList);
+            return "VewTrainerAndSlot";
+
+        }
+
     }
 
 
 
+//    @GetMapping("/searchEntity")
+//    public String search(@RequestParam int id, Model model){
+//        System.out.println("==============Search == in controller==========");
+//
+//       String name = service.getNameById(id);
+//       model.addAttribute("registerDetails",name);
+//
+//     TrainerEntity entity = service.getTrainerDetailsById(id);
+//     model.addAttribute("list",entity);
+//
+//        return "AssignSlot";
+//    }
 
 
-    @GetMapping("/viewTrainerAssign")
-    public String viewTrainer(Model model) {
-        System.out.println("==============viewTrainer in controller===================");
 
-        List<AssignTrainersEntity> trainerList = service.getAllAssignTrainer();
-        model.addAttribute("assignTrainerList",trainerList);
-        return "VewTrainerAndSlot";
-
-    }
+//    @PostMapping("/assignSlot")
+//    public String assignTrainer(@RequestParam("entityId") int entityId, @RequestParam("trainerId") int trainerId, Model model, AssignTrainersDto dto) {
+//       // System.out.println("===================="+entityId + "trainerId=====" +trainerId);
+//        log.info("assign slot request in controller ");
+//        boolean updated = service.updateSlot(entityId, trainerId);
+//        if(updated)
+//        {
+//            model.addAttribute("success","Updated Successfully") ;
+//        }else {
+//            model.addAttribute("failure","Not Updated");
+//        }
+//
+//        log.info("Assigning trainer {} to entity {} with slot {}", trainerId, entityId, dto.getSlotTimings());
+//        boolean saveTrainer = service.saveAssignTrainer(entityId,trainerId);
+//
+//        if(saveTrainer){
+//            model.addAttribute("saved","saved to database");
+//        } else{
+//            model.addAttribute("notSaved","not saved to database");
+//        }
+//        return "AssignSlot";  // Redirect to a confirmation page
+//    }
 
 
     //auto complete

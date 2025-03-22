@@ -22,6 +22,7 @@ import java.util.List;
 
 //getting joined names only in register page
 @NamedQuery(name = "getJoiningNamesOnly", query = "SELECT e.name FROM EnquiryEntity e WHERE e.reasons = 'joining'")
+
 //when name is select that time phone and email will automatically populated in registerPage
 @NamedQuery(name="getPhoneNoByName", query = "select p.phone from EnquiryEntity p where p.name = :setName")
 @NamedQuery(name="getEmailAddByName", query = "SELECT p.email FROM EnquiryEntity p WHERE p.name = :byName")

@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AssignTrainersDto {
 
-
-
     private String name;
 
     private String trainerName;

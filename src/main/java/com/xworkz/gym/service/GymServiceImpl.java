@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
-import java.util.stream.Collectors;
+
 
 @Slf4j
 @Service
@@ -144,8 +144,8 @@ public class GymServiceImpl implements GymService {
     public boolean getNameByEmail(String email, String password) {
         log.info("Checking credentials for email: {}", email);
         AdminEntity adminentity = repository.adminentity(email);
-        System.out.println("................."+adminentity);
-        if(adminentity.getEmail().equals(email) && adminentity.getPassword().equals(password)){
+        System.out.println("................." + adminentity);
+        if (adminentity.getEmail().equals(email) && adminentity.getPassword().equals(password)) {
             return true;
         }
         return false;
@@ -160,6 +160,7 @@ public class GymServiceImpl implements GymService {
             return false;
         }
         EnquiryEntity entity = new EnquiryEntity();
+        System.out.println("======enquiry=====:" + entity);
         entity.setName(enquiryDto.getName());
         entity.setEmail(enquiryDto.getEmail());
         entity.setArea(enquiryDto.getArea());
@@ -194,7 +195,7 @@ public class GymServiceImpl implements GymService {
         entity.setEmail(registerDto.getEmail());
         entity.setAge(registerDto.getAge());
         entity.setPackages(registerDto.getPackages());
-      entity.setTrainer(registerDto.getTrainer());
+        entity.setTrainer(registerDto.getTrainer());
         entity.setPhone(registerDto.getPhone());
         entity.setAmount(registerDto.getAmount());
         entity.setDiscount(registerDto.getDiscount());
@@ -339,7 +340,7 @@ public class GymServiceImpl implements GymService {
     @Override
     public String resetPasswordByEmail(String email, String newPassword, String confirmPassword) {
         System.out.println("reset password in service");
-        if(newPassword.equals(confirmPassword)){
+        if (newPassword.equals(confirmPassword)) {
             repository.userSave(email);
             return repository.resetPasswordByEmail(email, newPassword);
         }
@@ -449,7 +450,6 @@ public class GymServiceImpl implements GymService {
 
     @Override
     public List<TrainerEntity> getTrainerDetails() {
-
         List<TrainerEntity> retrive = repository.getTrainerDetails();
         return retrive;
     }
@@ -470,12 +470,8 @@ public class GymServiceImpl implements GymService {
         return entity;
     }
 
-    @Override
-    public boolean updateSlot(int entityId, int trainerId) {
-        log.info("assign slot request in service ");
-        boolean updated = repository.updateSlot(entityId, trainerId);
-        return true;
-    }
+//
+
 
     //trial frm me
 //    @Override
@@ -536,13 +532,13 @@ public class GymServiceImpl implements GymService {
 
 
     @Override
-    public RegisterEntity getAllRegistredUsersDetailsById(String name,int age) {
-        return repository.getAllRegistredUsersDetailsById(name,age);
+    public RegisterEntity getAllRegistredUsersDetailsById(String name, int age) {
+        return repository.getAllRegistredUsersDetailsById(name, age);
     }
 
     @Override
     public AssignTrainersEntity getTrainerAndSlotByUserName(String name) {
-        return  repository.getTrainerAndSlotByUserName(name);
+        return repository.getTrainerAndSlotByUserName(name);
     }
 
     @Override
@@ -552,24 +548,24 @@ public class GymServiceImpl implements GymService {
         entity.setOwnerName(addGymDto.getOwnerName());
         entity.setLocation(addGymDto.getLocation());
 
-       boolean saved = repository.saveGymDetails(entity);
-       if(saved){
-           System.out.println("this is saved");
-           return true;
-       }
-       System.out.println("this is not saved");
+        boolean saved = repository.saveGymDetails(entity);
+        if (saved) {
+            System.out.println("this is saved");
+            return true;
+        }
+        System.out.println("this is not saved");
         return false;
     }
 
     @Override
     public List<AddGymEntity> getAllGymDetails() {
         System.out.println("getAllGymDetails in service");
-        return  repository.getAllGymDetails();
+        return repository.getAllGymDetails();
 
     }
 
     @Override
-    public  List<AssignTrainersEntity> getAllAssignTrainer(){
+    public List<AssignTrainersEntity> getAllAssignTrainer() {
         System.out.println("getAllAssignTrainer in serviceImpl");
         return repository.getAllAssignTrainer();
     }
@@ -592,7 +588,7 @@ public class GymServiceImpl implements GymService {
     @Override
     public List<RegisterEntity> getAllRegisterDetails(int startIndex, int pageSize) {
         System.out.println("----------------------get paginated details in ServiceImpl- --------------");
-        return repository.getAllRegisterDetails(startIndex,pageSize);
+        return repository.getAllRegisterDetails(startIndex, pageSize);
     }
 
     @Override
@@ -600,9 +596,53 @@ public class GymServiceImpl implements GymService {
         return repository.getTotalRecords();
     }
 
+//    @Override
+//    public boolean saveAssignTrainer(AssignTrainersDto assignTrainersDto) {
+//        return false;
+//    }
+
+    @Override
+    public String getNameById(int id) {
+        System.out.println("===== ---getNameById--- =====:");
+        return repository.getNamesById(id);
+    }
+
+    @Override
+    public TrainerEntity getTrainerDetailsById(int id) {
+        return null;
+    }
+
+    @Override
+    public boolean saveAssignTrainer(int entityId, int tarinerId) {
+        System.out.println("Save Assign Trainer in ServiceImpl");
+
+        AssignTrainersEntity entity = new AssignTrainersEntity();
+        System.out.println("================:" + entity);
+        entity.setName(entity.getName());
+        entity.setTrainerName(entity.getTrainerName());
+        entity.setSlotTimings(entity.getSlotTimings());
+
+        String saved = repository.getNamesById(entityId);
+        System.out.println("===========:" + saved);
+
+        return false;
+    }
+
+    @Override
+    public boolean saveTrainer(AssignTrainersDto assignTrainersDto) {
+        System.out.println("=---------------------serviceImpl----------------------------===");
+        AssignTrainersEntity entity = new AssignTrainersEntity();
+        System.out.println("======entity in service ====:"+entity);
+        entity.setName(assignTrainersDto.getName());
+        entity.setTrainerName(assignTrainersDto.getTrainerName());
+        entity.setSlotTimings(assignTrainersDto.getSlotTimings());
+        return repository.saveTrainer(entity);
+    }
 
 
 }
+
+
 
 
 

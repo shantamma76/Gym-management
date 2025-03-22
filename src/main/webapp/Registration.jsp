@@ -276,6 +276,109 @@
     </div>
 
     <script>
+    function validateForm(event) {
+                        let valid = true;
+                        valid = valid && validateEmail();
+                        valid = valid && validateAge();
+                        valid = valid && validateGym();
+                        valid = valid && validateInstallment();
+
+
+                        if (!valid) {
+                            event.preventDefault(); // Prevent form submission if any field is invalid
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    function validateEmail() {
+                        var email = document.getElementById('email');
+                        var emailValue = email.value;
+
+                        if (!emailValue.includes('@') || !emailValue.includes('.')) {
+                            document.getElementById("emailDemoo").innerHTML = "Enter a valid email address.";
+                            return false;
+                        } else {
+                            document.getElementById("emailDemoo").innerHTML = "";
+                        }
+
+                        var xhttp = new XMLHttpRequest();
+                        xhttp.open("GET", "http://localhost:8080/Shanta_Gym/registration/email/" + emailValue, true);
+                        xhttp.send();
+
+                        xhttp.onload = function () {
+                            document.getElementById("emailDemo").innerHTML = this.responseText;
+                        };
+
+                        return true;
+                    }
+
+                    function validateAge() {
+                        var age = document.getElementById('age');
+                        var ageValue = age.value;
+
+                        if (ageValue < 18 || ageValue > 55) {
+                            document.getElementById("ageDemo").innerHTML = "Age should be between 18 and 55";
+                            return false;
+                        } else {
+                            document.getElementById("ageDemo").innerHTML = "";
+                        }
+                        return true;
+                    }
+
+                    function validateGym() {
+                        var gymName = document.getElementById('gymName');
+                        var gymNameValue = gymName.value;
+
+                        if (gymNameValue.trim().length < 3) {
+                            document.getElementById("gymDemo").innerHTML = "GymName must be at least 3 characters long.";
+                            return false;
+                        } else {
+                            document.getElementById("gymDemo").innerHTML = "";
+                        }
+                        return true;
+                    }
+
+                    function validateInstallment() {
+                        var installment = document.getElementById('installment');
+                        var installmentValue = installment.value;
+
+                        if (installmentValue <= 0 || installmentValue >= 5) {
+                            document.getElementById("installmentDemo").innerHTML = "Installment should be greater than 0 and less than 5";
+                            return false;
+                        } else {
+                            document.getElementById("installmentDemo").innerHTML = "";
+                        }
+                        return true;
+                    }
+
+                    // Update the amount based on the selected package
+                    document.getElementById('packages').addEventListener('change', function () {
+                        const packageSelect = this;
+                        const selectedOption = packageSelect.options[packageSelect.selectedIndex];
+                        const packageAmount = selectedOption.getAttribute('data-amount');
+                        document.getElementById('amount').value = packageAmount; // Set the amount field
+                        calculateBalance(); // Recalculate balance when package is changed
+                    });
+
+                    // Update the balance and discount calculations
+                    function calculateBalance() {
+                        const amount = parseFloat(document.getElementById('amount').value) || 0;
+                        const discount = parseFloat(document.getElementById('discount').value) || 0;
+                        const paid = parseFloat(document.getElementById('paid').value) || 0;
+
+                        const discountedAmount = amount - (amount * (discount / 100));
+                        const balance = discountedAmount - paid;
+                        document.getElementById('balance').value = balance.toFixed(2); // Update balance field
+                    }
+
+                    // Recalculate balance when discount value is changed
+                    document.getElementById('discount').addEventListener('input', calculateBalance);
+
+                    // Recalculate balance when paid amount is changed
+                    document.getElementById('paid').addEventListener('input', calculateBalance);
+
+
         // Handle name selection and fetch phone number via AJAX
         document.getElementById('name').addEventListener('change', function () {
             const name = this.value;
@@ -312,6 +415,9 @@
                         };
                     }
                 });
+
+
+
 
         // Additional JavaScript for validation and balance calculation (as before)
     </script>

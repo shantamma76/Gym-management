@@ -115,14 +115,14 @@
                     }
 
                     h2 {
-                    color:white;
-                    background-color:;
+                        color: white;
+                        background-color: ;
                     }
 
                     h4 {
-                    color:white;
-                    text-align:center;
-                    padding-top:5px;
+                        color: white;
+                        text-align: center;
+                        padding-top: 5px;
 
                     }
                 </style>
@@ -141,7 +141,7 @@
                     <!-- Navigation centered -->
                     <nav class="nav">
                         <a href="Success.jsp">Home</a>
-                        <a href="Enquiry.jsp">Enquiry</a>
+                        <a href="enquiryPage">Enquiry</a>
                         <a href="followup">FollowUp</a>
                         <a href="register">Registration</a>
                     </nav>
@@ -159,7 +159,7 @@
                 <!-- Toggle Menu -->
                 <nav class="mobile-nav">
                     <a href="Success.jsp">Home</a>
-                    <a href="Enquiry.jsp">Enquiry</a>
+                    <a href="enquiryPage">Enquiry</a>
                     <a href="followup">FollowUp</a>
                     <a href="register">Registration</a>
                     <a href="updateRegi">Update</a>
@@ -186,23 +186,18 @@
 
                     <!-- Search Form -->
                     <form action="searchEntity" method="GET" class="mb-4 p-3 border rounded shadow bg-light">
-                       <div class="form-row align-items-center">
+                        <div class="form-row align-items-center">
 
-                         <!--   <div class="col-md-4">
-                                <label for="name" class="sr-only">Name</label>
-                                <input type="text" id="name" name="name" class="form-control form-control-sm"
-                                    placeholder="Name" required>
-                            </div> -->
 
-                             <div class="col-md-4">
-                                                          <!--  <label for="name" class="fsr-only">Name</label> -->
-                                                            <select class="form-control" id="name" name="name">
-                                                                <option>--Select--</option>
-                                                                <c:forEach items="${registerDetails}" var="list">
-                                                                    <option value="${list.name}">${list.name}</option>
-                                                                </c:forEach>
-                                                            </select>
-                                                        </div>
+                            <div class="col-md-4">
+                                <!--  <label for="name" class="fsr-only">Name</label> -->
+                                <select class="form-control" id="name" name="name">
+                                    <option>--Select--</option>
+                                    <c:forEach items="${registerDetails}" var="list">
+                                        <option value="${list.name}">${list.name}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
 
                             <div class="col-md-4">
                                 <label for="email" class="sr-only">Email</label>
@@ -213,7 +208,7 @@
                             <div class="col-md-4">
                                 <button type="submit" class="btn btn-warning btn-sm btn-block">Search</button>
                             </div>
-                       </div>
+                        </div>
                     </form>
 
                     <!-- Entity Details -->
@@ -230,26 +225,29 @@
 
                     <!-- Trainer Selection Form -->
                     <form action="assignSlot" method="POST" class="p-3 border rounded shadow bg-light">
-                        <input type="hidden" name="entityId" value="${entity.id}">
+                        <input type="hidden" name="name" value="${entity.name}">
+
 
                         <!-- Slot Timing Dropdown -->
                         <div class="form-group">
-                            <label for="slotId"><strong>Select Slot Timing:</strong></label>
-                            <select id="slotId" class="form-control form-control-sm" name="slotId" required>
+                            <label for="slotTimings"><strong>Select Slot Timing:</strong></label>
+                            <select id="slotTimings" class="form-control form-control-sm" name="slotTimings" required>
                                 <option value="">-- Select Slot --</option>
                                 <c:forEach var="slot" items="${list}">
-                                    <option value="${slot.id}">${slot.startTimings} - ${slot.endTimings}</option>
+                                    <option value="${slot.startTimings}"  data-slot="${slot.endTimings}">
+                                    ${slot.startTimings} - ${slot.endTimings}</option>
                                 </c:forEach>
                             </select>
                         </div>
 
+
                         <!-- Trainer Selection Dropdown -->
                         <div class="form-group">
-                            <label for="trainerId"><strong>Select Trainer:</strong></label>
-                            <select id="trainerId" class="form-control form-control-sm" name="trainerId" required>
+                            <label for="trainerName"><strong>Select Trainer:</strong></label>
+                            <select id="trainerName" class="form-control form-control-sm" name="trainerName" required>
                                 <option value="">-- Select Trainer --</option>
                                 <c:forEach var="trainer" items="${listofdto}">
-                                    <option value="${trainer.id}" data-slot="${trainer.slotTimings}">
+                                    <option value="${trainer.trainerName}" data-slot="${trainer.slotTimings}">
                                         ${trainer.trainerName} (${trainer.slotTimings})
                                     </option>
                                 </c:forEach>
@@ -260,17 +258,19 @@
                         <button type="submit" class="btn btn-info btn-sm btn-block">Submit</button>
                     </form>
 
-                   <h4> ${success} </h4>
-                   <h4> ${failure}</h4>
+                    <h4> ${success} </h4>
+                    <h4> ${failure}</h4>
+                    <h4> ${saved}</h4>
+                    <h4> ${notSaved}</h4>
                 </div>
 
                 <!-- jQuery Script for Filtering Trainers -->
                 <script>
                     $(document).ready(function () {
-                        $("#slotId").change(function () {
+                        $("#slotTimings").change(function () {
                             var selectedSlot = $(this).find("option:selected").text().trim(); // Get selected slot text
 
-                            $("#trainerId option").each(function () {
+                            $("#trainerName option").each(function () {
                                 var trainerSlot = $(this).data("slot"); // Get trainer slot text
 
                                 // Show only trainers whose slot matches the selected slot
@@ -282,36 +282,33 @@
                             });
 
                             // Reset trainer selection
-                            $("#trainerId").val("");
+                            $("#trainerName").val("");
                         });
                     });
 
 
-                     // Handle name selection and fetch phone number
-                                    document.getElementById('name').addEventListener('change', function () {
-                                        const name = this.value; // Get selected name
+                    // Handle name selection and fetch phone number
+                    document.getElementById('name').addEventListener('change', function () {
+                        const name = this.value; // Get selected name
 
-                                        if (name && name !== '--Select--') {
-                                            // Create an AJAX request to get the phone number for the selected name
-                                            var xhttp = new XMLHttpRequest();
-                                            xhttp.open("GET", "getEmailByName?name=" + name, true);
-                                            xhttp.send();
+                        if (name && name !== '--Select--') {
+                            // Create an AJAX request to get the phone number for the selected name
+                            var xhttp = new XMLHttpRequest();
+                            xhttp.open("GET", "getEmailByName?name=" + name, true);
+                            xhttp.send();
 
-                                            // Handle the response
-                                            xhttp.onload = function () {
-                                                if (xhttp.status === 200) {
-                                                    const phoneNumber = xhttp.responseText; // The email returned from backend
-                                                    document.getElementById('email').value = phoneNumber; // Set the Emailin the input
-                                                } else {
-                                                    console.error("Failed to fetch Email.");
-                                                }
-                                            };
-                                        }
-                                    });
+                            // Handle the response
+                            xhttp.onload = function () {
+                                if (xhttp.status === 200) {
+                                    const phoneNumber = xhttp.responseText; // The email returned from backend
+                                    document.getElementById('email').value = phoneNumber; // Set the Emailin the input
+                                } else {
+                                    console.error("Failed to fetch Email.");
+                                }
+                            };
+                        }
+                    });
                 </script>
 
-
-
             </body>
-
             </html>

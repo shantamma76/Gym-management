@@ -1007,7 +1007,7 @@ public class GymRepositoryImpl implements GymRepository {
             Query query = entityManager.createNamedQuery("getAllRegistredUsersDetailsCount");
             return (long) query.getSingleResult();
         } catch (Exception e) {
-            if(et.isActive()){
+            if (et.isActive()) {
                 et.rollback();
             }
         } finally {
@@ -1015,34 +1015,6 @@ public class GymRepositoryImpl implements GymRepository {
         }
         return 0;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //    @Override
@@ -1133,7 +1105,7 @@ public class GymRepositoryImpl implements GymRepository {
             if (et.isActive()) {
                 et.rollback();
             }
-            System.out.println("=====not saved data in repo======");
+            System.out.println("Error while saving data: " + e.getMessage());
             return false;
         } finally {
             em.close();
@@ -1266,9 +1238,7 @@ public class GymRepositoryImpl implements GymRepository {
 
         log.info("getting all data in repository");
 
-
         try {
-
             Query query = em.createNamedQuery("getTrainerList");
             log.info("returning from database...");
             return query.getResultList();
@@ -1281,8 +1251,6 @@ public class GymRepositoryImpl implements GymRepository {
         } finally {
             em.close();
         }
-
-
         return Collections.emptyList();
     }
 
@@ -1354,6 +1322,7 @@ public class GymRepositoryImpl implements GymRepository {
             et.commit();
             log.info("committing....");
             return updatedRows > 0;
+
         } catch (Exception e) {
             if (et.isActive()) {
                 et.rollback();
@@ -1574,6 +1543,7 @@ public class GymRepositoryImpl implements GymRepository {
 
     }
 
+
     @Override
     public RegisterEntity onEmail(String name) {
         EntityManager entityManager = emf.createEntityManager();
@@ -1638,6 +1608,73 @@ public class GymRepositoryImpl implements GymRepository {
         return 0;
     }
 
+    //-------------------------------------------------------------------------
+    @Override
+    public String getNamesById(int id) {
+        System.out.println("============= ---getNamesById--- ============");
+        EntityManager em = emf.createEntityManager();
+
+        String name = (String)em.createNamedQuery("getNameById").setParameter("byId", id).getSingleResult();
+        System.out.println("=======getNamesById in repo=========:"+name);
+        return name;     // Return the name
+    }
+
+
+    @Override
+    public TrainerEntity getTrainerDetailsById(int id) {
+        System.out.println("============= ---getTrainerById--- ============");
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+        TrainerEntity trainer = null;
+
+        try {
+            et.begin();
+            Query query = em.createNamedQuery("getTrainerById");
+            query.setParameter("byId", id);
+
+            // Get the result from the query and store it in trainer
+            trainer = (TrainerEntity) query.getSingleResult();
+
+            et.commit();  // Commit the transaction
+        } catch (NoResultException e) {
+            System.out.println("No trainer found with ID: " + id);
+            // Handle the case when no result is found
+        } catch (Exception e) {
+            if (et.isActive()) {
+                et.rollback();
+            }
+            System.out.println("Error: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+
+        return trainer;  // Return the trainer entity, or null if not found
+    }
+
+    @Override
+    public boolean saveTrainer(AssignTrainersEntity assignTrainersEntity) {
+        System.out.println("===============save trainer===============================");
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+
+        try {
+            et.begin();
+            em.persist(assignTrainersEntity);
+            et.commit();
+            System.out.println("====== saved in database =======");
+            return true;
+
+        } catch (Exception e){
+            e.printStackTrace();
+            System.out.println("======= not saved in database =====");
+            return false;
+        }
+        finally {
+            em.close();
+    }
+
+    }
 
 
 }

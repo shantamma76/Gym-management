@@ -21,6 +21,8 @@ import javax.persistence.*;
 
 //--------------------------------------ren
 @NamedQuery(name = "getTrainerList", query = "SELECT a FROM TrainerEntity a ORDER BY a.slotTimings DESC")
+@NamedQuery(name = "getTrainerById", query = "select a from TrainerEntity a where a.id = :byId")
+
 public class TrainerEntity {
 
     @Id

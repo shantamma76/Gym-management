@@ -96,7 +96,7 @@ public interface GymService {
     List<TrainerEntity> getTrainerDetails();
     List<SlotsEntity> getTimeSlot();
     RegisterEntity searchDetails(String name,String email);
-    boolean updateSlot(int entityId, int trainerId);
+   // boolean updateSlot(int entityId, int trainerId);
 
    // public RegisterEntity getNamesStartingWith(String prefix);
 
@@ -125,6 +125,16 @@ public interface GymService {
 
     public List<RegisterEntity> getAllRegisterDetails(int startIndex, int pageSize);
     public long getTotalRecords();
+
+    //saving assign trainer-----------------------------
+    boolean saveAssignTrainer(int trainerId,int entityId);
+    boolean saveTrainer(AssignTrainersDto assignTrainersDto);
+
+
+    String getNameById(int id);
+    TrainerEntity getTrainerDetailsById(int id);
+
+
 }
 
 

@@ -276,9 +276,11 @@
 </div>
 
 <script>
+
     function toggleMenu() {
       document.querySelector('.mobile-nav').classList.toggle('show');
     }
+
   </script>
 </body>
 </html>

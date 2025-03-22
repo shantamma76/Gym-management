@@ -1,6 +1,7 @@
 package com.xworkz.gym.repository;
 
 import com.xworkz.gym.DTO.AddGymDto;
+import com.xworkz.gym.DTO.AssignTrainersDto;
 import com.xworkz.gym.DTO.RegisterDto;
 import com.xworkz.gym.Entity.*;
 
@@ -140,6 +141,12 @@ public interface GymRepository {
     public List<RegisterEntity> getAllRegisterDetails(int startIndex, int pageSize);
     public long getTotalRecords();
 
+
+    //saving assign trainer
+    String getNamesById(int id);
+    TrainerEntity getTrainerDetailsById(int id);
+
+    public boolean saveTrainer(AssignTrainersEntity assignTrainersEntity);
 }
 
 
