@@ -570,21 +570,20 @@ public class GymServiceImpl implements GymService {
         return repository.getAllAssignTrainer();
     }
 
-    //pagination in update-----------------------------------------------
+    //pagination in update
     @Override
     public List<RegisterEntity> getAllRegiDetails(int page, int size) {
-        // Pass the page and size to the repository for pagination
+        System.out.println("getAllRegiDetails in serviceImpl");
         return repository.getAllRegiDetails(page, size);
     }
 
     @Override
     public int getTotalPages(int size) {
-        // Calculate total number of pages based on the total count and page size
         int totalCount = repository.getTotalRegisterCount();
         return (int) Math.ceil((double) totalCount / size);
     }
 
-    //pagination in view register details------------------
+    //pagination in view register details
     @Override
     public List<RegisterEntity> getAllRegisterDetails(int startIndex, int pageSize) {
         System.out.println("----------------------get paginated details in ServiceImpl- --------------");
@@ -596,14 +595,10 @@ public class GymServiceImpl implements GymService {
         return repository.getTotalRecords();
     }
 
-//    @Override
-//    public boolean saveAssignTrainer(AssignTrainersDto assignTrainersDto) {
-//        return false;
-//    }
 
     @Override
     public String getNameById(int id) {
-        System.out.println("===== ---getNameById--- =====:");
+        System.out.println("getNameById in service");
         return repository.getNamesById(id);
     }
 
@@ -624,7 +619,6 @@ public class GymServiceImpl implements GymService {
 
         String saved = repository.getNamesById(entityId);
         System.out.println("===========:" + saved);
-
         return false;
     }
 

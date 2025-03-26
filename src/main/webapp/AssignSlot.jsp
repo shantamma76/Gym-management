@@ -234,12 +234,12 @@
                             <select id="slotTimings" class="form-control form-control-sm" name="slotTimings" required>
                                 <option value="">-- Select Slot --</option>
                                 <c:forEach var="slot" items="${list}">
-                                    <option value="${slot.startTimings}"  data-slot="${slot.endTimings}">
-                                    ${slot.startTimings} - ${slot.endTimings}</option>
+                                    <option value="${slot.startTimings}-${slot.endTimings}"
+                                        data-end="${slot.endTimings}">
+                                        ${slot.startTimings} - ${slot.endTimings}</option>
                                 </c:forEach>
                             </select>
                         </div>
-
 
                         <!-- Trainer Selection Dropdown -->
                         <div class="form-group">
@@ -253,6 +253,10 @@
                                 </c:forEach>
                             </select>
                         </div>
+
+                        <!-- Hidden Fields to Capture Start and End Timings -->
+                        <input type="hidden" id="startTimingHidden" name="startTimings">
+                        <input type="hidden" id="endTimingHidden" name="endTimings">
 
                         <!-- Submit Button -->
                         <button type="submit" class="btn btn-info btn-sm btn-block">Submit</button>
@@ -268,12 +272,11 @@
                 <script>
                     $(document).ready(function () {
                         $("#slotTimings").change(function () {
-                            var selectedSlot = $(this).find("option:selected").text().trim(); // Get selected slot text
+                            var selectedSlot = $(this).find("option:selected").text().trim();
 
                             $("#trainerName option").each(function () {
                                 var trainerSlot = $(this).data("slot"); // Get trainer slot text
 
-                                // Show only trainers whose slot matches the selected slot
                                 if (trainerSlot === selectedSlot || $(this).val() === "") {
                                     $(this).show();
                                 } else {
@@ -281,27 +284,37 @@
                                 }
                             });
 
-                            // Reset trainer selection
                             $("#trainerName").val("");
                         });
                     });
 
+                    <!-- jQuery Script for Filtering Trainers -->
+                    $(document).ready(function () {
+                        $("#slotTimings").change(function () {
+                            var selectedSlot = $(this).val();
+                            var startEndArray = selectedSlot.split('-');
+
+                            var startTiming = startEndArray[0];
+                            var endTiming = startEndArray[1];
+
+                            $("#startTimingHidden").val(startTiming);
+                            $("#endTimingHidden").val(endTiming);
+                        });
+                    });
 
                     // Handle name selection and fetch phone number
                     document.getElementById('name').addEventListener('change', function () {
-                        const name = this.value; // Get selected name
+                        const name = this.value;
 
                         if (name && name !== '--Select--') {
-                            // Create an AJAX request to get the phone number for the selected name
                             var xhttp = new XMLHttpRequest();
                             xhttp.open("GET", "getEmailByName?name=" + name, true);
                             xhttp.send();
 
-                            // Handle the response
                             xhttp.onload = function () {
                                 if (xhttp.status === 200) {
-                                    const phoneNumber = xhttp.responseText; // The email returned from backend
-                                    document.getElementById('email').value = phoneNumber; // Set the Emailin the input
+                                    const phoneNumber = xhttp.responseText;
+                                    document.getElementById('email').value = phoneNumber;
                                 } else {
                                     console.error("Failed to fetch Email.");
                                 }
@@ -311,4 +324,5 @@
                 </script>
 
             </body>
+
             </html>

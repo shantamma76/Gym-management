@@ -33,10 +33,7 @@ public class UserLoginController {
     @Autowired
     private GymService service;
 
-//    @GetMapping("/UserLogin")
-//    public String onLogin() {
-//        return "UserLogin";
-//    }
+
 
     @Autowired
     private GymRepository repository;
@@ -87,7 +84,7 @@ public class UserLoginController {
         System.out.println("===================reset password========================");
         String msg = service.resetPassword(email, oldPassword, newPassword, confirmPassword);
         if ("password updated successfully".equals(msg)) {
-            return "UserSuccess";
+            return "UserLogin";
         } else {
             return "resetPassword";
         }

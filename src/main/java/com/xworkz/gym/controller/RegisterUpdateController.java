@@ -30,20 +30,18 @@ public class RegisterUpdateController {
     public String displayDetails(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10")
                              int size, Model model) {
         System.out.println("Fetching customer and trainer details with pagination");
-        int pageSize = 10; // Number of records per page
-        int startIndex = (page - 1) * pageSize;
+        int pageSize = 10;
+        int startIndex = (page - 1) * size;
 
         List<RegisterEntity> customerList = gymService.getAllRegiDetails(page, size);
+        System.out.println("================controller======:"+customerList);
 
         long totalRecords = gymService.getTotalRecords();
-        // Calculate total pages
         int totalPages = (int) Math.ceil((double) totalRecords / pageSize);
 
-        // Add paginated data to model
         model.addAttribute("registerDetails", customerList);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
-
         return "Update";
     }
 
@@ -62,47 +60,6 @@ public class RegisterUpdateController {
 
 }
 
-
-//    @GetMapping("/updateRegi")
-//    public String displayDetails(Model model) {
-//        System.out.println("Fetching customer and trainer details");
-//        List<RegisterEntity> customerList = gymService.getAllRegiDetails();
-//        Collections.reverse(customerList);
-//        model.addAttribute("registerDetails", customerList);
-//        return "Update";
-//    }
-
-
-//    @PostMapping("/update")
-//    public String updateRegister(RegisterDto registerDto, String name, long phone) {
-//        log.debug("UpdateController================== ");
-//        boolean isUpdated = gymService.updateRegister(registerDto, name, phone);
-//        if (isUpdated) {
-//            return "Success";
-//        } else {
-//            return "Update";
-//        }
-//    }
-
-//    @GetMapping("/update")
-//    public String showUpdatePage(Model model) {
-//        List<PackageEnum> packages = new ArrayList<>(Arrays.asList(PackageEnum.values()));
-//        model.addAttribute("packages", packages);
-//        return "UpdateRegister";
-//    }
-//
-//    @PostMapping("/searchEmail")
-//    public String getDetailsByEmail(@RequestParam String email, Model model) {
-//        RegisterEntity details = gymService.getDetailsByEmail(email);
-//        if (details != null) {
-//            model.addAttribute("details", details);
-//            return "UpdateRegister";
-//        }
-//        return "Success";
-//    }
-
-
-//---------------------------------------------------------------------
 
 
 

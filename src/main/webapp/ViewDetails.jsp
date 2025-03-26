@@ -25,7 +25,7 @@
                         padding: 15px 30px;
                         position: sticky;
                         top: 0;
-                        width: 1480px;
+                        width: 1350px;
                         height: 55px;
                         z-index: 999;
                         color: white;
@@ -39,7 +39,6 @@
                         height: auto;
                     }
 
-                    /* Center navigation */
                     .nav {
                         display: flex;
                         align-items: center;
@@ -61,7 +60,6 @@
                         color: #f0c14b;
                     }
 
-                    /* Toggle button */
                     .menu-toggle {
                         display: flex;
                         flex-direction: column;
@@ -77,7 +75,6 @@
                         transition: 0.3s;
                     }
 
-                    /* Dropdown menu - hidden by default */
                     .mobile-nav {
                         display: none;
                         flex-direction: column;
@@ -116,7 +113,7 @@
                     }
 
                     table {
-                        width: 1200px;
+                        width: 1100px;
                         border-collapse: collapse;
                         margin: 20px auto;
                     }
@@ -146,8 +143,8 @@
                     }
 
                     .container {
-                        max-width: 1200px;
-                        margin-left: 150px;
+                        max-width: 1100px;
+                        margin-left: 130px;
                         margin-right: 50px;
                         background: white;
                         border-radius: 8px;
@@ -200,7 +197,7 @@
                 </nav>
 
                 <script>
-                    // Toggle mobile menu visibility
+
                     function toggleMenu() {
                         const mobileNav = document.querySelector('.mobile-nav');
                         mobileNav.classList.toggle('show');
@@ -212,6 +209,7 @@
                     <h2>View Details</h2>
 
                     <table>
+
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -220,6 +218,7 @@
                                 <th>Reasons</th>
                             </tr>
                         </thead>
+
                         <tbody>
 
                             <c:forEach var="item" items="${enquiryList}">
@@ -228,10 +227,11 @@
                                     <td>${item.area}</td>
                                     <td>${item.phone}</td>
                                     <td>${item.reasons}</td>
-
                                 </tr>
                             </c:forEach>
+
                         </tbody>
+
                     </table>
                 </div>
             </body>

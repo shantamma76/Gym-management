@@ -317,9 +317,7 @@
                 <div class="day"><h3>Saturday</h3>
                     <p>${viewUserExercise.saturday}</p>
                 </div>
-                <div class="day"><h3>Sunday</h3>
-                    <p>${viewUserExercise.sunday}</p>
-                </div>
+
             </div>
         </c:forEach>
     </div>

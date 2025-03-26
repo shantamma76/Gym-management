@@ -12,7 +12,7 @@
                         margin: 0px;
                         padding: 0px;
                         color: #f9f9f9;
-                        background-size: 1600px 1000px;
+                        background-size: 1500px 1000px;
                     }
 
                     /* Header */
@@ -23,7 +23,7 @@
                         padding: 15px 30px;
                         position: sticky;
                         top: 0;
-                        width: 1480px;
+                        width: 1350px;
                         height: 55px;
                         z-index: 999;
                         color: white;
@@ -114,7 +114,7 @@
                     }
 
                     table {
-                        width: 1200px;
+                        width: 1100px;
                         border-collapse: collapse;
                         margin: 20px auto;
                     }

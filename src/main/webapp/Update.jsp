@@ -105,14 +105,45 @@
                 }
 
                 h3 {
-                    color: white;
+                    color: black;
                     text-align: center;
+                    padding:10px;
                 }
 
 
+                table {
+                    width: 100%;
+                    margin-left: 0px;
+                    border-collapse: collapse;
+                    background-color: #fff;
+                    border-radius: 5px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                }
+
+                th,
+                td {
+                    padding: 12px 15px;
+                    text-align: center;
+                    border: 1px solid #ddd;
+                }
+
+                th {
+                    background-color: darkblue;
+                    color: white;
+                    text-transform: uppercase;
+                }
+
+                td {
+                    background-color: #fafafa;
+                }
+
+                tr:nth-child(even) td {
+                    background-color: #f1f1f1;
+                }
+
                 .pagination {
                     text-align: center;
-                    margin-left:500px;
+                    margin-left: 500px;
                     margin-top: 20px;
                 }
 
@@ -139,6 +170,16 @@
                     color: #ccc;
                     cursor: not-allowed;
                 }
+
+                   .container {
+                                        max-width: 1300px;
+                                        margin-left: 50px;
+                                        margin-right: 10px;
+                                        background: white;
+                                        border-radius: 8px;
+                                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                                        padding: 20px;
+                                    }
 
             </style>
         </head>
@@ -198,7 +239,8 @@
                 <h3>Update Registered Details</h3>
                 <div class="scrollable-container">
                     <div class="form-element">
-                        <table class="table">
+
+                        <table>
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -337,6 +379,5 @@
 
             </script>
 
-        </body>
-
-        </html>
+    </body>
+</html>

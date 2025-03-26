@@ -97,8 +97,6 @@
       <version>1.3.2</version>
     </dependency>
 
-
-
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
@@ -141,16 +139,14 @@
       <artifactId>spring-orm</artifactId>
       <version>5.3.10</version>
     </dependency>
-
-
-
-
   </dependencies>
 
   <properties>
     <java.version>9</java.version>  <!-- Or a later version, e.g., 11, 17 -->
   </properties>
+
   <build>
     <finalName>Shanta_Gym</finalName>
   </build>
+
 </project>

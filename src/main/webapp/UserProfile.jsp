@@ -11,22 +11,107 @@
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
             <style>
                 body {
-
                     background-color: #fafafa;
                     font-family: 'Roboto', sans-serif;
                     background-image: url('https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?cs=srgb&dl=action-athlete-barbell-841130.jpg&fm=jpg');
                     background-size: 1600px 1000px;
-                    /*width and height */
                     background-repeat: no-repeat;
                     background-position: center;
                 }
+
+                .header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 15px 30px;
+                    position: sticky;
+                    top: 0;
+                    width: 100%;
+                    height: 65px;
+                    z-index: 999;
+                    color: white;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                    background-color: #0E0E0E;
+                }
+
+                .logo-img {
+                    max-height: 51px;
+                    height: auto;
+                }
+
+                .nav {
+                    display: flex;
+                    align-items: center;
+                    gap: 30px;
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+
+                .nav a {
+                    color: white;
+                    text-decoration: none;
+                    font-size: 1rem;
+                    transition: color 0.3s;
+                }
+
+                .nav a:hover {
+                    color: #f0c14b;
+                }
+
+                .menu-toggle {
+                    display: flex;
+                    flex-direction: column;
+                    cursor: pointer;
+                }
+
+                .menu-toggle div {
+                    width: 30px;
+                    height: 3px;
+                    background-color: white;
+                    margin: 5px 0;
+                    transition: 0.3s;
+                }
+
+                .mobile-nav {
+                    display: none;
+                    flex-direction: column;
+                    position: absolute;
+                    top: 65px;
+                    right: 0;
+                    background: rgba(14, 14, 14, 0.9);
+                    width: 100%;
+                    padding: 15px 0;
+                    align-items: center;
+                    z-index: 9999;
+                }
+
+                .mobile-nav a {
+                    padding: 10px;
+                    color: white;
+                    text-decoration: none;
+                    font-size: 1rem;
+                    text-align: center;
+                    display: block;
+                    width: 100%;
+                    transition: color 0.3s;
+                }
+
+                .mobile-nav a:hover {
+                    color: #f0c14b;
+                }
+
+                .mobile-nav.show {
+                    display: flex;
+                }
+
+
 
                 .profile-image {
                     width: 150px;
                     height: 150px;
                     border-radius: 50%;
                     border: 3px solid red;
-                    /* Optional: Add a border for a sleek look */
                     object-fit: cover;
                 }
 
@@ -55,47 +140,53 @@
                     border-radius: 5px;
                 }
 
-                .logo-img {
-                    max-height: 51px;
-                    height: auto;
-                }
             </style>
         </head>
 
         <body>
-            <!-- Navbar with black background and right-aligned items -->
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-                <div class="container-fluid">
-
-                    <div class="logo">
-                        <img src="https://x-workz.in/static/media/Logo.cf195593dc1b3f921369.png" alt="Logo"
-                            class="logo-img">
-                    </div>
-
-
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="userHome">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="UserLogin.jsp">User</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link active" href="updateProfile">UdpateProfile</a>
-                            </li>
-
-                        </ul>
-                    </div>
-
+            <!-- Header Section -->
+            <header class="header">
+                <!-- Logo -->
+                <div class="logo">
+                    <img src="https://x-workz.in/static/media/Logo.cf195593dc1b3f921369.png" alt="Logo"
+                        class="logo-img">
                 </div>
+
+                <!-- Navigation centered -->
+
+                <nav class="nav">
+                    <a href="userHome">Home</a>
+                    <a href="userProfile">User Profile</a>
+                    <a href="trainerAndSlot">Trainer And Slot</a>
+                    <a href="exerciseDiet">Exercise and Diet</a>
+                </nav>
+
+                <!-- Profile Image + Toggle Menu (Right Side) -->
+                <div style="display: flex; align-items: center;">
+                    <div class="menu-toggle" onclick="toggleMenu()">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Toggle Menu -->
+            <nav class="mobile-nav">
+                <a href="userHome">Home</a>
+                <a href="userProfile" class="nav-link"> User Profile</a>
+                <a href="trainerAndSlot" class="nav-link"> Trainer And Slot </a>
+                <a href="exerciseDiet" class="nav-link"> Exercise and Diet </a>
+                <a href="index.jsp">Logout</a>
             </nav>
+
+            <script>
+                // Toggle mobile menu visibility
+                function toggleMenu() {
+                    const mobileNav = document.querySelector('.mobile-nav');
+                    mobileNav.classList.toggle('show');
+                }
+            </script>
 
             <div class="container d-flex justify-content-center align-items-center min-vh-100"
                 style="margin-top: 80px;">

@@ -13,7 +13,7 @@
             <style>
                 body {
                     font-family: 'Roboto', Arial, sans-serif;
-                      background-image: url('https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?cs=srgb&dl=action-athlete-barbell-841130.jpg&fm=jpg');
+                    background-image: url('https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?cs=srgb&dl=action-athlete-barbell-841130.jpg&fm=jpg');
                     margin: 0;
                     padding: 30px;
                     color: #f9f9f9;
@@ -65,7 +65,6 @@
                     cursor: pointer;
                     margin-left: 15px;
                     background-color: #000;
-                    /* Temporary background for visibility */
                     padding: 10px;
                 }
 
@@ -151,7 +150,7 @@
 
                 .container {
                     max-width: 1200px;
-                    margin: 100px;
+                    margin: 60px;
                     background: white;
                     border-radius: 8px;
                     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

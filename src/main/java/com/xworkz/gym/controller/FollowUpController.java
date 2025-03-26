@@ -61,15 +61,6 @@ public class FollowUpController {
         return "FollowUp";
     }
 
-//    @PostMapping("/saveview")
-//    public String saveView(ViewDto viewDto){
-//        boolean display = service.saveView(viewDto);
-//        if (display) {
-//            return "Success";
-//        } else {
-//            return "ViewDetails";
-//        }
-//    }
 
     @GetMapping("/view")
     public String viewPage(@RequestParam int id, Model model) {

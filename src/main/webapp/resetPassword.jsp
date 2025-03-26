@@ -6,6 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
   <style>
+    body {
+                  background-color: #fafafa;
+                  font-family: 'Roboto', sans-serif;
+                   background-image: url('https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?cs=srgb&dl=action-athlete-barbell-841130.jpg&fm=jpg');
+                                  background-size: 1600px 1000px;
+                                  /*width and height */
+                                  background-repeat: no-repeat;
+                                  background-position: center;
+              }
     .form-container {
       max-width: 500px;
       width: 100%;

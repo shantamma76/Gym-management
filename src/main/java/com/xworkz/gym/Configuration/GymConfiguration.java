@@ -26,16 +26,19 @@ import java.util.Properties;
 
 @Configuration
 @ComponentScan("com.xworkz.gym")
-@PropertySource("classpath:application.properties")
-@EnableWebMvc
-@Slf4j
 
+@PropertySource("classpath:application.properties")
+
+@EnableWebMvc
+
+@Slf4j
 public class GymConfiguration {
 
     @Autowired
-    Environment env;
+    Environment env;  //for application properties
 
     GymConfiguration(){
+
         System.out.println("Running No-Arg Const in GymConfiguration");
     }
 
@@ -60,7 +63,6 @@ public class GymConfiguration {
         return properties;
     }
 
-
     @Bean
     public DataSource datasource(){
         DriverManagerDataSource dataSource=new DriverManagerDataSource();
@@ -82,8 +84,6 @@ public class GymConfiguration {
     public ViewResolver onView(){
         return new InternalResourceViewResolver("/",".jsp");
     }
-
-
 
     @Bean
     public SpringTemplateEngine templateEngine() {

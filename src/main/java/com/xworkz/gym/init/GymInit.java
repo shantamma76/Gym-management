@@ -22,8 +22,10 @@ public class GymInit extends AbstractAnnotationConfigDispatcherServletInitialize
         return new String[] {"/"};
     }
 
+
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
+
 }

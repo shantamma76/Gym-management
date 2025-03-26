@@ -7,8 +7,12 @@
             <head>
                 <title>View Enquiry Details</title>
                 <style>
-
-                    body,h2,table,th,td,a {
+                    body,
+                    h2,
+                    table,
+                    th,
+                    td,
+                    a {
                         margin: 0;
                         padding: 0;
                         box-sizing: border-box;
@@ -16,7 +20,7 @@
 
 
                     body {
-                     font-family: 'Roboto', Arial, sans-serif;
+                        font-family: 'Roboto', Arial, sans-serif;
                         background-image: url('https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?cs=srgb&dl=action-athlete-barbell-841130.jpg&fm=jpg');
                         background-size: 1600px 1000px;
                         /*width and height */
@@ -122,15 +126,26 @@
                     }
 
                     h2 {
-                        color: white;
+                        color: black;
                         text-align: center;
+                    }
+
+
+                    .container {
+                        max-width: 1200px;
+                        margin-left: 100px;
+                        margin-right: 50px;
+                        background: white;
+                        border-radius: 8px;
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                        padding: 20px;
                     }
 
                     /* Table Styling */
                     table {
-                        width: 90%;
+                        width: 100%;
                         margin-bottom: 30px;
-                        margin-left: 80px;
+                        margin-left: 0px;
                         border-collapse: collapse;
                         background-color: #fff;
                         border-radius: 5px;
@@ -238,8 +253,6 @@
                         mobileNav.classList.toggle('show');
                     }
                 </script>
-
-
 
                 <!-- Main Content -->
                 <div class="container">

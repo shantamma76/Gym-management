@@ -7,12 +7,20 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
+      body {
+                    background-color: #fafafa;
+                    font-family: 'Roboto', sans-serif;
+                     background-image: url('https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?cs=srgb&dl=action-athlete-barbell-841130.jpg&fm=jpg');
+                                    background-size: 1600px 1000px;
+
+                                    background-repeat: no-repeat;
+                                    background-position: center;
+
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f8f9fa;
+
             margin-top: 50px;
         }
 

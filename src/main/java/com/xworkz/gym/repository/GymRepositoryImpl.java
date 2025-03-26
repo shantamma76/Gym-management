@@ -965,7 +965,7 @@ public class GymRepositoryImpl implements GymRepository {
         EntityTransaction entityTransaction = entityManager.getTransaction();
 
         try {
-            Query query = entityManager.createNamedQuery("getAllRegistredUsersDetails");
+            Query query = entityManager.createNamedQuery("getAllRegisteredUsersDetails");
             return query.getResultList();
         } catch (Exception e) {
             if (entityTransaction.isActive()) {
@@ -1564,28 +1564,28 @@ public class GymRepositoryImpl implements GymRepository {
     //pagination  in update
     @Override
     public List<RegisterEntity> getAllRegiDetails(int page, int size) {
-        System.out.println("Fetching paginated register details");
+        System.out.println("Fetching paginated register details in repositoryImpl");
         EntityManager em = emf.createEntityManager();
         EntityTransaction et = em.getTransaction();
 
-        // Calculate the starting index for pagination
-        int startIndex = page * size;
-
+        //int startIndex = page * size;
+        int startIndex = (page - 1) * size;
         try {
-            Query query = em.createNamedQuery("getAllRegistredUsersDetails");
-            query.setFirstResult(startIndex); // Start from the correct index
-            query.setMaxResults(size);        // Limit the results to the page size
-            return query.getResultList();  // Return the actual result list here
+            Query query = em.createNamedQuery("getAllRegisteredUsersDetails");
+            System.out.println("================:"+query);
+            query.setFirstResult(startIndex);
+            query.setMaxResults(size);
+            return query.getResultList();
 
         } catch (Exception e) {
             if (et.isActive()) {
                 et.rollback();
             }
-            e.printStackTrace();  // Print stack trace for debugging
+            e.printStackTrace();
         } finally {
             em.close();
         }
-        return Collections.emptyList(); // Return an empty list in case of error
+        return Collections.emptyList();
     }
 
     @Override

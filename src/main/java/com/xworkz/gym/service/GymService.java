@@ -86,22 +86,15 @@ public interface GymService {
     //delete
     boolean getDeleteTrainerById(int id);
 
-
-
-    //==========Assign trainers to users frm me========
     List<RegisterEntity> getAllRegiDetails();    //getting data from register details
 
-    //=============for assign trainers and slots working========================================================================
+    //-----for assign trainers and slots--------
     List<RegisterEntity> assignSlot();
     List<TrainerEntity> getTrainerDetails();
     List<SlotsEntity> getTimeSlot();
     RegisterEntity searchDetails(String name,String email);
-   // boolean updateSlot(int entityId, int trainerId);
 
-   // public RegisterEntity getNamesStartingWith(String prefix);
-
-
-    //-----------------------diet plane frm cha-------------------
+    //-----------------------diet plane-------------------
     public List<RegisterEntity> getAllRegistredUsersDetailsByNameAndPhoneNo(String searchName, Long searchPhoneNo);
     void saveUserDietAndExercise(int id, String filePath, UserExerciseAndDietDTO userExerciseAndDietDTO);
 
